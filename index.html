@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <style>
+      html, body, #root { background-color: #060d17; width: 100%; overflow-x: hidden; }
+    </style>
+    <title>Idvesta App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      // Early error suppression - runs before React loads
+      (function() {
+        const shouldHide = (msg) => {
+          const str = JSON.stringify(msg).toLowerCase();
+          return str.includes('401') || str.includes('unauthorized') || 
+                 str.includes('127.0.0.1') || str.includes('api/login') || 
+                 str.includes('password') || str.includes('forbidden') ||
+                 str.includes('localhost:8000');
+        };
+
+        const origError = console.error;
+        const origWarn = console.warn;
+        
+        console.error = function(...args) {
+          if (args.some(arg => shouldHide(arg))) return;
+          origError.apply(console, args);
+        };
+        
+        console.warn = function(...args) {
+          if (args.some(arg => shouldHide(arg))) return;
+          origWarn.apply(console, args);
+        };
+
+        window.onerror = function(msg, url, line, col, err) {
+          if (shouldHide(msg)) return true;
+          return false;
+        };
+
+        window.addEventListener('error', function(e) {
+          if (shouldHide(e.message)) {
+            e.preventDefault();
+          }
+        }, true);
+
+        window.addEventListener('unhandledrejection', function(e) {
+          if (shouldHide(e.reason)) {
+            e.preventDefault();
+          }
+        });
+
+        // Intercept fetch to prevent error logging
+        const origFetch = window.fetch;
+        window.fetch = function(...args) {
+          return origFetch.apply(this, args).catch(err => {
+            if (!shouldHide(args[0])) throw err;
+            return Promise.reject(new Error(''));
+          });
+        };
+      })();
+    </script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

@@ -1,0 +1,298 @@
+/* Profile Page CSS */
+.profile {
+  background-image: url(/images/bg.jpeg);
+  background-color: #060d17;
+  background-size: cover;
+  background-position: top;
+}
+
+.profile .relative img.user {
+  width: 100px;
+  height: 100px;
+  border: solid 1px #a6aab5;
+  border-radius: 99px;
+  object-fit: cover;
+  /* background-color: #1a2a3a; */
+}
+
+.btn-trans {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-trans img {
+  width: 24px;
+  height: 24px;
+}
+
+.card-one {
+  background: #2b8fff1a;
+  border: 0.5px solid #ffffff33;
+  border-radius: 20px;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+  margin-top: 16px;
+}
+
+.card-one ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+  z-index: 1;
+  position: relative;
+}
+
+.card-one ul li {
+  border-bottom: dashed 1px #dfe0e44d;
+  padding-bottom: 16px;
+  padding-top: 16px;
+}
+
+.card-one ul li:first-child {
+  padding-top: 0;
+}
+
+.card-one ul li:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.card-one ul li.pt-0 {
+  padding-top: 0;
+}
+
+.card-one ul li a {
+  display: grid;
+  align-items: center;
+  gap: 12px;
+  color: #ffffffcc;
+  text-decoration: none;
+  grid-template-columns: 24px auto 24px;
+}
+
+.card-one ul li a.log-out {
+  color: #e66666;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+}
+
+.card-one ul li a p {
+  margin-bottom: 0;
+}
+
+.card-one ul li a p.text-12 {
+  color: #b2b6bf;
+  font-size: 12px;
+}
+
+.card-one ul li a p.text-14 {
+  color: #fff;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.card-one .shape {
+  width: 253px;
+  height: 162px;
+  border: solid 45px #0c77ff80;
+  /* filter: blur(120px); */
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 0;
+}
+
+.card-one .middle-shape {
+  width: 253px;
+  height: 162px;
+  border: solid 45px #0c77ff80;
+  filter: blur(120px);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 0;
+}
+
+.profile-pic button {
+  background-color: #2b8fff;
+  border: solid 1px #f3f8f4;
+  width: 24px;
+  height: 24px;
+  border-radius: 36px;
+  color: #ffffff;
+  padding: 0;
+  font-size: 12px;
+  position: absolute;
+  right: -4px;
+  top: 60px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-pic {
+  max-width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+.setting-card {
+  margin-top: 16px;
+}
+
+/* Text utility classes */
+.text-white {
+  color: #ffffff;
+}
+
+.text-light3 {
+  color: #b2b6bf;
+  font-size: 14px;
+}
+
+.text-18 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.fw-semibold {
+  font-weight: 600;
+}
+
+.fs-5 {
+  font-size: 18px;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.mb-2 {
+  margin-bottom: 8px;
+}
+
+.me-5 {
+  margin-right: 20px;
+}
+
+.mt-4 {
+  margin-top: 16px !important;
+}
+
+.mt-5 {
+  margin-top: 24px;
+}
+
+.mb-5 {
+  margin-bottom: 24px;
+}
+
+.pt-5 {
+  padding-top: 24px;
+}
+
+.relative {
+  position: relative;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .card-one {
+    padding: 12px;
+  }
+
+  .card-one ul li {
+    padding-bottom: 12px;
+    padding-top: 12px;
+  }
+
+  .profile-pic button {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 390px) {
+  .profile .relative img.user {
+    width: 80px;
+    height: 80px;
+  }
+
+  .profile-pic {
+    max-width: 80px;
+  }
+
+  .profile-pic button {
+    top: 48px;
+  }
+
+  .card-one ul li a {
+    gap: 10px;
+  }
+
+  .card-one ul li a p.text-14 {
+    font-size: 13px;
+  }
+
+  .card-one ul li a p.text-12 {
+    font-size: 11px;
+  }
+
+  .fs-5 {
+    font-size: 16px;
+  }
+
+  .text-18 {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 360px) {
+  .card-one {
+    padding: 10px;
+    border-radius: 14px;
+  }
+
+  .card-one ul li {
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
+}
+
+.btn-back{
+  width: 50px !important;
+  height: 50px !important;
+}

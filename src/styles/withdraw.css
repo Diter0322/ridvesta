@@ -1,0 +1,268 @@
+/* Withdraw Balance Page */
+.withdraw-page {
+  background-size: cover;
+  background-position: center;
+  padding-bottom: 132px;
+}
+
+.bank-info-card {
+  background-color: #0d1e3a;
+  border-radius: 14px;
+  padding: 20px 18px;
+  border: 0.5px solid #ffffff20;
+}
+
+.bank-row {}
+
+.bank-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.bank-divider {
+  height: 0.5px;
+  background-color: #ffffff20;
+}
+
+.amount-input-wrap {
+  display: flex;
+  align-items: center;
+  background-color: #0d1e3a;
+  border: 1.5px solid #2f91ff;
+  border-radius: 12px;
+  padding: 14px 16px;
+  gap: 8px;
+}
+
+.amount-prefix {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.amount-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: inherit;
+  min-width: 0;
+}
+
+.amount-input::placeholder {
+  color: #8899aa;
+}
+
+.amount-clear {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.minmax-card {
+  background-color: #0d1e3a;
+  border-radius: 12px;
+  padding: 16px 18px;
+  border: 0.5px solid #ffffff20;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.minmax-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.minmax-divider {
+  width: 1px;
+  height: 30px;
+  background-color: #ffffff30;
+}
+
+.amount-received-card {
+  background-color: #0d1e3a;
+  border-radius: 14px;
+  padding: 18px 16px 8px;
+  border: 0.5px solid #ffffff20;
+}
+
+.amount-divider {
+  height: 0.5px;
+  background-color: #ffffff20;
+}
+
+.text-13 {
+  font-size: 13px;
+}
+
+.text-14 {
+  font-size: 14px;
+}
+
+.text-blue {
+  color: #2f91ff;
+}
+
+.deposit-footer {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: min(100%, 1080px);
+  padding: 16px 20px 28px;
+  background: linear-gradient(to top, #060d17 80%, transparent);
+}
+
+.btn-primary-full {
+  width: 100%;
+  background: linear-gradient(90deg, #2f91ff 0%, #1a6fd4 100%);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 14px;
+  padding: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-primary-full:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 420px) {
+  .withdraw-page {
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-bottom: 120px;
+  }
+
+  .bank-info-card {
+    padding: 14px 12px;
+  }
+
+  .bank-logo {
+    width: 24px;
+    height: 24px;
+  }
+
+  .amount-input-wrap {
+    padding: 12px 14px;
+  }
+
+  .amount-input,
+  .amount-prefix {
+    font-size: 15px;
+  }
+
+  .minmax-card {
+    gap: 8px;
+    padding: 12px;
+  }
+
+  .amount-received-card {
+    padding: 14px 12px 8px;
+  }
+
+  .deposit-footer {
+    padding: 12px 14px 18px;
+  }
+
+  .btn-primary-full {
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 992px) {
+  .deposit-footer {
+    padding: 14px 28px 20px;
+  }
+}
+
+/* Modal */
+.withdraw-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 24px;
+}
+
+.withdraw-modal {
+  background: #1a2235;
+  border-radius: 16px;
+  padding: 32px 24px 24px;
+  width: 100%;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+}
+
+.withdraw-modal-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.withdraw-modal-title {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.withdraw-modal-msg {
+  color: #94a3b8;
+  font-size: 14px;
+  text-align: center;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.withdraw-modal-btn {
+  margin-top: 8px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.withdraw-modal-btn.success {
+  background: #22c55e;
+  color: #fff;
+}
+
+.withdraw-modal-btn.error {
+  background: #ef4444;
+  color: #fff;
+}
+
+.withdraw-modal-btn:hover {
+  opacity: 0.88;
+}

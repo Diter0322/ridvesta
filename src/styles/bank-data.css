@@ -1,0 +1,225 @@
+/* Bank Data CSS */
+.bank-data {
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+}
+
+.bank-card {
+  background-color: #2b8fff0f;
+  border: 1px solid #ebecef1a;
+  border-radius: 16px;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.bank-card .card-head {
+  background-color: #2b8fff2b;
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 12px 16px;
+}
+
+.bank-card .card-head img {
+  width: 24px;
+  height: 24px;
+}
+
+.bank-card .card-head p {
+  margin: 0;
+  color: #ffffff;
+}
+
+.bank-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bank-card ul li {
+  padding: 12px 16px;
+  color: #ffffff;
+  border-bottom: 0.8px dashed #ffffff4d;
+  display: flex;
+  justify-content: space-between;
+}
+
+.bank-card ul li:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.bank-card .inner-card {
+  background-color: #ffffff0d;
+  border-radius: 10px;
+  padding: 8px;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.bank-card .inner-card:hover {
+  outline: solid 1px #2b8fff;
+}
+
+.bank-card .inner-card img {
+  max-width: 30px;
+  margin-bottom: 12px;
+}
+
+/* Text utility classes */
+.text-white {
+  color: #ffffff;
+}
+
+.text-14 {
+  font-size: 14px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.fw-semibold {
+  font-weight: 600;
+}
+
+.fw-medium {
+  font-weight: 500;
+}
+
+.fs-5 {
+  font-size: 18px;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.mb-2 {
+  margin-bottom: 8px;
+}
+
+.mb-5 {
+  margin-bottom: 24px;
+}
+
+.mt-4 {
+  margin-top: 16px;
+}
+
+.mt-5 {
+  margin-top: 24px;
+}
+
+.me-5 {
+  margin-right: 20px;
+}
+
+.my-4 {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.mx-2 {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.pb-4 {
+  padding-bottom: 16px;
+}
+
+.pt-5 {
+  padding-top: 24px;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.btn-trans {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-trans img {
+  width: 24px;
+  height: 24px;
+}
+
+.bottom {
+  padding-bottom: 24px;
+}
+
+/* Grid system */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -8px;
+}
+
+.col-4 {
+  width: 33.333%;
+  padding: 8px;
+}
+
+.g-3 {
+  gap: 12px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .bank-card {
+    margin-bottom: 12px;
+  }
+
+  .col-4 {
+    width: 50%;
+  }
+}
+
+.bank-option p {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .bank-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .bank-card {
+    padding: 16px;
+  }
+}
+
+.btn-back{
+  width: 50px !important;
+  height: 50px !important;
+}

@@ -1,0 +1,249 @@
+/* Deposit Balance Page */
+.deposit-page {
+  background-size: cover;
+  background-position: center;
+  padding-bottom: 132px;
+}
+
+.payment-methods {
+  display: flex;
+  gap: 10px;
+}
+
+.payment-method-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: #0d1e3a;
+  border: 1.5px solid transparent;
+  border-radius: 12px;
+  padding: 10px 6px;
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.payment-method-btn.active {
+  border-color: #4ca5ff;
+  background: linear-gradient(180deg, #17345f 0%, #112a4b 100%);
+  box-shadow: 0 0 0 1px #2f91ff55, 0 8px 22px #2f91ff33;
+  transform: translateY(-1px);
+}
+
+.payment-method-btn.active .method-label {
+  color: #8fcbff;
+  font-weight: 700;
+}
+
+.payment-method-btn.active .method-logo {
+  filter: drop-shadow(0 0 6px #2f91ff66);
+}
+
+.payment-method-btn:focus-visible {
+  outline: 2px solid #7cc0ff;
+  outline-offset: 2px;
+}
+
+.method-logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.method-label {
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.amount-input-wrap {
+  display: flex;
+  align-items: center;
+  background-color: #0d1e3a;
+  border: 1.5px solid #2f91ff;
+  border-radius: 12px;
+  padding: 14px 16px;
+  gap: 8px;
+}
+
+.amount-prefix {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.amount-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: inherit;
+  min-width: 0;
+}
+
+.amount-input::placeholder {
+  color: #8899aa;
+}
+
+.amount-clear {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.quick-amounts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.quick-amount-btn {
+  background-color: #0d1e3a;
+  border: 1px solid #2b3f60;
+  border-radius: 20px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.quick-amount-btn.active,
+.quick-amount-btn:hover {
+  background-color: #2f91ff22;
+  border-color: #2f91ff;
+  color: #2f91ff;
+}
+
+.minmax-card {
+  background-color: #0d1e3a;
+  border-radius: 12px;
+  padding: 16px 18px;
+  border: 0.5px solid #ffffff20;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.minmax-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.minmax-divider {
+  width: 1px;
+  height: 30px;
+  background-color: #ffffff30;
+}
+
+.text-13 {
+  font-size: 13px;
+}
+
+.text-14 {
+  font-size: 14px;
+}
+
+.text-blue {
+  color: #2f91ff;
+}
+
+.deposit-footer {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: min(100%, 1080px);
+  padding: 16px 20px 28px;
+  background: linear-gradient(to top, #060d17 80%, transparent);
+}
+
+.btn-primary-full {
+  width: 100%;
+  background: linear-gradient(90deg, #2f91ff 0%, #1a6fd4 100%);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 14px;
+  padding: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-primary-full:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 420px) {
+  .deposit-page {
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-bottom: 120px;
+  }
+
+  .payment-methods {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .payment-method-btn {
+    min-height: 82px;
+  }
+
+  .quick-amounts {
+    gap: 8px;
+  }
+
+  .quick-amount-btn {
+    flex: 1 1 calc(50% - 4px);
+    text-align: center;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .amount-input-wrap {
+    padding: 12px 14px;
+  }
+
+  .amount-input,
+  .amount-prefix {
+    font-size: 15px;
+  }
+
+  .minmax-card {
+    gap: 8px;
+    padding: 12px;
+  }
+
+  .deposit-footer {
+    padding: 12px 14px 18px;
+  }
+
+  .btn-primary-full {
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 992px) {
+  .deposit-footer {
+    padding: 14px 28px 20px;
+  }
+}

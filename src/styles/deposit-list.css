@@ -1,0 +1,274 @@
+/* Deposit List CSS */
+.deposit-list {
+  background-size: cover;
+  background-position: center;
+}
+
+.btn-contact {
+  background-color: #2b8fff;
+  border-radius: 99px;
+  padding: 8px 16px;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffffff;
+  text-decoration: none;
+  box-shadow: 0px 0px 3.12px 1.17px #ffffff2e inset,
+    -0.78px 0.78px 1.95px 0px #ffffff26 inset;
+}
+
+.warning {
+  color: #fe9947;
+}
+
+.depo-card .badge {
+  background: #ffffff17;
+  border-radius: 50px;
+  border: 0.3px solid #0d7f4129;
+  height: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 3px 12px;
+  line-height: 100%;
+}
+
+.depo-card .badge.success {
+  color: #2acd74;
+}
+
+.depo-card .badge.process {
+  color: #e9bf44;
+}
+
+.deposit-list .nav-tabs {
+  border: 0;
+  margin-bottom: 36px;
+}
+
+.deposit-list .nav-tabs li button {
+  background-color: #ffffff24;
+  border-radius: 10px;
+  padding: 8px;
+  color: #ebecef;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 0;
+  height: 38px;
+  min-width: 90px;
+  border: 0;
+}
+
+.deposit-list .nav-tabs li {
+  margin-right: 8px;
+}
+
+.nav-tabs .nav-link.active {
+  background: linear-gradient(90deg, #2f91ff 0%, #2580e6 100%);
+  color: #ffffff;
+}
+
+/* Text utility classes */
+.text-white {
+  color: #ffffff;
+}
+
+.text-14 {
+  font-size: 14px;
+}
+
+.text-18 {
+  font-size: 18px;
+}
+
+.text-light3 {
+  color: #b2b6bf;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.fw-semibold {
+  font-weight: 600;
+}
+
+.fs-3 {
+  font-size: 2rem;
+}
+
+.fs-5 {
+  font-size: 18px;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.mb-1 {
+  margin-bottom: 4px;
+}
+
+.mb-3 {
+  margin-bottom: 12px;
+}
+
+.mt-5 {
+  margin-top: 24px;
+}
+
+.me-5 {
+  margin-right: 20px;
+}
+
+.pt-5 {
+  padding-top: 24px;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.gap-2 {
+  gap: 8px;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.text-end {
+  text-align: right;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.btn-trans {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-trans img {
+  width: 24px;
+  height: 24px;
+}
+
+.nav-item {
+  display: inline-block;
+}
+
+.nav-link {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.nav-link.active {
+  background-color: #2b8fff;
+}
+
+.tab-pane {
+  padding-top: 16px;
+}
+
+.depo-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: #2b8fff0f;
+  border: 1px solid #ebecef1a;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.deposit-list .row {
+  align-items: stretch;
+}
+
+.deposit-list .row > [class^="col-"],
+.deposit-list .row > [class*=" col-"] {
+  display: flex;
+}
+
+.deposit-list .row .depo-card {
+  width: 100%;
+  height: 100%;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .deposit-list .nav-tabs li button {
+    min-width: 70px;
+    padding: 6px;
+  }
+}
+
+.transaction-status.success {
+  background-color: rgba(64, 255, 140, 0.2);
+  color: #40ff8c;
+}
+
+.transaction-status.pending {
+  background-color: rgba(255, 193, 7, 0.2);
+  color: #ffc107;
+}
+
+.transaction-status.failed {
+  background-color: rgba(255, 107, 107, 0.2);
+  color: #ff6b6b;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.empty-state-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.empty-state-title {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.empty-state-text {
+  color: #888e9c;
+  font-size: 13px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .deposit-tabs {
+    gap: 4px;
+  }
+
+  .deposit-tab {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .transaction-item {
+    padding: 12px;
+  }
+}
+
+.btn-back{
+  width: 50px !important;
+  height: 50px !important;
+}

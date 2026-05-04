@@ -1,0 +1,325 @@
+/* Team CSS */
+.team {
+  background-image: url(/images/bg.jpeg);
+}
+
+.team .team-card {
+  border: 1px solid #ffffff14;
+  border-radius: 12px;
+  padding: 14px 10px;
+  color: #fff;
+  position: relative;
+  background: linear-gradient(
+    102.21deg,
+    #00152d 3.97%,
+    rgba(6, 116, 239, 0.5) 46.28%,
+    #00152d 88.59%
+  );
+}
+
+.team .team-card img.bg {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.team .qr img {
+  max-width: 140px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.link-area {
+  display: flex;
+  gap: 8px;
+}
+
+.link-area input {
+  background: #07d5ca1a;
+  border-radius: 16px;
+  padding: 10px 12px;
+  color: #fff;
+  border: 0;
+  font-size: 12px;
+  width: 280px;
+}
+
+.link-area button {
+  background-color: #2b8fff;
+  border-radius: 16px;
+  padding: 10px 16px;
+  color: #fff;
+  border: 0;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.team-card2 {
+  background-color: #ffffff0d;
+  border: 1px solid #ffffff0f;
+  padding: 16px;
+  border-radius: 16px;
+  margin-top: 16px;
+}
+
+.team .row {
+  align-items: stretch;
+}
+
+.team .row > [class^="col-"],
+.team .row > [class*=" col-"] {
+  display: flex;
+}
+
+.commission {
+  background-image: url(/images/commission-bg.png);
+  text-align: center;
+  background-size: cover;
+  height: 35px;
+  width: 102px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.commission p {
+  margin: 0;
+}
+
+.commission .text-green2 {
+  color: #07d5ca;
+}
+
+.team-card3 {
+  background-color: #ffffff0d;
+  border: 1px solid #ffffff0f;
+  padding: 12px;
+  border-radius: 16px;
+  width: 100%;
+  height: 100%;
+}
+
+.team .team-card {
+  width: 100%;
+  height: 100%;
+}
+
+.team ul li {
+  color: #ffffffcc;
+  font-size: 12px;
+  margin-bottom: 16px;
+}
+
+.login-btn {
+  border-radius: 10px;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  outline: solid 2px #126cd2;
+  height: 50px;
+  padding: 0 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(
+    92.99deg,
+    #2b8fff 14.34%,
+    #56a6ff 22.07%,
+    #3695ff 29.79%
+  );
+  box-shadow: 0px 2px 4px 0px #ffeeee1a inset;
+  border: none;
+  cursor: pointer;
+}
+
+.team-card3 img.member {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+}
+
+.middle-shape {
+  width: 253px;
+  height: 162px;
+  border: solid 45px #0c77ff80;
+  filter: blur(120px);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 0;
+}
+
+/* Text utility classes */
+.text-20 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.text-14 {
+  font-size: 14px;
+}
+
+.text-12 {
+  font-size: 12px;
+}
+
+.text-10 {
+  font-size: 10px;
+}
+
+.text-8 {
+  font-size: 8px;
+}
+
+.text-18 {
+  font-size: 18px;
+}
+
+.text-light3 {
+  color: #b2b6bf;
+}
+
+.text-green2 {
+  color: #07d5ca;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.fw-medium {
+  font-weight: 500;
+}
+
+.fw-semibold {
+  font-weight: 600;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.mb-1 {
+  margin-bottom: 4px;
+}
+
+.mb-3 {
+  margin-bottom: 12px;
+}
+
+.mt-2 {
+  margin-top: 8px;
+}
+
+.mt-3 {
+  margin-top: 12px;
+}
+
+.mt-4 {
+  margin-top: 16px;
+}
+
+.mt-5 {
+  margin-top: 24px;
+}
+
+.me-5 {
+  margin-right: 20px;
+}
+
+.my-3 {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.pt-5 {
+  padding-top: 24px;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.gap-2 {
+  gap: 8px;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-sm {
+  font-size: 14px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -8px;
+}
+
+.col-4 {
+  width: 33.333%;
+  padding: 8px;
+}
+
+.col-6 {
+  width: 50%;
+  padding: 8px;
+}
+
+.col-12 {
+  width: 100%;
+  padding: 8px;
+}
+
+.g-2 {
+  gap: 8px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .link-area {
+    flex-direction: column;
+  }
+
+  .link-area input {
+    width: 100%;
+  }
+
+  .commission {
+    width: 80px;
+    height: 30px;
+  }
+
+  .login-btn {
+    height: 40px;
+    font-size: 14px;
+  }
+}
+
+.btn-back{
+  width: 50px !important;
+  height: 50px !important;
+}

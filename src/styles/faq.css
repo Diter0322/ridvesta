@@ -1,0 +1,155 @@
+/* FAQ CSS */
+.faq {
+  background-image: url(/images/bg.jpeg);
+}
+
+.faq .accordion-item {
+  background-color: #ffffff0d;
+  box-shadow: 0px 2px 6px 0px #00000021;
+  border-radius: 12px;
+  padding: 20px;
+  border: 0;
+  margin-bottom: 14px;
+}
+
+.faq .accordion-item .accordion-header button {
+  background-color: transparent;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.faq .accordion-item .accordion-body {
+  padding: 0;
+  color: #dfe0e4;
+  font-size: 14px;
+  margin-top: 16px;
+  margin-bottom: 0;
+}
+
+.faq .accordion-item .accordion-button::after {
+  background-image: url(/images/chevron-down.svg);
+  background-repeat: no-repeat;
+  background-size: 1rem;
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.accordion {
+  z-index: 2;
+  position: relative;
+}
+
+.accordion-item .accordion-button:not(.collapsed)::after {
+  transform: rotate(-180deg);
+}
+
+.accordion-button {
+  background-color: transparent;
+  padding: 0;
+  border: 0;
+  box-shadow: none !important;
+}
+
+.accordion-button:focus {
+  box-shadow: none !important;
+}
+
+.relative {
+  position: relative;
+}
+
+.middle-shape {
+  width: 253px;
+  height: 162px;
+  border: solid 45px #0c77ff80;
+  filter: blur(120px);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 0;
+}
+
+/* Text utility classes */
+.text-white {
+  color: #ffffff;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.fw-semibold {
+  font-weight: 600;
+}
+
+.fs-5 {
+  font-size: 18px;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.me-5 {
+  margin-right: 20px;
+}
+
+.mt-5 {
+  margin-top: 24px;
+}
+
+.pt-5 {
+  padding-top: 24px;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.btn-trans {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-trans img {
+  width: 24px;
+  height: 24px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .faq .accordion-item {
+    padding: 16px;
+  }
+
+  .faq .accordion-item .accordion-header button {
+    font-size: 14px;
+  }
+}
+
+.btn-back{
+  width: 50px !important;
+  height: 50px !important;
+}

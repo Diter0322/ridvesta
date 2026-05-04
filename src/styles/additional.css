@@ -1,0 +1,313 @@
+/* Additional Styles for Other Pages */
+.task,
+.about,
+.customer-service,
+.member-list,
+.redeem-code,
+.referral-details {
+  background-image: url(/images/bg.jpeg);
+}
+
+/* Task/Mission Card Styles */
+.task-card {
+  background-color: #2b8fff1a;
+  border: 1px solid #ebecef1a;
+  border-radius: 16px;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+
+.task-card .card-head {
+  background-color: #2b8fff1a;
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 16px;
+}
+
+.circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: conic-gradient(#08bb83 calc(var(--value) * 1%), #08bb8333 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.circle::before {
+  content: "";
+  width: 40px;
+  height: 40px;
+  background: #092643;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.circle span {
+  position: relative;
+  font-weight: 700;
+  color: #08bb83;
+  font-size: 12px;
+}
+
+.task-card .price-box {
+  background: #ffffff0d;
+  border: 1px solid #ffffff0f;
+  border-radius: 16px;
+  padding: 10px 16px;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 44px;
+  line-height: 20px;
+}
+
+.btn-lock {
+  background-color: #6a7283;
+  box-shadow: 2px 0px 10px 0px #ffffff1a inset;
+  border-radius: 10px;
+  padding: 8px 16px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border: 0;
+  outline: solid 1px #6a7283;
+  outline-offset: 2px;
+  height: 44px;
+  white-space: nowrap;
+  cursor: not-allowed;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-lock img {
+  width: 16px;
+  height: 16px;
+}
+
+.task-card .d-flex.gap-2.mb-2 {
+  align-items: start;
+}
+
+.btn-claimed {
+  outline: 1px solid #00b86f;
+  background: linear-gradient(90deg, #02d581 0%, #00aa67 100%);
+  box-shadow: 2px 0px 10px 0px #ffffff1a inset;
+  border-radius: 10px;
+  padding: 8px 16px;
+  height: 44px;
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-claimed img {
+  width: 16px;
+  height: 16px;
+}
+
+/* Member List Card */
+.member-card {
+  border: 1px solid rgba(43, 143, 255, 0.2);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Typography Utilities */
+.text-10 {
+  font-size: 10px;
+}
+
+.text-12 {
+  font-size: 12px;
+}
+
+.text-14 {
+  font-size: 14px;
+}
+
+.text-18 {
+  font-size: 18px;
+}
+
+.text-20 {
+  font-size: 20px;
+}
+
+.text-blue {
+  color: #2b8fff;
+}
+
+.text-light3 {
+  color: #c1c4cc;
+}
+
+.white80 {
+  color: #ffffffcc;
+}
+
+.white70 {
+  color: #ffffffb2;
+}
+
+.btn-trans {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+}
+
+.member-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #2b8fff;
+}
+
+.member-info {
+  flex: 1;
+}
+
+.member-name {
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+  margin: 0;
+}
+
+.member-status {
+  color: #888e9c;
+  font-size: 11px;
+  margin: 4px 0 0 0;
+}
+
+.member-commission {
+  color: #40ff8c;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+/* Redeem Code Section */
+.redeem-input-group {
+  display: flex;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.redeem-input {
+  flex: 1;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(77, 95, 136, 0.5);
+  border-radius: 8px;
+  padding: 12px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.redeem-input::placeholder {
+  color: #888e9c;
+}
+
+.redeem-btn {
+  padding: 12px 20px;
+  background-color: #2b8fff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.redeem-btn:hover {
+  background-color: #0077ff;
+}
+
+/* Alert Messages */
+.alert-success {
+  background-color: rgba(64, 255, 140, 0.1);
+  border: 1px solid rgba(64, 255, 140, 0.3);
+  border-radius: 8px;
+  padding: 12px;
+  color: #40ff8c;
+  margin: 12px 0;
+  font-size: 13px;
+}
+
+.alert-error {
+  background-color: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: 8px;
+  padding: 12px;
+  color: #ff6b6b;
+  margin: 12px 0;
+  font-size: 13px;
+}
+
+.alert-info {
+  background-color: rgba(43, 143, 255, 0.1);
+  border: 1px solid rgba(43, 143, 255, 0.3);
+  border-radius: 8px;
+  padding: 12px;
+  color: #2b8fff;
+  margin: 12px 0;
+  font-size: 13px;
+}
+
+/* Loading Skeleton */
+.skeleton {
+  background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.1) 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Responsive Utilities */
+@media (max-width: 480px) {
+  .task-card {
+    padding: 12px;
+  }
+
+  .member-card {
+    padding: 10px;
+  }
+
+  .task-title {
+    font-size: 13px;
+  }
+}
+
+.btn-back{
+  width: 50px !important;
+  height: 50px !important;
+}

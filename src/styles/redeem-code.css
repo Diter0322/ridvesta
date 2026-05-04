@@ -1,0 +1,258 @@
+.redeem-code-page {
+  overflow: hidden;
+}
+
+.redeem-code-shell {
+  position: relative;
+  padding-top: 18px;
+}
+
+.redeem-code-shell::before,
+.redeem-code-shell::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  filter: blur(18px);
+  opacity: 0.8;
+}
+
+.redeem-code-shell::before {
+  top: -18px;
+  right: 18px;
+  width: 170px;
+  height: 110px;
+  background: linear-gradient(135deg, rgba(82, 164, 255, 0.16), rgba(11, 37, 92, 0));
+  transform: rotate(-18deg);
+}
+
+.redeem-code-shell::after {
+  top: 248px;
+  left: -10px;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(31, 164, 255, 0.14) 0%, rgba(5, 16, 36, 0) 72%);
+}
+
+.redeem-back-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+}
+
+.redeem-back-btn .btn-back {
+  width: 18px;
+}
+
+.redeem-card {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(7, 30, 58, 0.96) 0%, rgba(6, 26, 49, 0.94) 100%);
+  border: 1px solid rgba(29, 123, 232, 0.65);
+  border-radius: 22px;
+  box-shadow: 0 18px 40px rgba(1, 8, 20, 0.34);
+}
+
+.redeem-card--intro {
+  margin-top: 34px;
+  padding: 22px 22px 20px;
+}
+
+.redeem-card--form {
+  margin-top: 30px;
+  padding: 26px 22px 20px;
+}
+
+.redeem-card__headline {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.redeem-card__icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  color: #18f4c9;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.redeem-card__title {
+  margin: 0;
+  color: #11f0c5;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.redeem-card__copy {
+  margin: 16px 0 0;
+  color: rgba(236, 240, 247, 0.9);
+  font-size: 15px;
+  line-height: 1.5;
+  max-width: 290px;
+}
+
+.redeem-label {
+  display: inline-block;
+  margin-bottom: 14px;
+  color: #11f0c5;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.redeem-input {
+  width: 100%;
+  height: 52px;
+  border: 0;
+  border-radius: 8px;
+  padding: 0 16px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 16px;
+  outline: none;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+.redeem-input::placeholder {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.redeem-input:focus {
+  box-shadow: inset 0 0 0 1px rgba(51, 197, 255, 0.5), 0 0 0 3px rgba(17, 240, 197, 0.08);
+}
+
+.redeem-submit-btn {
+  width: 100%;
+  height: 50px;
+  margin-top: 24px;
+  border: 0;
+  border-radius: 9px;
+  background: linear-gradient(90deg, #16caa7 0%, #23b488 100%);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  box-shadow: 0 10px 24px rgba(22, 202, 167, 0.18);
+}
+
+.redeem-submit-btn:disabled {
+  opacity: 0.72;
+  cursor: not-allowed;
+}
+
+.redeem-hint {
+  margin: 12px 0 0;
+  color: rgba(235, 236, 239, 0.84);
+  font-size: 11px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* ── Redeem Result Modal ── */
+.redeem-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.redeem-modal {
+  background: #0f1c2e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 32px 24px 28px;
+  width: 100%;
+  max-width: 340px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+  animation: redeem-modal-in 0.22s ease;
+}
+
+@keyframes redeem-modal-in {
+  from { opacity: 0; transform: scale(0.92) translateY(12px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.redeem-modal__icon-wrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px;
+}
+
+.redeem-modal__icon-wrap--success {
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.redeem-modal__icon-wrap--error {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.redeem-modal__title {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+
+.redeem-modal__message {
+  color: #94a3b8;
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 0 0 24px;
+}
+
+.redeem-modal__btn {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.redeem-modal__btn:hover { opacity: 0.88; }
+
+.redeem-modal__btn--success {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #fff;
+}
+
+.redeem-modal__btn--error {
+  background: rgba(239, 68, 68, 0.18);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+}
+
+@media (min-width: 992px) {
+  .redeem-code-page {
+    max-width: 520px;
+  }
+
+  .redeem-card--intro,
+  .redeem-card--form {
+    border-radius: 24px;
+  }
+}

@@ -1,0 +1,204 @@
+/* Deposit QRIS Page */
+.deposit-qris-page {
+  background-size: cover;
+  background-position: center;
+  padding-bottom: 132px;
+}
+
+.qr-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.qr-image {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 8px;
+}
+
+.qr-placeholder {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.qris-detail-card {
+  background-color: #0d1e3a;
+  border-radius: 14px;
+  padding: 18px 16px;
+  border: 0.5px solid #ffffff20;
+}
+
+.instructions-card {
+  background-color: #0d1e3a;
+  border-radius: 14px;
+  padding: 18px 16px;
+  border: 0.5px solid #ffffff20;
+}
+
+.instruction-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 0.5px solid #ffffff10;
+}
+
+.instruction-row:last-child {
+  border-bottom: none;
+}
+
+.instruction-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.text-13 {
+  font-size: 13px;
+}
+
+.text-blue {
+  color: #2f91ff;
+}
+
+.deposit-footer {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: min(100%, 1080px);
+  padding: 16px 20px 28px;
+  background: linear-gradient(to top, #060d17 80%, transparent);
+}
+
+.btn-primary-full {
+  width: 100%;
+  background: linear-gradient(90deg, #2f91ff 0%, #1a6fd4 100%);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 14px;
+  padding: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-primary-full:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.deposit-result-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(3, 10, 22, 0.78);
+  backdrop-filter: blur(6px);
+}
+
+.deposit-result-modal {
+  width: min(100%, 360px);
+  border-radius: 22px;
+  padding: 28px 22px 22px;
+  background: linear-gradient(180deg, rgba(8, 28, 54, 0.98) 0%, rgba(8, 21, 39, 0.98) 100%);
+  border: 1px solid rgba(43, 143, 255, 0.4);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
+  text-align: center;
+}
+
+.deposit-result-modal__icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.deposit-result-modal__title {
+  margin: 0;
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.deposit-result-modal__message {
+  margin: 10px 0 0;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.deposit-result-modal__button {
+  width: 100%;
+  margin-top: 22px;
+  border: 0;
+  border-radius: 14px;
+  padding: 15px;
+  background: linear-gradient(90deg, #22d6a3 0%, #1aa884 100%);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+@media (max-width: 420px) {
+  .deposit-qris-page {
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-bottom: 120px;
+  }
+
+  .qr-image,
+  .qr-placeholder {
+    width: min(100%, 180px);
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  .qris-detail-card,
+  .instructions-card {
+    padding: 14px 12px;
+  }
+
+  .instruction-row {
+    gap: 8px;
+    padding: 9px 0;
+  }
+
+  .deposit-footer {
+    padding: 12px 14px 18px;
+  }
+
+  .btn-primary-full {
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 15px;
+  }
+
+  .deposit-result-modal {
+    border-radius: 18px;
+    padding: 24px 18px 18px;
+  }
+
+  .deposit-result-modal__title {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 992px) {
+  .deposit-footer {
+    padding: 14px 28px 20px;
+  }
+}

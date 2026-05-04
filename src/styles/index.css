@@ -1,0 +1,282 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  overflow-x: hidden;
+  font-family: "Inter", sans-serif;
+  background-color: #060d17;
+  background-image: url(/images/bg.jpeg);
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+main {
+  width: 100%;
+  max-width: 440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 90px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  isolation: isolate;
+  background-color: #060d17;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+main::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: #060d17;
+  background-image: url(/images/bg.jpeg);
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+main[style*="signup-bg.jpeg"]::before {
+  background-image: url(/images/signup-bg.jpeg);
+}
+
+main[style*="bg.jpeg"]::before {
+  background-image: url(/images/bg.jpeg);
+}
+
+/* Override main styles for sign-up/login pages */
+main.sign-up {
+  max-width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 30px;
+  border-radius: 0;
+}
+
+@media (min-width: 992px) {
+  main {
+    max-width: 980px;
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
+  main.sign-up {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 1280px) {
+  main {
+    max-width: 1080px;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+.home,
+.sign-up,
+.profile,
+.faq,
+.bank-data,
+.deposit-list,
+.team,
+.task,
+.about,
+.customer-service {
+  background-image: url(/images/bg.jpeg);
+}
+
+/* Typography */
+.text-8 {
+  font-size: 8px;
+}
+.text-10 {
+  font-size: 10px;
+}
+.text-12 {
+  font-size: 12px;
+}
+.text-sm {
+  font-size: 12px;
+}
+.text-14 {
+  font-size: 14px;
+}
+.text-18 {
+  font-size: 18px;
+}
+.text-20 {
+  font-size: 20px;
+}
+.text-34 {
+  font-size: 34px;
+}
+
+/* Colors */
+.text-white {
+  color: #ffffff;
+}
+
+.text-light {
+  color: #f5f6f7;
+}
+
+.text-light3 {
+  color: #dfe0e4;
+}
+
+.text-green {
+  color: #40ff8c;
+}
+
+.text-green2 {
+  color: #00ffb7;
+}
+
+.text-blue {
+  color: #2b8fff;
+}
+
+.text-gray {
+  color: #888e9c;
+}
+
+/* Buttons */
+.btn-icon {
+  border: solid 0.72px #f6f6f6;
+  background-color: #ffffff1a;
+  width: 34px;
+  height: 34px;
+  border-radius: 50px;
+  color: #fff;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon:hover {
+  background-color: #ffffff2f;
+}
+
+.btn-trans {
+  background: transparent;
+  border: none;
+  color: #fff;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.btn-one,
+.btn-one:hover {
+  background-color: #ffffff33;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 40px;
+  padding: 10px 24px;
+}
+
+.btn-one:hover {
+  background-color: #ffffff5f;
+}
+
+.btn-two,
+.btn-two:hover {
+  background-color: #2b8fff;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 40px;
+  padding: 10px 24px;
+  border: 1px solid;
+  border-image-source: linear-gradient(
+    274.14deg,
+    rgba(201, 255, 228, 0.0352) 4.46%,
+    rgba(8, 101, 54, 0.16) 106.75%
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-two:hover {
+  background-color: #0077ff;
+}
+
+/* Utility Classes */
+.opacity-75 {
+  opacity: 0.75;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  main {
+    border-radius: 0;
+    padding: 15px;
+    padding-bottom: 90px;
+  }
+}
+
+@media (max-width: 390px) {
+  main {
+    padding: 12px;
+    padding-bottom: 90px;
+  }
+
+  .text-14 { font-size: 13px; }
+  .text-18 { font-size: 16px; }
+  .text-20 { font-size: 17px; }
+  .text-34 { font-size: 28px; }
+}
+
+@media (max-width: 360px) {
+  main {
+    max-width: 100%;
+    padding: 10px;
+    padding-bottom: 90px;
+  }
+
+  .text-12, .text-sm { font-size: 11px; }
+  .text-14 { font-size: 12px; }
+  .text-18 { font-size: 15px; }
+}
+
+.btn-back{
+  width: 50px !important;
+  height: 50px !important;
+}

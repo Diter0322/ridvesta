@@ -1,0 +1,263 @@
+/* Deposit Bank Page */
+.deposit-bank-page {
+  background-size: cover;
+  background-position: center;
+  padding-bottom: 132px;
+}
+
+.bank-bill-card {
+  background-color: #0d1e3a;
+  border-radius: 14px;
+  padding: 20px 18px;
+  border: 0.5px solid #ffffff20;
+}
+
+.countdown-wrap {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  flex-shrink: 0;
+}
+
+.countdown-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.countdown-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+
+.text-11 {
+  font-size: 11px;
+}
+
+.text-12 {
+  font-size: 12px;
+}
+
+.text-13 {
+  font-size: 13px;
+}
+
+.text-14 {
+  font-size: 14px;
+}
+
+.va-input-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #0d1e3a;
+  border: 1.5px solid #2f91ff;
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.va-number {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.va-copy-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.instructions-card {
+  background-color: #0d1e3a;
+  border-radius: 14px;
+  padding: 18px 16px;
+  border: 0.5px solid #ffffff20;
+}
+
+.instruction-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 0.5px solid #ffffff10;
+}
+
+.instruction-row:last-child {
+  border-bottom: none;
+}
+
+.instruction-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.deposit-footer {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: min(100%, 1080px);
+  padding: 16px 20px 28px;
+  background: linear-gradient(to top, #060d17 80%, transparent);
+}
+
+.btn-primary-full {
+  width: 100%;
+  background: linear-gradient(90deg, #2f91ff 0%, #1a6fd4 100%);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 14px;
+  padding: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-primary-full:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.deposit-result-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(3, 10, 22, 0.78);
+  backdrop-filter: blur(6px);
+}
+
+.deposit-result-modal {
+  width: min(100%, 360px);
+  border-radius: 22px;
+  padding: 28px 22px 22px;
+  background: linear-gradient(180deg, rgba(8, 28, 54, 0.98) 0%, rgba(8, 21, 39, 0.98) 100%);
+  border: 1px solid rgba(43, 143, 255, 0.4);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
+  text-align: center;
+}
+
+.deposit-result-modal__icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.deposit-result-modal__title {
+  margin: 0;
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.deposit-result-modal__message {
+  margin: 10px 0 0;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.deposit-result-modal__button {
+  width: 100%;
+  margin-top: 22px;
+  border: 0;
+  border-radius: 14px;
+  padding: 15px;
+  background: linear-gradient(90deg, #22d6a3 0%, #1aa884 100%);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+@media (max-width: 420px) {
+  .deposit-bank-page {
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-bottom: 120px;
+  }
+
+  .bank-bill-card {
+    padding: 14px 12px;
+  }
+
+  .countdown-wrap {
+    width: 62px;
+    height: 62px;
+  }
+
+  .countdown-svg {
+    width: 62px;
+    height: 62px;
+  }
+
+  .bank-bill-card .d-flex.justify-content-between.align-items-start {
+    gap: 10px;
+  }
+
+  .bank-bill-card .d-flex.gap-4.mt-3 {
+    flex-direction: column;
+    gap: 12px !important;
+  }
+
+  .va-input-wrap {
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .va-number {
+    font-size: 14px;
+    letter-spacing: 0.4px;
+    overflow-wrap: anywhere;
+  }
+
+  .instructions-card {
+    padding: 14px 12px;
+  }
+
+  .instruction-row {
+    gap: 8px;
+    padding: 9px 0;
+  }
+
+  .deposit-footer {
+    padding: 12px 14px 18px;
+  }
+
+  .btn-primary-full {
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 15px;
+  }
+
+  .deposit-result-modal {
+    border-radius: 18px;
+    padding: 24px 18px 18px;
+  }
+
+  .deposit-result-modal__title {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 992px) {
+  .deposit-footer {
+    padding: 14px 28px 20px;
+  }
+}

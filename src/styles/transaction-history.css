@@ -1,0 +1,140 @@
+/* Transaction History Page */
+.transaction-history-page {
+  background-size: cover;
+  background-position: center;
+}
+
+.tx-card {
+  background-color: #0d1e3a;
+  border-radius: 14px;
+  padding: 16px 14px;
+  border: 0.5px solid #2b3f60;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+  gap: 8px;
+}
+
+.tx-left {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.tx-accent-bar {
+  width: 4px;
+  min-height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #2f91ff 0%, #1a6fd4 100%);
+  flex-shrink: 0;
+}
+
+.tx-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.tx-title {
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.tx-subtitle {
+  color: #8899bb;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.tx-date {
+  color: #8899bb;
+  font-size: 12px;
+  margin-bottom: 0;
+}
+
+.tx-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.tx-status {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.tx-status--success {
+  color: #00e265;
+}
+
+.tx-status--failed {
+  color: #ff4d4f;
+}
+
+.tx-status--pending {
+  color: #f5a623;
+}
+
+.tx-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.tx-amount {
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 0;
+  text-align: right;
+}
+
+@media (max-width: 420px) {
+  .transaction-history-page {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .tx-card {
+    padding: 12px 10px;
+    gap: 10px;
+    flex-direction: column;
+  }
+
+  .tx-left {
+    width: 100%;
+  }
+
+  .tx-right {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 14px;
+  }
+
+  .tx-title {
+    font-size: 14px;
+  }
+
+  .tx-subtitle,
+  .tx-date,
+  .tx-status {
+    font-size: 11px;
+  }
+
+  .tx-amount {
+    font-size: 14px;
+  }
+}

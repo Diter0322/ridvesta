@@ -1,0 +1,239 @@
+/* Withdraw History CSS */
+.withdraw-history {
+  background-size: cover;
+  background-position: center;
+}
+
+.withdraw-card {
+  background-color: #0067df0f;
+  border-radius: 16px;
+  padding: 24px 18px;
+  border: 0.4px solid #ffffff31;
+}
+
+.nav-tabs {
+  border: 0;
+  margin-bottom: 36px;
+}
+
+.nav-tabs li {
+  margin-right: 8px;
+}
+
+.nav-tabs li button {
+  background-color: #ffffff24;
+  border-radius: 10px !important;
+  padding: 8px;
+  color: #ebecef;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 0;
+  height: 38px;
+  min-width: 90px;
+  border: 0;
+}
+
+.nav-tabs .nav-link.active {
+  background: linear-gradient(90deg, #2f91ff 0%, #2580e6 100%);
+  color: #ffffff;
+  border: 0;
+}
+
+.with-card {
+  background-color: #021e3f;
+  border-radius: 16px;
+  padding: 16px;
+  border-width: 0.4px 0.4px 0.4px 4px;
+  border-style: solid;
+  border-color: #2b8fff;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.with-card img.ovo {
+  width: 30px;
+  height: 30px;
+}
+
+.with-card .badge {
+  background: #ffffff17;
+  border-radius: 50px;
+  border: 0.3px solid #0d7f4129;
+  height: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 3px 12px;
+  line-height: 100%;
+}
+
+.with-card .badge.success {
+  color: #2acd74;
+}
+
+.with-card .badge.pending {
+  color: #ff934b;
+}
+
+.with-card .badge.failed {
+  color: #ff6969;
+}
+
+/* Text utility classes */
+.text-white {
+  color: #ffffff;
+}
+
+.text-light3 {
+  color: #b2b6bf;
+}
+
+.text-light4 {
+  color: #999;
+}
+
+.text-14 {
+  font-size: 14px;
+}
+
+.text-18 {
+  font-size: 18px;
+}
+
+.text-20 {
+  font-size: 20px;
+}
+
+.text-34 {
+  font-size: 34px;
+}
+
+.text-blue {
+  color: #2b8fff;
+}
+
+.text-green {
+  color: #2acd74;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.fw-semibold {
+  font-weight: 600;
+}
+
+.fw-medium {
+  font-weight: 500;
+}
+
+.fs-5 {
+  font-size: 18px;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.mb-1 {
+  margin-bottom: 4px;
+}
+
+.mb-2 {
+  margin-bottom: 8px;
+}
+
+.mt-2 {
+  margin-top: 8px;
+}
+
+.mt-4 {
+  margin-top: 16px;
+}
+
+.mt-5 {
+  margin-top: 24px;
+}
+
+.me-5 {
+  margin-right: 20px;
+}
+
+.pt-5 {
+  padding-top: 24px;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.gap-2 {
+  gap: 8px;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.text-end {
+  text-align: right;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.btn-trans {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-trans img {
+  width: 24px;
+  height: 24px;
+}
+
+.nav-item {
+  display: inline-block;
+}
+
+.nav-link {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.nav-link.active {
+  background-color: #2b8fff;
+}
+
+.tab-pane {
+  padding-top: 16px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .nav-tabs li button {
+    min-width: 70px;
+    padding: 6px;
+  }
+
+  .with-card {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+.btn-back{
+  width: 50px !important;
+  height: 50px !important;
+}

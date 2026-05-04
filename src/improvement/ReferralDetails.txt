@@ -1,0 +1,66 @@
+WHY TEAM PAGE LOADING IS SLOW
+==============================
+Date: April 18, 2026
+
+ROOT CAUSE SUMMARY
+------------------
+Caching was intentionally removed, causing 15-20+ DB queries to fire on every
+Team page visit — doubled because two API calls happen simultaneously, both
+triggering the full getAllData() computation.
+
+
+DETAILED FINDINGS
+-----------------
+
+1. CACHE IS COMPLETELY DISABLED
+   ReferralService.php has Cache::remember(300, ...) commented out with the
+   comment "// Remove cache completely". Every single page visit re-runs all
+   DB queries from scratch. This alone is the biggest culprit.
+
+
+2. ReferralService RUNS 7+ SEQUENTIAL DB QUERIES
+   Every call to getAllData() fires these queries in sequence:
+     1. Constructor:  User::where('id', $userId)->value('ref_id')
+     2. Level 1 IDs: User::where('ref_by', ...)->pluck('id')
+     3. Level 1 ref_ids: ->pluck('ref_id')
+     4. Level 2 IDs: User::whereIn('ref_by', $level1RefIds)->pluck('id')
+     5. Level 2 ref_ids: ->pluck('ref_id')
+     6. Level 3 IDs: User::whereIn('ref_by', $level2RefIds)->pluck('id')
+     7. Deposits:    Deposit::whereIn('user_id', $allUserIds)->get()
+     8. Active:      Deposit::whereIn('user_id', ...)->distinct()->pluck()
+     9. Withdraws:   Withdraw::whereIn('user_id', ...)->sum()
+    10. Commissions: DB::table('user_ledgers')->groupBy('step')->pluck()
+
+   All sequential — each waits for the previous to complete.
+
+
+3. getAllData() IS CALLED TWICE PER PAGE LOAD
+   Team.jsx fires Promise.all([fetchTeam, fetchTeamSummary]) simultaneously,
+   hitting two different endpoints. Both endpoints call:
+     new ReferralService($userId)->getAllData()
+   So all 10+ queries above run TWICE in parallel on the server.
+
+
+4. teamIndex ALSO CALLS getTeamMembersByLevel() FOR ALL 3 LEVELS
+   Inside TeamController::teamIndex there is a loop:
+
+     for ($level = 1; $level <= 3; $level++) {
+         $teamMembers[$level] = $referralService->getTeamMembersByLevel($level);
+     }
+
+   This adds even more queries on top of the getAllData() calls.
+
+
+SUGGESTIONS TO FIX (not yet implemented)
+-----------------------------------------
+1. Re-enable Cache::remember() in ReferralService::getAllData() — e.g. 300s TTL
+   This would be the single highest-impact fix.
+
+2. Combine /api/team and /api/team/summary into one endpoint so the frontend
+   only makes a single API call instead of two.
+
+3. Remove the getTeamMembersByLevel() loop from teamIndex if that data is not
+   needed by Team.jsx (it appears teamIndex data already returns counts).
+
+4. Merge the constructor ref_id lookup into the first user query to eliminate
+   one extra DB round-trip.

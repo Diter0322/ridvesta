@@ -1,0 +1,209 @@
+﻿import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useDeposits } from '../hooks/useDeposits';
+import '../styles/deposit-qris.css';
+
+const isHttpUrl = (value) => /^https?:\/\//i.test(String(value || ''));
+const isDataImage = (value) => /^data:image\//i.test(String(value || ''));
+
+const toQrImageSrc = (value) => {
+  const qrValue = String(value || '').trim();
+  if (!qrValue) return null;
+  if (isHttpUrl(qrValue) || isDataImage(qrValue)) return qrValue;
+  return `https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(qrValue)}`;
+};
+
+const DepositQris = () => {
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const hasShownSuccessModal = useRef(false);
+  const sourceData = state?.depositData ?? {};
+  const rawData = sourceData?.data ?? sourceData;
+  
+  console.log('DepositQris received state:', state);
+  console.log('Raw depositData:', rawData);
+  
+  // Map recharge API response fields to expected format
+  const depositData = {
+    amount:
+      rawData?.amount ??
+      rawData?.nominal ??
+      rawData?.payMoney ??
+      0,
+    order_id:
+      rawData?.order_id ??
+      rawData?.reference_id ??
+      rawData?.trx_id ??
+      rawData?.orderNum ??
+      rawData?.id ??
+      'â€”',
+    qr_code_url:
+      rawData?.qr_code_url ??
+      null,
+    qr_raw:
+      rawData?.qr_code_url ??
+      rawData?.qr_code ??
+      rawData?.qr_url ??
+      rawData?.payData ??
+      rawData?.qrString ??
+      null,
+  };
+
+  const currentOrderId = String(depositData?.order_id ?? '').trim();
+  const { data: depositsData } = useDeposits({
+    enabled: !!currentOrderId && currentOrderId !== 'â€”',
+    refetchInterval: 8000,
+    refetchIntervalInBackground: true,
+  });
+
+  const matchedDeposit = (depositsData?.deposits ?? []).find(
+    (item) => String(item?.order_id ?? '').trim() === currentOrderId
+  );
+
+  const liveStatus = String(matchedDeposit?.status ?? '').toLowerCase();
+  const isSuccess = liveStatus === 'approved' || liveStatus === 'success';
+  const isFailed = liveStatus === 'failed' || liveStatus === 'rejected' || liveStatus === 'cancelled';
+  const statusLabel = isSuccess
+    ? 'Pembayaran Berhasil'
+    : isFailed
+      ? 'Pembayaran Gagal'
+      : 'Waiting Payment';
+
+  useEffect(() => {
+    if (isSuccess && !hasShownSuccessModal.current) {
+      hasShownSuccessModal.current = true;
+      setShowSuccessModal(true);
+    }
+  }, [isSuccess]);
+  
+  console.log('Mapped depositData:', depositData);
+
+  const qrCodeUrl = toQrImageSrc(depositData?.qr_code_url ?? depositData?.qr_raw);
+
+  const instructions = [
+    { icon: 'ðŸ“±', text: '01.Open your preferred QRIS payment app.' },
+    { icon: 'ðŸ“‹', text: '02.Scan the QR code shown above.' },
+    { icon: 'ðŸ’³', text: '05.Verify the amount and confirm payment.' },
+  ];
+
+  const handleCloseSuccessModal = () => {
+    setShowSuccessModal(false);
+    navigate('/deposit-list');
+  };
+
+  return (
+    <main className="deposit-qris-page" style={{ backgroundImage: 'url(/images/signup-bg.jpeg)' }}>
+      {showSuccessModal && (
+        <div className="deposit-result-modal-overlay" onClick={handleCloseSuccessModal}>
+          <div className="deposit-result-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="deposit-result-modal__icon success">
+              <svg width="42" height="42" viewBox="0 0 42 42" fill="none" aria-hidden="true">
+                <circle cx="21" cy="21" r="21" fill="#1fddaa" fillOpacity="0.16" />
+                <path d="M12.5 21.5 18 27l11.5-13" stroke="#1fddaa" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <p className="deposit-result-modal__title">Deposit Received</p>
+            <p className="deposit-result-modal__message">
+              Your deposit has been confirmed and your balance has been updated.
+            </p>
+            <button className="deposit-result-modal__button" onClick={handleCloseSuccessModal} type="button">
+              View Deposit History
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Header */}
+      <div className="d-flex align-items-center pt-3">
+        <button className="btn-trans" onClick={() => navigate(-1)}>
+          <img src="/images/btn-back.png" className="btn-back" alt="Kembali" />
+        </button>
+        <div className="text-center w-100">
+          <p className="text-white fw-semibold fs-5 mb-0 me-5">Deposit Qris</p>
+        </div>
+      </div>
+
+      <p className="text-white-50 text-13 mt-3">Scan the QR code to complete your transaction</p>
+      <div className={`payment-status-chip ${isSuccess ? 'success' : isFailed ? 'failed' : 'pending'}`}>
+        <span className="dot" />
+        <span>{statusLabel}</span>
+      </div>
+
+      {/* QR Code */}
+      <div className="qr-wrapper mt-3">
+        {qrCodeUrl ? (
+          <img src={qrCodeUrl} alt="QR Code" className="qr-image" />
+        ) : (
+          <div className="qr-placeholder">
+            <svg width="160" height="160" viewBox="0 0 160 160" fill="none">
+              <rect x="4" y="4" width="68" height="68" rx="4" stroke="white" strokeWidth="3" />
+              <rect x="18" y="18" width="40" height="40" rx="2" fill="white" />
+              <rect x="88" y="4" width="68" height="68" rx="4" stroke="white" strokeWidth="3" />
+              <rect x="102" y="18" width="40" height="40" rx="2" fill="white" />
+              <rect x="4" y="88" width="68" height="68" rx="4" stroke="white" strokeWidth="3" />
+              <rect x="18" y="102" width="40" height="40" rx="2" fill="white" />
+              <rect x="88" y="88" width="10" height="10" fill="white" />
+              <rect x="104" y="88" width="10" height="10" fill="white" />
+              <rect x="120" y="88" width="10" height="10" fill="white" />
+              <rect x="136" y="88" width="16" height="10" fill="white" />
+              <rect x="88" y="104" width="10" height="10" fill="white" />
+              <rect x="104" y="104" width="24" height="10" fill="white" />
+              <rect x="134" y="104" width="18" height="10" fill="white" />
+              <rect x="88" y="120" width="16" height="32" fill="white" />
+              <rect x="110" y="120" width="10" height="10" fill="white" />
+              <rect x="126" y="120" width="26" height="10" fill="white" />
+              <rect x="110" y="136" width="42" height="16" fill="white" />
+            </svg>
+          </div>
+        )}
+      </div>
+
+      {/* Transaction Details */}
+      <div className="qris-detail-card mt-4">
+        <p className="text-white fw-semibold text-13 mb-3" style={{ letterSpacing: '0.5px' }}>
+          TRANSACTION DETAILS
+        </p>
+        <div className="d-flex justify-content-between mb-2">
+          <span className="text-white-50 text-13">Order Id:</span>
+          <span className="text-white fw-semibold text-13">
+            {depositData?.order_id ?? depositData?.id ?? 'â€”'}
+          </span>
+        </div>
+        <div className="d-flex justify-content-between">
+          <span className="text-white-50 text-13">Amount:</span>
+          <span className="text-blue fw-semibold text-13">
+            Rp {Number(depositData?.amount ?? 0).toLocaleString('id-ID')}
+          </span>
+        </div>
+      </div>
+
+      {/* How to Pay */}
+      <div className="instructions-card mt-3">
+        <p className="text-white fw-semibold text-13 mb-3" style={{ letterSpacing: '0.5px' }}>
+          HOW TO PAY WITH QRIS
+        </p>
+        {instructions.map((item, i) => (
+          <div className="instruction-row" key={i}>
+            <span className="instruction-icon">{item.icon}</span>
+            <span className="text-white text-13">{item.text}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* I Have Paid */}
+      <div className="deposit-footer">
+        <button
+          className="btn-primary-full"
+          onClick={() => navigate('/deposit-list')}
+          type="button"
+        >
+          {isSuccess ? 'View Deposit History' : 'I Have Paid'}
+        </button>
+      </div>
+    </main>
+  );
+};
+
+export default DepositQris;
+
