@@ -156,8 +156,9 @@ const Register = () => {
         </div>
       )}
       <style>{`@keyframes modalPop { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }`}</style>
-      <div className="text-center">
-        <img className="logo img-fluid" src="/images/logo.png" alt="Logo Idvesta" />
+      <div className="text-center py-0">
+        <img className="img-fluid d-block mx-auto" src="/images/homelogo.png" alt="logo" style={{ height: 125, width: 'auto', marginBottom: -20 }} />
+        <span className="shiny-silver d-block">EMASHARIAN</span>
       </div>
       <form onSubmit={handleSignUp}>
         <div className="box text-white">

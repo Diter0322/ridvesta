@@ -47,8 +47,9 @@ const Login = () => {
 
   return (
     <main className="sign-up">
-      <div className="text-center">
-        <img className="img-fluid logo" src="/images/logo.png" alt="" />
+      <div className="text-center py-0">
+        <img className="img-fluid d-block mx-auto" src="/images/homelogo.png" alt="logo" style={{ height: 125, width: 'auto', marginBottom: -20 }} />
+        <span className="shiny-silver d-block">EMASHARIAN</span>
       </div>
       <form onSubmit={handleSubmit}>
         <div className="box text-white">
@@ -62,7 +63,9 @@ const Login = () => {
               ></button>
             </div>
           )}
-          <div className="mt-2 relative">
+          <h5 className="fw-bold text-center mb-3" style={{ marginTop: -15 }}>Login Pengguna</h5>
+          <hr></hr>
+          <div className="mt-4 relative">
             <img src="/images/icon/email.svg" alt="" className="email mt-3" />
             <label>Masukkan nomor telepon Anda</label>
             <input
@@ -118,7 +121,7 @@ const Login = () => {
       </form>
       <div className="d-flex gap-3 text-white">
         <hr className="hr-one" />
-        <span className="fw-medium text-14">Atau Lanjutkan Dengan</span>
+        <span className="fw-lighter text-14 text-lightgrey fst-italic">Emasharian.com berlisensi oleh :</span>
         <hr className="hr-two" />
       </div>
       <div className="text-center mt-4">
