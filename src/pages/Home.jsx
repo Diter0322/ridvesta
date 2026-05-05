@@ -166,15 +166,19 @@ const Home = () => {
       <div className="main-set mt-3">
         <div className="d-flex justify-content-between">
           <div className="mt-4">
-            <p className="title mb-2 shiny-silver" style={{ fontSize: 24, fontWeight: 700}}>EMASHARIAN.COM</p>
+            <p className="title mb-2 shiny-silver" style={{ fontSize: 24, fontWeight: 700}}>EMASHARIAN</p>
             <p className="sub-title mb-0">Saldo Utama</p>
-            <div className="d-flex align-items-center mt-1 gap-1">
-              <p className="title col text-nowrap fs-2">{data?.user_balance_formatted ?? 'Rp 0'}</p>
-              <button className="btn btn-two col text-nowrap text-white fs-medium text-nowrap" onClick={() => navigate('/deposit')}>
-                <img src="/images/icon/top-up.svg" alt="" style={{ marginRight: '3px', maxHeight: '20px', filter: 'brightness(0) invert(1)' }} />
-                Isi Ulang
-              </button>
-            </div>
+            {/* <div className="d-flex align-items-center mt-1 gap-1"> */}
+            <p className="title col text-nowrap fs-2">{data?.user_balance_formatted ?? 'Rp 0'}</p>
+            {/* <div className='text-center'> */}
+              <button className="btn btn-three col mt-1 text-nowrap text-white fs-medium text-nowrap" onClick={() => navigate('/deposit')}>
+              <img src="/images/icon/top-up.svg" alt="" style={{ marginRight: '3px', maxHeight: '20px', filter: 'brightness(0) invert(1)' }} />
+              Isi Ulang
+            </button>
+
+            {/* </div> */}
+            
+            {/* </div> */}
           </div>
           <div>
             <img className="img-fluid" src="/images/homelogo.png" alt="Emasharian.com" />
