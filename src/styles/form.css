@@ -71,6 +71,15 @@ main.sign-up {
   font-size: 16px;
 }
 
+.box input:disabled,
+.form-box input:disabled {
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: #2b3a55;
+  color: #6b7a99;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
 .box input::placeholder, .form-box input::placeholder {
   color: #dfe0e4;
   font-size: 16px;
@@ -171,7 +180,7 @@ main.sign-up {
   cursor: pointer;
 }
 
-.login-btn, .signup-btn {
+.login-btn1, .signup-btn {
   border-radius: 10px;
   width: 100%;
   font-size: 16px;
@@ -187,12 +196,12 @@ main.sign-up {
   margin-top: 16px;
 }
 
-.login-btn:hover:not(:disabled),
+.login-btn1:hover:not(:disabled),
 .signup-btn:hover:not(:disabled) {
   box-shadow: 0px 4px 8px 0px #ffeeee2a inset, 2px 0px 15px 0px #ffffff2a inset;
 }
 
-.login-btn:disabled,
+.login-btn1:disabled,
 .signup-btn:disabled {
   opacity: 0.7;
   cursor: not-allowed;
@@ -368,8 +377,8 @@ main.sign-up {
     font-size: 13px;
   }
   
-  .login-btn, .signup-btn {
-    height: 50px;
+  .login-btn1, .signup-btn {
+    height: 40px;
     font-size: 15px;
     margin-top: 12px;
   }
@@ -419,7 +428,7 @@ main.sign-up {
     font-size: 16px;
   }
 
-  .login-btn, .signup-btn {
+  .login-btn1, .signup-btn {
     height: 48px;
     font-size: 14px;
   }
@@ -443,7 +452,7 @@ main.sign-up {
     font-size: 16px;
   }
 
-  .login-btn, .signup-btn {
+  .login-btn1, .signup-btn {
     height: 44px;
   }
 }

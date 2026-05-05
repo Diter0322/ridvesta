@@ -21,14 +21,14 @@ const DepositBank = () => {
   // Map recharge API response fields to expected format
   const depositData = {
     amount: rawData?.amount ?? rawData?.nominal ?? 0,
-    order_id: rawData?.order_id ?? rawData?.reference_id ?? rawData?.trx_id ?? rawData?.id ?? 'â€”',
+    order_id: rawData?.order_id ?? rawData?.reference_id ?? rawData?.trx_id ?? rawData?.id ?? '—',
     created_at: rawData?.created_at ?? rawData?.request_time ?? new Date().toISOString(),
     virtual_account: rawData?.virtual_account ?? rawData?.va ?? rawData?.va_number ?? '',
   };
 
   const currentOrderId = String(depositData?.order_id ?? '').trim();
   const { data: depositsData } = useDeposits({
-    enabled: !!currentOrderId && currentOrderId !== 'â€”',
+    enabled: !!currentOrderId && currentOrderId !== '—',
     refetchInterval: 8000,
     refetchIntervalInBackground: true,
   });
@@ -89,11 +89,11 @@ const DepositBank = () => {
   };
 
   const instructions = [
-    { icon: 'ðŸ“±', text: '01.Open your Bank application' },
-    { icon: 'ðŸ“‹', text: '02.Copy the VA code above.' },
-    { icon: 'ðŸ”—', text: '03.Paste the VA number in the app.' },
-    { icon: 'ðŸ’³', text: '04.Verify the amount and confirm payment.' },
-    { icon: 'ðŸ’°', text: '05.Balance is automatically credited (1-2 mins).' },
+    { icon: '📱', text: '01.Open your Bank application' },
+    { icon: '📋', text: '02.Copy the VA code above.' },
+    { icon: '🔗', text: '03.Paste the VA number in the app.' },
+    { icon: '💳', text: '04.Verify the amount and confirm payment.' },
+    { icon: '💰', text: '05.Balance is automatically credited (1-2 mins).' },
   ];
 
   return (
@@ -172,7 +172,7 @@ const DepositBank = () => {
           <div>
             <p className="text-white-50 text-12 mb-1">Order Id</p>
             <p className="text-white fw-semibold text-14 mb-0">
-              {depositData?.order_id ?? depositData?.id ?? 'â€”'}
+              {depositData?.order_id ?? depositData?.id ?? '—'}
             </p>
           </div>
           <div>
@@ -186,7 +186,7 @@ const DepositBank = () => {
                     hour: '2-digit',
                     minute: '2-digit',
                   })
-                : 'â€”'}
+                : '—'}
             </p>
           </div>
         </div>

@@ -37,7 +37,7 @@ const DepositQris = () => {
       rawData?.trx_id ??
       rawData?.orderNum ??
       rawData?.id ??
-      'â€”',
+      '—',
     qr_code_url:
       rawData?.qr_code_url ??
       null,
@@ -52,7 +52,7 @@ const DepositQris = () => {
 
   const currentOrderId = String(depositData?.order_id ?? '').trim();
   const { data: depositsData } = useDeposits({
-    enabled: !!currentOrderId && currentOrderId !== 'â€”',
+    enabled: !!currentOrderId && currentOrderId !== '—',
     refetchInterval: 8000,
     refetchIntervalInBackground: true,
   });
@@ -82,9 +82,9 @@ const DepositQris = () => {
   const qrCodeUrl = toQrImageSrc(depositData?.qr_code_url ?? depositData?.qr_raw);
 
   const instructions = [
-    { icon: 'ðŸ“±', text: '01.Open your preferred QRIS payment app.' },
-    { icon: 'ðŸ“‹', text: '02.Scan the QR code shown above.' },
-    { icon: 'ðŸ’³', text: '05.Verify the amount and confirm payment.' },
+    { icon: '📱', text: '01.Open your preferred QRIS payment app.' },
+    { icon: '📋', text: '02.Scan the QR code shown above.' },
+    { icon: '💳', text: '05.Verify the amount and confirm payment.' },
   ];
 
   const handleCloseSuccessModal = () => {
@@ -167,7 +167,7 @@ const DepositQris = () => {
         <div className="d-flex justify-content-between mb-2">
           <span className="text-white-50 text-13">Order Id:</span>
           <span className="text-white fw-semibold text-13">
-            {depositData?.order_id ?? depositData?.id ?? 'â€”'}
+            {depositData?.order_id ?? depositData?.id ?? '—'}
           </span>
         </div>
         <div className="d-flex justify-content-between">

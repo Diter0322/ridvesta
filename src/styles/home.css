@@ -4,6 +4,7 @@
   background-color: #060d17;
   background-size: cover;
   background-position: top;
+  padding: 0 clamp(12px, 4vw, 24px);
 }
 
 .header {
@@ -72,7 +73,7 @@
 }
 
 .main-set .sub-title {
-  font-size: 14px;
+  font-size: clamp(11px, 3.5vw, 14px);
   font-weight: 500;
   line-height: 20px;
   color: #999;
@@ -80,7 +81,7 @@
 }
 
 .main-set .title {
-  font-size: 40px;
+  font-size: clamp(22px, 8vw, 40px);
   font-weight: 500;
   line-height: 120%;
   color: #ffffff;
@@ -155,22 +156,23 @@
   background-color: #2b8fff1a;
   border: solid 0.5px #ffffff33;
   border-radius: 16px;
-  padding: 12px 16px;
+  padding: clamp(8px, 3vw, 12px) clamp(10px, 3.5vw, 16px);
   width: 100%;
 }
 
 .card-two .sub {
-  font-size: 20px;
+  font-size: clamp(14px, 4.5vw, 20px);
   font-weight: 500;
   color: #fff;
   margin: 0;
 }
 
 .card-two .text-sm {
-  font-size: 12px;
+  font-size: clamp(10px, 2.8vw, 12px);
   color: #dfe0e4;
   margin: 0;
 }
+
 
 /* SWITCH STYLES */
 .switch-wrapper {
@@ -346,10 +348,6 @@
 
 /* Responsive */
 @media (max-width: 480px) {
-  .main-set .title {
-    font-size: 32px;
-  }
-
   .card-two {
     padding: 10px 12px;
   }
@@ -363,24 +361,26 @@
     padding: 10px 12px;
     font-size: 11px;
   }
+
+  .profit-box {
+    max-width: 130px;
+    padding: 8px 8px;
+  }
+
+  .profit-box .title {
+    font-size: 13px;
+  }
 }
 
 @media (max-width: 390px) {
-  .main-set .title {
-    font-size: 26px;
-  }
-
-  .main-set .sub-title {
-    font-size: 12px;
-  }
-
   .main-set img {
-    max-width: 90px;
+    max-width: 80px;
   }
 
   .user-avatar {
     width: 38px;
     height: 38px;
+    border-radius: 38px;
   }
 
   .header-actions .btn-icon {
@@ -391,10 +391,6 @@
   .header-actions .btn-icon img {
     width: 14px;
     height: 14px;
-  }
-
-  .card-two .sub {
-    font-size: 16px;
   }
 
   .switch-wrapper label {
@@ -410,19 +406,94 @@
     font-size: 10px;
     height: 42px;
   }
+
+  .profit-box {
+    max-width: 110px;
+    padding: 6px 8px;
+    max-height: 44px;
+  }
+
+  .profit-box .title {
+    font-size: 12px;
+  }
+
+  .profit-box .small {
+    font-size: 10px;
+  }
+
+  .card-one {
+    padding: 12px !important;
+  }
+
+  .text-area {
+    gap: 12px;
+  }
 }
 
 @media (max-width: 360px) {
-  .main-set .title {
-    font-size: 22px;
-  }
-
   .header {
     gap: 6px;
   }
 
   .header > div:first-child {
     gap: 8px;
+  }
+
+  .main-set img {
+    max-width: 65px;
+  }
+
+  .profit-box {
+    max-width: 95px;
+    padding: 5px 7px;
+    max-height: 40px;
+  }
+
+  .profit-box .title {
+    font-size: 11px;
+    margin: -14px 0 0;
+  }
+
+  .profit-box .small {
+    font-size: 9px;
+  }
+
+  .btn-participate,
+  .btn-clam {
+    font-size: 9px;
+    height: 38px;
+    padding: 6px 6px;
+  }
+}
+
+@media (max-width: 320px) {
+  .main-set img {
+    display: none;
+  }
+
+  .profit-box {
+    max-width: 85px;
+    padding: 4px 6px;
+    max-height: 36px;
+  }
+
+  .profit-box .title {
+    font-size: 10px;
+    margin: -12px 0 0;
+  }
+
+  .profit-box .small {
+    font-size: 8px;
+  }
+
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 32px;
+  }
+
+  .card-one {
+    padding: 10px !important;
   }
 }
 
@@ -654,4 +725,45 @@
   to {
     background-position: 200% center;
   }
+}
+
+/* Profit Box - Top Right */
+.profit-box {
+  position: absolute;
+  top: -2px;
+  right: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(5, 8, 15, 0.97) 0%,
+    rgba(5, 8, 15, 0.95) 30%,
+    rgba(180, 180, 180, 0.15) 48%,
+    rgba(255, 255, 255, 0.12) 52%,
+    rgba(5, 8, 15, 0.95) 70%,
+    rgba(5, 8, 15, 0.97) 100%
+  );
+  background-size: 200% auto;
+  border: 1px solid rgba(200, 200, 200, 0.25);
+  border-bottom-left-radius: 12px;
+  padding: 10px 10px;
+  min-width: 50px;
+  max-width: 150px;
+  max-height: 50px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(180, 180, 180, 0.08);
+  z-index: 10;
+  animation: shine 3s linear infinite;
+}
+
+.profit-box .small {
+  color: #94a3b8;
+  font-size: 11px;
+  font-weight: 500;
+  margin-top: -6px;
+}
+
+.profit-box .title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #22c55e;
+  margin: -18px 0 0;
 }

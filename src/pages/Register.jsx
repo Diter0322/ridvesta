@@ -1,10 +1,11 @@
-﻿import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+﻿import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { signupUser } from '../services/authService';
 import '../styles/form.css';
 
 const Register = () => {
   const navigate = useNavigate();
+  const { referralCode } = useParams();
   const [formData, setFormData] = useState({
     fullname: '',
     phone: '',
@@ -12,13 +13,26 @@ const Register = () => {
     password_confirmation: '',
     securityCode: '',
     agreeTerms: false,
-    ref_id: 0
+    ref_id: referralCode || ''
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState({ show: false, message: '' });
+  const [captcha, setCaptcha] = useState('');
+
+  const generateCaptcha = () => {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    let code = '';
+    for (let i = 0; i < 4; i++) {
+      code += chars[Math.floor(Math.random() * chars.length)];
+    }
+    setCaptcha(code);
+    setFormData(prev => ({ ...prev, securityCode: '' }));
+  };
+
+  useEffect(() => { generateCaptcha(); }, []);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -92,6 +106,13 @@ const Register = () => {
       return;
     }
 
+    // Validate captcha
+    if (formData.securityCode !== captcha) {
+      setError('Kode keamanan tidak sesuai');
+      generateCaptcha();
+      return;
+    }
+
     setLoading(true);
     setError('');
 
@@ -138,7 +159,7 @@ const Register = () => {
               animation: 'modalPop 0.25s ease',
             }}
           >
-            <div style={{ fontSize: '48px', marginBottom: '12px' }}>âœ…</div>
+            <div style={{ fontSize: '48px', marginBottom: '12px' }}>&#x2705;</div>
             <p style={{ color: '#fff', fontWeight: 600, fontSize: '18px', marginBottom: '8px' }}>Berhasil</p>
             <p style={{ color: '#ffffffcc', fontSize: '14px', marginBottom: '24px' }}>{modal.message}</p>
             <button
@@ -266,7 +287,7 @@ const Register = () => {
               placeholder="Kode Undangan (opsional)"
               value={formData.ref_id}
               onChange={handleChange}
-              disabled={loading}
+              disabled={loading || !!referralCode}
             />
           </div>
 
@@ -275,8 +296,8 @@ const Register = () => {
             <div className="row g-2">
               <div className="col-5">
                 <div className="security-box d-flex justify-content-between align-items-center">
-                  <span className="text-blue">A 8</span>
-                  <button type="button" className="btn-trans">
+                  <span className="text-blue">{captcha}</span>
+                  <button type="button" className="btn-trans" onClick={generateCaptcha}>
                     <img src="/images/btn/btn-refresh.svg" alt="Refresh" />
                   </button>
                 </div>
@@ -287,6 +308,8 @@ const Register = () => {
                   name="securityCode"
                   className="security-box"
                   placeholder="Jawaban"
+                  value={formData.securityCode}
+                  onChange={(e) => setFormData(prev => ({ ...prev, securityCode: e.target.value.toUpperCase() }))}
                   disabled={loading}
                 />
               </div>

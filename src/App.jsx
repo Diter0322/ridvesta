@@ -39,6 +39,7 @@ function App() {
           {/* Public Routes - No authentication required */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/register/:referralCode" element={<Register />} />
           <Route path="/otp" element={<OTP />} />
           <Route path="/change-password" element={<ChangePassword />} />
 

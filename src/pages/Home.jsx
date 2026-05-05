@@ -12,6 +12,8 @@ const Home = () => {
 
   const [participating, setParticipating] = useState(false);
   const [participateMsg, setParticipateMsg] = useState(null);
+  const [claiming, setClaiming] = useState(false);
+  const [claimMsg, setClaimMsg] = useState(null);
   const [notifOpen, setNotifOpen] = useState(false);
   const notifRef = useRef(null);
 
@@ -36,6 +38,21 @@ const Home = () => {
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
   }, [notifOpen]);
+
+  const handleClaimReward = async () => {
+    if (claiming || investment?.has_claimed_reward) return;
+    setClaiming(true);
+    setClaimMsg(null);
+    try {
+      const res = await apiClient.post('/investment/claim-reward');
+      setClaimMsg({ type: 'success', text: res.data?.message || 'Reward berhasil diklaim!' });
+    } catch (e) {
+      const msg = e.response?.data?.message || 'Gagal klaim reward. Coba lagi.';
+      setClaimMsg({ type: 'error', text: msg });
+    } finally {
+      setClaiming(false);
+    }
+  };
 
   const handleParticipate = async () => {
     if (participating || investment?.is_active) return;
@@ -78,7 +95,7 @@ const Home = () => {
             <img className="user-avatar" src={user?.photo || '/images/homelogo.png'} alt="User" onError={(e) => { e.currentTarget.src = '/images/homelogo.png'; }} />
           </div>
           <div className="text-white">
-            <p className="text-12 mb-0 opacity-75">Selamat pagi,</p>
+            <p className="text-12 mb-0 opacity-75">Selamat Datang,</p>
             <div className="fw-semibold">{user?.fullname ?? 'User'}</div>
           </div>
         </div>
@@ -149,12 +166,18 @@ const Home = () => {
       <div className="main-set mt-3">
         <div className="d-flex justify-content-between">
           <div className="mt-4">
-            <p className="title mb-2 gold-shiny">EMASHARIAN.COM</p>
+            <p className="title mb-2 shiny-silver" style={{ fontSize: 24, fontWeight: 700}}>EMASHARIAN.COM</p>
             <p className="sub-title mb-0">Saldo Utama</p>
-            <p className="title">{data?.user_balance_formatted ?? 'Rp 0'}</p>
+            <div className="d-flex align-items-center mt-1 gap-1">
+              <p className="title col text-nowrap fs-2">{data?.user_balance_formatted ?? 'Rp 0'}</p>
+              <button className="btn btn-two col text-nowrap text-white fs-medium text-nowrap" onClick={() => navigate('/deposit')}>
+                <img src="/images/icon/top-up.svg" alt="" style={{ marginRight: '3px', maxHeight: '20px', filter: 'brightness(0) invert(1)' }} />
+                Isi Ulang
+              </button>
+            </div>
           </div>
           <div>
-            <img className="img-fluid" src="/images/homelogo.png" alt="Global" />
+            <img className="img-fluid" src="/images/homelogo.png" alt="Emasharian.com" />
           </div>
         </div>
         
@@ -163,26 +186,31 @@ const Home = () => {
             <p className="text-white text-sm fw-medium">Pendapatan Investasi</p>
             <p>
               <span><i className="fa-regular fa-clock"></i></span>
-              <span className="fw-medium fs-6"> {investment?.hours_worked ?? 0} hr</span>
+              <span className="fw-medium fs-6"> {data?.participation_status?.hours_participated ?? 0} hr</span>
               <span className="text-green ms-2">{investment?.hourly_rate ?? '0%'}/hr</span>
             </p>
           </div>
           <div className="bar">
-            <div className="active" style={{ width: '35%' }}></div>
+            <div className="active" style={{ width: `${Math.min(((data?.participation_status?.hours_participated ?? 0) / 24) * 100, 100)}%` }}></div>
           </div>
           <div className="d-flex gap-2 justify-content-between mt-4">
             <button className="btn btn-participate w-100" onClick={handleParticipate} disabled={participating || investment?.is_active}>
               <img src="/images/icon/run.svg" alt="" />
               {participating ? 'Memproses...' : investment?.is_active ? 'SUDAH AKTIF' : 'IKUT SERTA'}
             </button>
-            <button className="btn btn-clam w-100">
+            <button className="btn btn-clam w-100" onClick={handleClaimReward} disabled={claiming || !!investment?.has_claimed_reward}>
               <img src="/images/icon/reward.svg" alt="" />
-              Klaim Reward
+              {claiming ? 'Memproses...' : investment?.has_claimed_reward ? 'Sudah Diklaim' : 'Klaim Reward'}
             </button>
           </div>
           {participateMsg && (
             <p className={`text-12 mt-2 mb-0 ${participateMsg.type === 'success' ? 'text-green' : 'text-danger'}`}>
               {participateMsg.text}
+            </p>
+          )}
+          {claimMsg && (
+            <p className={`text-12 mt-1 mb-0 ${claimMsg.type === 'success' ? 'text-green' : 'text-danger'}`}>
+              {claimMsg.text}
             </p>
           )}
           <div className="shape"></div>
@@ -216,26 +244,9 @@ const Home = () => {
               <p className="title fs-2">{data?.user_income_formatted ?? 'Rp 0'}</p>
             </div>
 
-            <div className="d-flex align-items-center justify-content-center">
-              <div className="switch-wrapper mt-4">
-                <input
-                  type="radio"
-                  id="monthly"
-                  checked={planType === 'monthly'}
-                  name="planType"
-                  onChange={() => setPlanType('monthly')}
-                />
-                <input
-                  type="radio"
-                  id="yearly"
-                  checked={planType === 'yearly'}
-                  name="planType"
-                  onChange={() => setPlanType('yearly')}
-                />
-                <label htmlFor="monthly" className="text-center">Bln</label>
-                <label htmlFor="yearly" className="text-center">Thn</label>
-                <span className="highlighter"></span>
-              </div>
+            <div className="profit-box">
+              <p className="small">Pendapatan Terakhir</p>
+              <p className="title text-green">{data?.last_profit_data ?? 'Rp 0'}</p>
             </div>
           </div>
 
@@ -250,8 +261,8 @@ const Home = () => {
             </div>
           </div>
           <div className="d-flex gap-2 justify-content-between mt-3">
-            <button className="btn btn-one w-100" onClick={() => navigate('/deposit')}>Isi Ulang</button>
-            <button className="btn btn-two w-100" onClick={() => navigate('/withdraw')}>Penarikan</button>
+            {/* <button className="btn btn-one w-100" onClick={() => navigate('/deposit')}>Isi Ulang</button> */}
+            <button className="btn btn-two col" onClick={() => navigate('/withdraw')}>Penarikan</button>
           </div>
           <div className="shape"></div>
         </div>

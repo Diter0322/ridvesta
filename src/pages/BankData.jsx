@@ -252,7 +252,7 @@ const BankData = () => {
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               margin: '0 auto 16px', fontSize: '28px',
             }}>
-              {modal.type === 'success' ? 'âœ…' : 'âŒ'}
+              {modal.type === 'success' ? '✅' : '❌'}
             </div>
             <p style={{ color: '#fff', fontWeight: '700', fontSize: '17px', marginBottom: '8px' }}>
               {modal.type === 'success' ? 'Tersimpan!' : 'Kesalahan'}

@@ -104,7 +104,7 @@ const Login = () => {
           <div className="mt-4">
             <button
               type="submit"
-              className="login-btn"
+              className="login-btn1 text-center"
               disabled={loading}
             >
               {loading ? (
@@ -124,9 +124,9 @@ const Login = () => {
         <span className="fw-lighter text-14 text-lightgrey fst-italic">Emasharian.com berlisensi oleh :</span>
         <hr className="hr-two" />
       </div>
-      <div className="text-center mt-4">
-        <img src="/images/ojk.png" alt="" />
-        <img className="ms-4" src="/images/brand2.png" alt="" />
+      <div className="text-center">
+        <img src="/images/OJK_Logo.png" style={{ maxHeight: 50 }} alt="" />
+        {/* <img className="ms-4" src="/images/brand2.png" alt="" /> */}
       </div>
 
       <p className="text-white text-14 text-center mt-4">

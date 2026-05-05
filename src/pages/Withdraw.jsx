@@ -68,10 +68,10 @@ const Withdraw = () => {
   };
 
   const bankInfo = withdrawConfig?.bank ?? {};
-  const bankName = bankInfo?.name ?? 'â€”';
-  const accountNumber = bankInfo?.masked_account ?? bankInfo?.account_number ?? 'â€”';
+  const bankName = bankInfo?.name ?? '—';
+  const accountNumber = bankInfo?.masked_account ?? bankInfo?.account_number ?? '—';
   const bankLogo = bankInfo?.logo ?? '/images/qris.png';
-  const userBalance = withdrawConfig?.user?.balance_formatted ?? 'â€”';
+  const userBalance = withdrawConfig?.user?.balance_formatted ?? '—';
   const accountHolder = bankInfo?.account_holder ?? '';
 
   return (

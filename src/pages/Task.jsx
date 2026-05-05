@@ -201,7 +201,7 @@ const Task = () => {
                 fontSize: '32px',
               }}
             >
-              {modal.type === 'success' ? 'âœ…' : 'âŒ'}
+              {modal.type === 'success' ? '✅' : '❌'}
             </div>
 
             {/* Title */}
@@ -227,7 +227,7 @@ const Task = () => {
                 }}
               >
                 <span style={{ color: '#28a745', fontWeight: '600', fontSize: '15px' }}>
-                  ðŸŽ Reward: {modal.reward}
+                  🎁 Reward: {modal.reward}
                 </span>
               </div>
             )}
