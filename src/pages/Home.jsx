@@ -360,7 +360,7 @@ const Home = () => {
 
             <div className="profit-box">
               <p className="small">Pendapatan Terakhir</p>
-              <p className="title text-green">{data?.last_profit_data ?? 'Rp 0'}</p>
+              <p className="title text-green">{data?.last_profit_data ? 'Rp ' + Number(data.last_profit_data.amount).toLocaleString('id-ID') : 'Rp 0'}</p>
             </div>
           </div>
 
