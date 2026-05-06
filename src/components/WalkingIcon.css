@@ -1,0 +1,66 @@
+/* Walking Icon SVG */
+.walking-icon {
+  display: flex;
+  flex-shrink: 0;
+}
+
+/* Walking Animation */
+@keyframes walkingLeftArm {
+  0%, 100% {
+    transform: rotate(0deg);
+    transform-origin: 34px 30px;
+  }
+  50% {
+    transform: rotate(45deg);
+    transform-origin: 34px 30px;
+  }
+}
+
+@keyframes walkingRightArm {
+  0%, 100% {
+    transform: rotate(0deg);
+    transform-origin: 66px 30px;
+  }
+  50% {
+    transform: rotate(-45deg);
+    transform-origin: 66px 30px;
+  }
+}
+
+@keyframes walkingLeftLeg {
+  0%, 100% {
+    transform: rotate(0deg);
+    transform-origin: 46px 50px;
+  }
+  50% {
+    transform: rotate(-30deg);
+    transform-origin: 46px 50px;
+  }
+}
+
+@keyframes walkingRightLeg {
+  0%, 100% {
+    transform: rotate(0deg);
+    transform-origin: 54px 50px;
+  }
+  50% {
+    transform: rotate(30deg);
+    transform-origin: 54px 50px;
+  }
+}
+
+.arm.left-arm {
+  animation: walkingLeftArm 0.6s ease-in-out infinite;
+}
+
+.arm.right-arm {
+  animation: walkingRightArm 0.6s ease-in-out infinite;
+}
+
+.leg.left-leg {
+  animation: walkingLeftLeg 0.6s ease-in-out infinite;
+}
+
+.leg.right-leg {
+  animation: walkingRightLeg 0.6s ease-in-out infinite;
+}

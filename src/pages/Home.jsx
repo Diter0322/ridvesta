@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDashboard } from '../hooks/useDashboard';
 import { useProfile } from '../hooks/useProfile';
 import { useUnreadCount, useRecentNotifications, useMarkAsRead, useMarkAllAsRead } from '../hooks/useNotifications';
+import WalkingIcon from '../components/WalkingIcon';
 import apiClient from '../api/client';
 import '../styles/home.css';
 
@@ -14,18 +15,27 @@ const Home = () => {
   const [participateMsg, setParticipateMsg] = useState(null);
   const [claiming, setClaiming] = useState(false);
   const [claimMsg, setClaimMsg] = useState(null);
+  const [showAccumulationModal, setShowAccumulationModal] = useState(false);
+  const [accumulationAmount, setAccumulationAmount] = useState('');
+  const [savedAccumulationAmount, setSavedAccumulationAmount] = useState(null);
+  const [accumulationSubmitting, setAccumulationSubmitting] = useState(false);
+  const [accumulationMsg, setAccumulationMsg] = useState(null);
+  const [showTransferResponseModal, setShowTransferResponseModal] = useState(false);
+  const [transferResponse, setTransferResponse] = useState({ type: null, text: '' });
   const [notifOpen, setNotifOpen] = useState(false);
   const notifRef = useRef(null);
 
-  const { data: unreadData } = useUnreadCount();
+  const { data: unreadData, refetch: refetchUnreadCount } = useUnreadCount();
   const unreadCount = unreadData?.count ?? unreadData ?? 0;
-  const { data: notifications, isLoading: notifLoading } = useRecentNotifications(notifOpen);
+  const { data: notifications, isLoading: notifLoading, refetch: refetchNotifications } = useRecentNotifications(notifOpen);
   const { mutate: markRead } = useMarkAsRead();
   const { mutate: markAllRead, isPending: markingAll } = useMarkAllAsRead();
 
   const notifList = Array.isArray(notifications) ? notifications : (notifications?.data ?? []);
 
   const toggleNotif = () => setNotifOpen((v) => !v);
+
+  const parseNumericAmount = (value) => Number(String(value ?? '').replace(/[^0-9]/g, '')) || 0;
 
   // Close panel when clicking outside
   useEffect(() => {
@@ -69,13 +79,110 @@ const Home = () => {
     }
   };
 
-  const { data: dashData, isLoading: dashLoading } = useDashboard();
-  const { data: user, isLoading: profileLoading } = useProfile();
+  const handleOpenAccumulationModal = () => {
+    setAccumulationMsg(null);
+    setShowAccumulationModal(true);
+  };
+
+  const handleCloseAccumulationModal = () => {
+    setAccumulationMsg(null);
+    setShowAccumulationModal(false);
+  };
+
+  const handleSubmitAccumulation = async (e) => {
+    e.preventDefault();
+    if (accumulationSubmitting) return;
+
+    const numericValue = parseNumericAmount(accumulationAmount);
+    const availableIncome = parseNumericAmount(data?.user_income ?? data?.user_income_formatted);
+
+    if (!numericValue || numericValue <= 0) {
+      setAccumulationMsg({ type: 'error', text: 'Jumlah transfer harus lebih besar dari 0' });
+      return;
+    }
+
+    if (numericValue > availableIncome) {
+      setAccumulationMsg({ type: 'error', text: 'Jumlah transfer tidak boleh melebihi saldo pendapatan.' });
+      return;
+    }
+
+    setAccumulationSubmitting(true);
+    setAccumulationMsg(null);
+
+    try {
+      const res = await apiClient.post('/balance/transfer', {
+        amount: numericValue,
+      });
+
+      setSavedAccumulationAmount(numericValue);
+      setTransferResponse({
+        type: 'success',
+        text: res?.data?.message || 'Transfer saldo berhasil',
+      });
+      setShowAccumulationModal(false);
+      setShowTransferResponseModal(true);
+      setAccumulationAmount('');
+    } catch (error) {
+      const errorText =
+        error?.response?.data?.message ||
+        error?.response?.data?.errors?.[0] ||
+        'Transfer gagal. Silakan coba lagi.';
+
+      setShowAccumulationModal(false);
+      setTransferResponse({ type: 'error', text: errorText });
+      setShowTransferResponseModal(true);
+    } finally {
+      setAccumulationSubmitting(false);
+    }
+  };
+
+  const handleAccumulationChange = (e) => {
+    const numericOnly = e.target.value.replace(/[^0-9]/g, '');
+    setAccumulationAmount(numericOnly);
+  };
+
+  const { data: dashData, isLoading: dashLoading, refetch: refetchDashboard } = useDashboard();
+  const { data: user, isLoading: profileLoading, refetch: refetchProfile } = useProfile();
 
   const loading = dashLoading || profileLoading;
   const data = dashData;
 
   const investment = data?.investment;
+  const baseUserBalance = Number(data?.user_balance ?? 0);
+  const accumulationInputValue = Number(accumulationAmount || 0);
+  const projectedMainBalance = baseUserBalance + accumulationInputValue;
+
+  const rawNextProfitTime = data?.investment?.next_profit_time;
+  const parsedNextProfitTime = rawNextProfitTime
+    ? new Date(rawNextProfitTime)
+    : null;
+  const nextProfitTime = parsedNextProfitTime && !Number.isNaN(parsedNextProfitTime.getTime())
+    ? parsedNextProfitTime
+    : (rawNextProfitTime ? new Date(String(rawNextProfitTime).replace(' ', 'T')) : null);
+  const nextProfitTimeValid = nextProfitTime && !Number.isNaN(nextProfitTime.getTime());
+
+  const hoursLeftUntilNextProfit = nextProfitTimeValid
+    ? Math.max(0, Math.min(24, (nextProfitTime - new Date()) / (1000 * 60 * 60)))
+    : 0;
+
+  const nextProfitPercent = (hoursLeftUntilNextProfit / 24) * 100;
+
+  useEffect(() => {
+    if (!showTransferResponseModal) return;
+
+    Promise.allSettled([
+      refetchDashboard(),
+      refetchProfile(),
+      refetchUnreadCount(),
+      refetchNotifications(),
+    ]);
+  }, [
+    showTransferResponseModal,
+    refetchDashboard,
+    refetchProfile,
+    refetchUnreadCount,
+    refetchNotifications,
+  ]);
 
   if (loading) {
     return (
@@ -165,7 +272,7 @@ const Home = () => {
 
       <div className="main-set mt-3">
         <div className="d-flex justify-content-between">
-          <div className="mt-4">
+          <div className="mt-0">
             <p className="title mb-2 shiny-silver" style={{ fontSize: 24, fontWeight: 700}}>EMASHARIAN</p>
             <p className="sub-title mb-0">Saldo Utama</p>
             {/* <div className="d-flex align-items-center mt-1 gap-1"> */}
@@ -190,16 +297,20 @@ const Home = () => {
             <p className="text-white text-sm fw-medium">Pendapatan Investasi</p>
             <p>
               <span><i className="fa-regular fa-clock"></i></span>
-              <span className="fw-medium fs-6"> {data?.participation_status?.hours_participated ?? 0} hr</span>
+              <span className="fw-medium fs-6"> {data?.investment?.current_hour ?? 0} hr</span>
               <span className="text-green ms-2">{investment?.hourly_rate ?? '0%'}/hr</span>
             </p>
           </div>
           <div className="bar">
-            <div className="active" style={{ width: `${Math.min(((data?.participation_status?.hours_participated ?? 0) / 24) * 100, 100)}%` }}></div>
+            <div className="active" style={{ width: `${nextProfitPercent}%` }}></div>
           </div>
           <div className="d-flex gap-2 justify-content-between mt-4">
             <button className="btn btn-participate w-100" onClick={handleParticipate} disabled={participating || investment?.is_active}>
-              <img src="/images/icon/run.svg" alt="" />
+              {!participating && investment?.is_active ? (
+                <WalkingIcon size={20} color="#fff" />
+              ) : (
+                <img src="/images/icon/run.svg" alt="" />
+              )}
               {participating ? 'Memproses...' : investment?.is_active ? 'SUDAH AKTIF' : 'IKUT SERTA'}
             </button>
             <button className="btn btn-clam w-100" onClick={handleClaimReward} disabled={claiming || !!investment?.has_claimed_reward}>
@@ -230,22 +341,21 @@ const Home = () => {
             jika tidak, pendapatan investasi tidak akan dihasilkan.
           </p>
         </div>
-        <div className="d-flex gap-2">
+        <div className="d-flex gap-2" style={{ marginTop: '-20px'}}>
           <i className="fa-solid fa-gift mt-1"></i>
           <p className="text-sm">
-            Investor dapat membuka kotak hadiah aset digital Grayscale dan mendapatkan
-            hadiah hingga <span className="text-14 text-green"> 1 BTC </span> (senilai
-            <span className="text-14 text-green"> $100.000 </span>)
+            Investor dapat membuka hadiah 1 hari sekali setelah berpartisipasi dalam investasi dan dapatkan
+            <span className="text-14 text-green"> Bonus pendapatan 1 jam </span>
           </p>
         </div>
       </div>
 
-      <div className="main-set">
+      <div className="main-set" style={{ marginTop: '-20px'}}>
         <div className="card-one">
           <div className="d-flex justify-content-between mb-2">
             <div>
               <p className="small mb-1">Akun Pendapatan</p>
-              <p className="title fs-2">{data?.user_income_formatted ?? 'Rp 0'}</p>
+              <p className="title fs-5">{data?.user_income_formatted ?? 'Rp 0'}</p>
             </div>
 
             <div className="profit-box">
@@ -265,9 +375,14 @@ const Home = () => {
             </div>
           </div>
           <div className="d-flex gap-2 justify-content-between mt-3">
-            {/* <button className="btn btn-one w-100" onClick={() => navigate('/deposit')}>Isi Ulang</button> */}
-            <button className="btn btn-two col" onClick={() => navigate('/withdraw')}>Penarikan</button>
+            <button type="button" className="btn btn-one col text-nowrap" onClick={handleOpenAccumulationModal}>Akumulasi Profit</button>
+            <button type="button" className="btn btn-two col" onClick={() => navigate('/withdraw')}>Penarikan</button>
           </div>
+          {savedAccumulationAmount !== null && (
+            <p className="text-12 mt-2 mb-0 text-green">
+              Nilai akumulasi: Rp {savedAccumulationAmount.toLocaleString('id-ID')}
+            </p>
+          )}
           <div className="shape"></div>
         </div>
       </div>
@@ -290,6 +405,89 @@ const Home = () => {
           </div>
         </div>
       </div>
+
+      {showAccumulationModal && (
+        <div className="accumulation-modal-backdrop" onClick={handleCloseAccumulationModal}>
+          <div className="accumulation-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="accumulation-modal-header">
+              <h5 className="mb-0">Akumulasi Profit</h5>
+              <button className="accumulation-modal-close" onClick={handleCloseAccumulationModal} aria-label="Tutup">×</button>
+            </div>
+            
+            <p className="text-12 mb-2">Konversi saldo penarikan ke utama</p>
+            
+            <form onSubmit={handleSubmitAccumulation}>
+              <div className="accumulation-two-columns">
+                {/* Kolom 1: Saldo Penarikan */}
+                <div className="accumulation-column">
+                  <label className="accumulation-modal-label">Saldo Penarikan</label>
+                  <input
+                    id="accumulationAmount"
+                    className="accumulation-modal-input"
+                    type="text"
+                    inputMode="numeric"
+                    min="1"
+                    placeholder={data?.user_income_formatted ?? 'Rp 0'}
+                    value={Number(accumulationAmount) > 0 ? Number(accumulationAmount).toLocaleString('id-ID') : ''}
+                    onChange={handleAccumulationChange}
+                    required
+                  />
+                </div>
+
+                {/* Panah dekorasi */}
+                <div className="accumulation-arrow"><img src="/images/icon/box-arrow-right.svg" alt="Arrow right" style={{ color: 'white'}}/></div>
+
+                {/* Kolom 2: Saldo Utama (auto-update) */}
+                <div className="accumulation-column">
+                  <label className="accumulation-modal-label">Saldo Utama</label>
+                  <div className="accumulation-main-balance">
+                    {`Rp ${projectedMainBalance.toLocaleString('id-ID')}`}
+                  </div>
+                </div>
+              </div>
+
+              <div className="d-flex justify-content-between accumulation-modal-actions">
+                <button type="button" className="btn btn-one col-6" onClick={handleCloseAccumulationModal}>Batal</button>
+                <button type="submit" className="btn btn-two col-6" disabled={accumulationSubmitting}>
+                  {accumulationSubmitting ? 'Memproses...' : 'Simpan'}
+                </button>
+              </div>
+              {accumulationMsg && (
+                <p className={`text-12 mt-2 mb-0 ${accumulationMsg.type === 'success' ? 'text-green' : 'text-danger'}`}>
+                  {accumulationMsg.text}
+                </p>
+              )}
+            </form>
+          </div>
+        </div>
+      )}
+
+      {showTransferResponseModal && (
+        <div className="accumulation-modal-backdrop" onClick={() => setShowTransferResponseModal(false)}>
+          <div className="accumulation-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="accumulation-modal-header">
+              <h5 className="mb-0">Status Transfer</h5>
+              <button
+                className="accumulation-modal-close"
+                onClick={() => setShowTransferResponseModal(false)}
+                aria-label="Tutup"
+              >
+                ×
+              </button>
+            </div>
+
+            <p className={`text-12 mb-3 ${transferResponse.type === 'success' ? 'text-green' : 'text-danger'}`}>
+              {transferResponse.text}
+            </p>
+
+            <div className="d-flex justify-content-end accumulation-modal-actions">
+              <button type="button" className="btn btn-two" onClick={() => setShowTransferResponseModal(false)}>
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
     </main>
   );

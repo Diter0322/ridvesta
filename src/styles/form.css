@@ -541,12 +541,6 @@ main.sign-up {
   animation: shine 2.5s linear infinite;
 }
 
-@keyframes shine {
-  to {
-    background-position: 200% center;
-  }
-}
-
 .shiny-silver {
   font-family: Jost, black sans-serif;
   font-size: 30px;
