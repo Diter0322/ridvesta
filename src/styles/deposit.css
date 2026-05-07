@@ -27,7 +27,7 @@
 
 .payment-method-btn.active {
   border-color: #4ca5ff;
-  background: linear-gradient(180deg, #17345f 0%, #112a4b 100%);
+  background: linear-gradient(180deg, #ffffff 10%, #112a4b 100%, #17345f 0%, #ffffff 40%);
   box-shadow: 0 0 0 1px #2f91ff55, 0 8px 22px #2f91ff33;
   transform: translateY(-1px);
 }
@@ -45,9 +45,9 @@
   position: relative;
   overflow: hidden;
   cursor: not-allowed;
-  opacity: 0.78;
+  /* opacity: 0.9; */
   border-color: #6f7d94;
-  filter: grayscale(0.2);
+  filter: grayscale(0.1);
 }
 
 .payment-method-btn.disabled::after {
@@ -75,7 +75,7 @@
 
 .payment-method-btn.disabled .method-logo,
 .payment-method-btn.disabled .method-label {
-  opacity: 0.45;
+  opacity: 0.90;
 }
 
 .payment-method-btn:focus-visible {
@@ -174,8 +174,8 @@
 }
 
 .minmax-item {
-  flex: 1;
-  display: flex;
+  /* flex: 1;
+  display: flex; */
   align-items: center;
   flex-wrap: wrap;
 }

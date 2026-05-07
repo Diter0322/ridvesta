@@ -1,6 +1,6 @@
 ﻿import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useDeposits } from '../hooks/useDeposits';
+import { useDepositStatus } from '../hooks/useDeposits';
 import '../styles/deposit-qris.css';
 
 const isHttpUrl = (value) => /^https?:\/\//i.test(String(value || ''));
@@ -51,19 +51,14 @@ const DepositQris = () => {
   };
 
   const currentOrderId = String(depositData?.order_id ?? '').trim();
-  const { data: depositsData } = useDeposits({
-    enabled: !!currentOrderId && currentOrderId !== '—',
+  const { data: statusData } = useDepositStatus(currentOrderId, {
     refetchInterval: 8000,
     refetchIntervalInBackground: true,
   });
 
-  const matchedDeposit = (depositsData?.deposits ?? []).find(
-    (item) => String(item?.order_id ?? '').trim() === currentOrderId
-  );
-
-  const liveStatus = String(matchedDeposit?.status ?? '').toLowerCase();
-  const isSuccess = liveStatus === 'approved' || liveStatus === 'success';
-  const isFailed = liveStatus === 'failed' || liveStatus === 'rejected' || liveStatus === 'cancelled';
+  const liveStatus = String(statusData?.status ?? '').toLowerCase();
+  const isSuccess = liveStatus === 'success';
+  const isFailed = liveStatus === 'failed';
   const statusLabel = isSuccess
     ? 'Pembayaran Berhasil'
     : isFailed

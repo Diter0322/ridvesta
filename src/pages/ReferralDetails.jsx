@@ -17,8 +17,8 @@ const ReferralDetails = () => {
   const commissionKey = level == 1 ? 'level_1_formatted' : level == 2 ? 'level_2_formatted' : 'level_3_formatted';
   const commissionAmt = commissions ? `Rp. ${commissions[commissionKey] || '0'}` : '-';
   const totalActiveRef = summary?.total_active_members ?? 0;
-  const levelIcons = { '1': 'referral1.png', '2': 'referral2.png', '3': 'referral3.png' };
-  const levelIcon = levelIcons[level] || 'referral1.png';
+  const levelIcons = { '1': '1st.png', '2': '2nd.png', '3': '3rd.png' };
+  const levelIcon = levelIcons[level] || '1st.png';
 
   return (
     <main
@@ -54,7 +54,7 @@ const ReferralDetails = () => {
             <img className="referral-bg" src="/images/refer-bg.png" alt="" />
             <div className="d-flex justify-content-between">
               <p className="text-18 text-white">
-                <img src={`/images/icon/${levelIcon}`} alt="" /> Level {level}
+                <img src={`/images/${levelIcon}`} alt="" /> Level {level}
               </p>
               <p className="text-14 text-light3 mb-0 mt-1 fw-semibold">
                 {levelInfo?.total_referrals ?? 0} Anggota
@@ -66,9 +66,6 @@ const ReferralDetails = () => {
                 <div className="col-6">
                   <div className="card-two">
                     <img className="bg" src="/images/referral-bg2.png" alt="" />
-                    <div>
-                      <img src="/images/icon/active-ref.svg" alt="" />
-                    </div>
                     <p className="text-18 text-white mb-1 mt-1 fw-semibold">
                       {totalActiveRef}
                     </p>
@@ -78,7 +75,6 @@ const ReferralDetails = () => {
                 <div className="col-6">
                   <div className="card-two">
                     <img className="bg" src="/images/referral-bg2.png" alt="" />
-                    <img src="/images/icon/commission.svg" alt="" />
                     <p className="text-18 text-white fw-semibold mb-1 mt-1">
                       {commissionAmt}
                     </p>

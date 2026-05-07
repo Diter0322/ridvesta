@@ -114,6 +114,7 @@ const Deposit = () => {
               className={`payment-method-btn ${selectedMethod === m.code ? 'active' : ''} ${m.status === 'maintenance' ? 'disabled' : ''}`}
               onClick={() => m.status !== 'maintenance' && setSelectedMethod(m.code)}
               type="button"
+              style={{ backgroundColor: 'rgb(255 255 255 / 0.7)' }}
             >
               <img src={m.logo} alt={m.label} className="method-logo" />
               <span className="method-label">{m.label}</span>
@@ -162,14 +163,14 @@ const Deposit = () => {
 
       {/* Min/Max Info */}
       <div className="minmax-card mt-4">
-        <div className="minmax-item">
+        <div className="minmax-item d-block">
           <span className="text-white-50 text-13">Minimal:</span>
-          <span className="text-blue fw-semibold ms-1">RP 50,000</span>
+          <span className="d-block text-blue fw-semibold">RP 50,000</span>
         </div>
         <div className="minmax-divider" />
-        <div className="minmax-item">
+        <div className="minmax-item d-block">
           <span className="text-white-50 text-13">Maksimal:</span>
-          <span className="text-blue fw-semibold ms-1">RP 10,000,000</span>
+          <span className="d-block text-blue fw-semibold">RP 10,000,000</span>
         </div>
       </div>
 

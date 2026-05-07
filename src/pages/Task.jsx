@@ -109,6 +109,7 @@ const Task = () => {
             
             // Check if task is locked from task.status.locked
             const isTaskLocked = task.status?.locked || task.locked || false;
+            const canClaim = task.status?.can_claim ?? true;
             
             // Extract current and required refs for display
             const currentRefs = task.progress?.current_refs ?? 0;
@@ -139,7 +140,7 @@ const Task = () => {
                   </div>
                   <button
                     className={isTaskLocked ? 'btn-lock' : 'btn-claimed'}
-                    disabled={isTaskLocked || submitTask.isPending}
+                    disabled={isTaskLocked || !canClaim || submitTask.isPending}
                     onClick={() => handleClaimTask(task.id)}
                   >
                     {submitTask.isPending && submitTask.variables === task.id ? (

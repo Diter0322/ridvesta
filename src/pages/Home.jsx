@@ -22,6 +22,7 @@ const Home = () => {
   const [accumulationMsg, setAccumulationMsg] = useState(null);
   const [showTransferResponseModal, setShowTransferResponseModal] = useState(false);
   const [showTarikModal, setShowTarikModal] = useState(false);
+  const [tarikAlertMsg, setTarikAlertMsg] = useState('');
   const [transferResponse, setTransferResponse] = useState({ type: null, text: '' });
   const [notifOpen, setNotifOpen] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -101,16 +102,22 @@ const Home = () => {
   };
 
   const handleOpenTarikModal = () => {
+    setTarikAlertMsg('');
     setShowTarikModal(true);
   };
 
   const handleCloseTarikModal = () => {
+    setTarikAlertMsg('');
     setShowTarikModal(false);
   };
 
   const handleConfirmTarikModal = () => {
-    setShowTarikModal(false);
-    navigate('/withdraw');
+    const createdAt = data?.first_success_deposit?.created_at;
+    const daysElapsed = createdAt
+      ? Math.floor((Date.now() - new Date(createdAt)) / 86400000)
+      : 0;
+    const daysLeft = Math.max(0, 90 - daysElapsed);
+    setTarikAlertMsg(`Penarikan dapat dilakukan dalam ${daysLeft} hari lagi.`);
   };
 
   const handleSubmitAccumulation = async (e) => {
@@ -537,10 +544,22 @@ const Home = () => {
               <div className="tarik-warning-alert" role="alert">
                 <i className="fa-solid fa-triangle-exclamation"></i>
                 <p className="mb-0">
-                  Dana hanya dapat ditarik setelah Anda berinvestasi selama <strong>90 hari</strong>.
+                  Dana hanya dapat ditarik setelah Anda berinvestasi selama <strong>90 hari</strong>.{' '}
+                  {data?.first_success_deposit?.created_at && (() => {
+                    const daysElapsed = Math.floor((Date.now() - new Date(data.first_success_deposit.created_at)) / 86400000);
+                    const daysLeft = Math.max(0, 90 - daysElapsed);
+                    return (
+                      <span className="fw-bold text-14" style={{ color: 'red' }}>
+                        {daysLeft > 0 ? `Sisa ${daysLeft} hari lagi` : 'Anda sudah dapat melakukan penarikan'}
+                      </span>
+                    );
+                  })()}
                 </p>
               </div>
               <p className="text-12 mb-0">Lanjutkan ke halaman penarikan sekarang?</p>
+              {tarikAlertMsg && (
+                <p className="text-danger text-12 fw-semibold mb-1">{tarikAlertMsg}</p>
+              )}
             </div>
             
             <div className="d-flex justify-content-between accumulation-modal-actions mb-2">
