@@ -126,20 +126,20 @@ const Team = () => {
                       </div>
                     </div>
                     <div className="commission">
-                      <p className="text-8 text-green2">Total Komisi</p>
-                      <p className="text-10 mb-0">{comm.formatted_amount ? `Rp ${comm.formatted_amount}` : 'Rp 0'}</p>
+                      <p className="text-10 text-green2">Total Komisi</p>
+                      <p className="text-12 mb-0">{comm.formatted_amount ? `Rp ${comm.formatted_amount}` : 'Rp 0'}</p>
                     </div>
                   </div>
                   <div className="row mt-2">
                     <div className="col-6">
                       <div className="team-card3">
-                        <p className="text-14 fw-semibold text-white pt-1">{lvl.total_active_members ?? 0}</p>
+                        <p className="text-14 fw-semibold text-white pt-1" style={{ marginBottom: 5 }}>{lvl.total_active_members ?? 0}</p>
                         <p className="text-light3 text-14">Anggota Aktif</p>
                       </div>
                     </div>
                     <div className="col-6">
                       <div className="team-card3">
-                        <p className="text-14 fw-semibold text-white pt-1">
+                        <p className="text-14 fw-semibold text-white pt-1" style={{ marginBottom: 5 }}>
                           {lvl.total_deposit_formatted ? `Rp ${lvl.total_deposit_formatted}` : 'Rp 0'}
                         </p>
                         <p className="text-light3 text-14">Total Deposit</p>

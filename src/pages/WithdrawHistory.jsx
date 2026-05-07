@@ -93,7 +93,7 @@ const WithdrawHistory = () => {
                   <p className="text-white text-18 fw-semibold mb-2">
                     Rp {w.amount_formatted}
                   </p>
-                  <p className="text-light4 mb-0 text-14">
+                  <p className="text-light4 mb-0 text-11">
                     <img
                       className="ovo"
                       src={w.bank?.logo_url || '/images/bri.png'}

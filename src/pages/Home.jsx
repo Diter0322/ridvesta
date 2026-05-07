@@ -21,18 +21,19 @@ const Home = () => {
   const [accumulationSubmitting, setAccumulationSubmitting] = useState(false);
   const [accumulationMsg, setAccumulationMsg] = useState(null);
   const [showTransferResponseModal, setShowTransferResponseModal] = useState(false);
+  const [showTarikModal, setShowTarikModal] = useState(false);
   const [transferResponse, setTransferResponse] = useState({ type: null, text: '' });
   const [notifOpen, setNotifOpen] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const notifRef = useRef(null);
 
   const { data: unreadData, refetch: refetchUnreadCount } = useUnreadCount();
-  const unreadCount = unreadData?.count ?? unreadData ?? 0;
+  const unreadCount = unreadData?.unread_count ?? 0;
   const { data: notifications, isLoading: notifLoading, refetch: refetchNotifications } = useRecentNotifications(notifOpen);
   const { mutate: markRead } = useMarkAsRead();
   const { mutate: markAllRead, isPending: markingAll } = useMarkAllAsRead();
 
-  const notifList = Array.isArray(notifications) ? notifications : (notifications?.data ?? []);
+  const notifList = Array.isArray(notifications) ? notifications : (notifications?.notifications ?? []);
 
   const toggleNotif = () => setNotifOpen((v) => !v);
 
@@ -97,6 +98,14 @@ const Home = () => {
   const handleCloseAccumulationModal = () => {
     setAccumulationMsg(null);
     setShowAccumulationModal(false);
+  };
+
+  const handleOpenTarikModal = () => {
+    setShowTarikModal(true);
+  };
+
+  const handleCloseTarikModal = () => {
+    setShowTarikModal(false);
   };
 
   const handleSubmitAccumulation = async (e) => {
@@ -212,7 +221,11 @@ const Home = () => {
     
           <div className="notif-wrapper" ref={notifRef}>
             <button className="btn-icon notif-btn" onClick={toggleNotif}>
-              <img src="/images/icon/notification.svg" alt="Notifications" />
+              <img
+                src={unreadCount > 0 ? '/images/icon/notification.svg' : '/images/icon/notification1.svg'}
+                alt="Notifications"
+                style={unreadCount === 0 ? { filter: 'brightness(0) invert(1)', width: '130', height: 'auto' } : undefined}
+              />
               {unreadCount > 0 && (
                 <span className="notif-badge">{unreadCount > 99 ? '99+' : unreadCount}</span>
               )}
@@ -278,10 +291,20 @@ const Home = () => {
             {/* <div className="d-flex align-items-center mt-1 gap-1"> */}
             <p className="title col text-nowrap fs-2">{data?.user_balance_formatted ?? 'Rp 0'}</p>
             {/* <div className='text-center'> */}
+            <div className="d-flex">
               <button className="btn btn-three col mt-1 text-nowrap text-white fs-medium text-nowrap" onClick={() => navigate('/deposit')}>
-              <img src="/images/icon/top-up.svg" alt="" style={{ marginRight: '3px', maxHeight: '20px', filter: 'brightness(0) invert(1)' }} />
-              Deposit Saldo
-            </button>
+                <img src="/images/icon/top-up.svg" alt="" style={{ marginRight: '3px', maxHeight: '20px', filter: 'brightness(0) invert(1)' }} />
+                Deposit Saldo
+              </button>
+              <button
+                className="btn btn-three col mt-1 text-nowrap text-white fs-medium text-nowrap"
+                style={{ backgroundColor: '#13c89d' }}
+                onClick={handleOpenTarikModal}
+              >
+                <img src="/images/icon/withdraw.svg" alt="" style={{ marginRight: '3px', maxHeight: '20px' }} />
+                Tarik Modal
+              </button>
+            </div>
 
             {/* </div> */}
             
@@ -435,7 +458,7 @@ const Home = () => {
                 </div>
 
                 {/* Panah dekorasi */}
-                <div className="accumulation-arrow"><img src="/images/icon/box-arrow-right.svg" alt="Arrow right" style={{ color: 'white'}}/></div>
+                <div className="accumulation-arrow"><img src="/images/icon/box-arrow-right.svg" alt="Arrow right"/></div>
 
                 {/* Kolom 2: Saldo Utama (auto-update) */}
                 <div className="accumulation-column">
@@ -483,6 +506,33 @@ const Home = () => {
             <div className="d-flex justify-content-end accumulation-modal-actions">
               <button type="button" className="btn btn-two" onClick={() => setShowTransferResponseModal(false)}>
                 OK
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showTarikModal && (
+        <div className="accumulation-modal-backdrop" onClick={handleCloseTarikModal}>
+          <div className="accumulation-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="accumulation-modal-header">
+              <h5 className="mb-0 text-center">Tarik Modal</h5>
+              <button
+                className="accumulation-modal-close"
+                onClick={handleCloseTarikModal}
+                aria-label="Tutup"
+              >
+                ×
+              </button>
+            </div>
+            <div className="text-center">
+              <img src="/images/seru.png" className="mb-3" alt="Informasi Tarik Modal" />
+              <p>Modal Investasi hanya dapat ditarik setelah <span style={{ color: 'yellow' }}>90 hari</span>. Modal anda dapat ditarik dalam <span style={{ color: 'green' }}>...</span></p>
+            </div>
+            
+            <div className="d-flex justify-content-center accumulation-modal-actions mb-4">
+              <button type="button" className="btn btn-two" onClick={handleCloseTarikModal}>
+                Tutup
               </button>
             </div>
           </div>

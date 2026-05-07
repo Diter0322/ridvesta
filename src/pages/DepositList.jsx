@@ -93,7 +93,9 @@ const DepositList = () => {
                 <div className="depo-card" key={d.id}>
                   <div className="d-flex gap-2 align-items-center">
                     <img
-                      src={getMethodLogo(d.payment_method?.code)}
+                      src={d.payment_method?.logo_url || '/images/bri.png'}
+                      className="img-fluid silver-emboss"
+                      style={{ maxHeight: 45, borderRadius: 25}}
                       alt={d.payment_method?.name || ''}
                       onError={(e) => { e.target.src = '/images/bri.png'; }}
                     />

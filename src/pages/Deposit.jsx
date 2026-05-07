@@ -4,10 +4,10 @@ import { useCreateDeposit } from '../hooks/useDeposits';
 import '../styles/deposit.css';
 
 const PAYMENT_METHODS = [
-  { code: 'qris', label: 'QRIS', logo: '/images/bank-logo/qris.png' },
-  { code: 'bri', label: 'BRI', logo: '/images/bank-logo/bri.png' },
-  { code: 'mandiri', label: 'MANDIRI', logo: '/images/bank-logo/mandiri.png' },
-  { code: 'bni', label: 'BNI', logo: '/images/bank-logo/bni.png' },
+  { code: 'qris', label: 'QRIS', logo: '/images/bank-logo/qris.png', status: 'active' },
+  { code: 'bri', label: 'BRI', logo: '/images/bank-logo/bri.png', status: 'maintenance' },
+  { code: 'mandiri', label: 'MANDIRI', logo: '/images/bank-logo/mandiri.png', status: 'maintenance' },
+  { code: 'bni', label: 'BNI', logo: '/images/bank-logo/bni.png', status: 'maintenance' },
 ];
 
 const QUICK_AMOUNTS = [50000, 100000, 500000, 1000000, 3000000, 5000000];
@@ -111,8 +111,8 @@ const Deposit = () => {
           {PAYMENT_METHODS.map((m) => (
             <button
               key={m.code}
-              className={`payment-method-btn ${selectedMethod === m.code ? 'active' : ''}`}
-              onClick={() => setSelectedMethod(m.code)}
+              className={`payment-method-btn ${selectedMethod === m.code ? 'active' : ''} ${m.status === 'maintenance' ? 'disabled' : ''}`}
+              onClick={() => m.status !== 'maintenance' && setSelectedMethod(m.code)}
               type="button"
             >
               <img src={m.logo} alt={m.label} className="method-logo" />

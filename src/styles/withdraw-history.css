@@ -48,7 +48,17 @@
   border-color: #2b8fff;
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
   margin-bottom: 14px;
+}
+
+.with-card > :first-child {
+  min-width: 0;
+}
+
+.with-card .text-end {
+  flex-shrink: 0;
 }
 
 .with-card img.ovo {
@@ -228,8 +238,8 @@
   }
 
   .with-card {
-    flex-direction: column;
-    gap: 12px;
+    flex-direction: row;
+    gap: 8px;
   }
 }
 
