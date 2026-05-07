@@ -4,6 +4,86 @@
   background-position: center;
 }
 
+.deposit-list .deposit-summary-card {
+  background: linear-gradient(135deg, rgba(18, 72, 143, 0.32) 0%, rgba(5, 33, 70, 0.52) 55%, rgba(3, 21, 45, 0.78) 100%);
+  border-radius: 14px;
+  padding: 16px 14px;
+  border: 1px solid rgba(122, 186, 255, 0.25);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+.deposit-list .deposit-summary-card::before {
+  content: "";
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  top: -80px;
+  right: -55px;
+  background: radial-gradient(circle, rgba(89, 181, 255, 0.55) 0%, rgba(89, 181, 255, 0) 70%);
+  pointer-events: none;
+}
+
+.deposit-list .deposit-summary-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(179, 220, 255, 0.85) 50%, rgba(255, 255, 255, 0) 100%);
+}
+
+.deposit-list .deposit-summary-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.deposit-list .deposit-summary-card .text-20 {
+  font-size: 16px;
+  letter-spacing: 0.2px;
+  color: #cfe9ff;
+}
+
+.deposit-list .deposit-summary-card .text-34 {
+  font-size: 28px;
+  text-shadow: 0 0 14px rgba(51, 155, 255, 0.42);
+}
+
+.deposit-list .deposit-summary-card p {
+  margin-bottom: 2px;
+  position: relative;
+  z-index: 1;
+}
+
+.deposit-list .deposit-weekly-box {
+  min-width: 132px;
+  align-self: center;
+  text-align: right;
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(141, 199, 255, 0.35);
+  background: linear-gradient(120deg, rgba(9, 62, 122, 0.35) 0%, rgba(8, 42, 90, 0.2) 100%);
+}
+
+.deposit-list .deposit-weekly-box p:first-child {
+  font-size: 11px;
+  color: #b8d9ff;
+}
+
+.deposit-list .deposit-weekly-box p:last-child {
+  font-size: 16px;
+  font-weight: 700;
+  color: #7dc7ff;
+  text-shadow: 0 0 10px rgba(125, 199, 255, 0.35);
+}
+
 .btn-contact {
   background-color: #2b8fff;
   border-radius: 99px;
@@ -46,7 +126,7 @@
 }
 
 .deposit-list .nav-tabs li button {
-  background-color: #ffffff24;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(183, 210, 239, 0.08) 100%);
   border-radius: 10px;
   padding: 8px;
   color: #ebecef;
@@ -55,7 +135,13 @@
   line-height: 0;
   height: 38px;
   min-width: 90px;
-  border: 0;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  transition: all 0.2s ease;
+}
+
+.deposit-list .nav-tabs li button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(157, 204, 255, 0.4);
 }
 
 .deposit-list .nav-tabs li {
@@ -63,8 +149,9 @@
 }
 
 .nav-tabs .nav-link.active {
-  background: linear-gradient(90deg, #2f91ff 0%, #2580e6 100%);
+  background: linear-gradient(90deg, #2f91ff 0%, #1f7be4 100%);
   color: #ffffff;
+  box-shadow: 0 6px 14px rgba(47, 145, 255, 0.35);
 }
 
 /* Text utility classes */
@@ -180,15 +267,125 @@
   padding-top: 16px;
 }
 
-.depo-card {
+.deposit-list .depo-card {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px;
-  background-color: #2b8fff0f;
-  border: 1px solid #ebecef1a;
-  border-radius: 12px;
+  padding: 16px 16px 42px;
+  background: linear-gradient(120deg, rgba(6, 32, 66, 0.94) 0%, rgba(6, 39, 81, 0.88) 50%, rgba(9, 57, 111, 0.75) 100%);
+  border: 1px solid rgba(94, 176, 255, 0.35);
+  border-left: 4px solid rgba(94, 176, 255, 0.8);
+  border-radius: 14px;
   margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28);
+}
+
+.deposit-list .depo-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(130deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0) 35%);
+  pointer-events: none;
+}
+
+.deposit-list .depo-card .amount-label {
+  display: inline-block;
+  font-size: 10px;
+  line-height: 1;
+  color: #9cc7ff;
+  background: linear-gradient(90deg, rgba(43, 143, 255, 0.28) 0%, rgba(28, 109, 199, 0.24) 100%);
+  border: 1px solid rgba(118, 186, 255, 0.42);
+  border-radius: 999px;
+  padding: 5px 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.deposit-list .depo-card .amount-label::before {
+  content: "\2022";
+  color: #6cd4ff;
+  margin-right: 6px;
+}
+
+.deposit-list .depo-card .method-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px !important;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.12);
+  object-fit: contain;
+  padding: 2px;
+}
+
+.deposit-list .depo-card .text-18 {
+  font-size: 17px;
+}
+
+.deposit-list .depo-card .text-14 {
+  font-size: 13px;
+}
+
+.deposit-list .depo-card .deposit-meta {
+  font-size: 12px;
+}
+
+.deposit-list .depo-card img {
+  border-radius: 8px !important;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.12);
+  object-fit: contain;
+  padding: 2px;
+}
+
+.deposit-date-group {
+  margin-bottom: 14px;
+}
+
+.deposit-date-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #b8d9ff;
+  letter-spacing: 0.2px;
+  padding: 0 2px;
+}
+
+.deposit-list .depo-card .tx-datetime {
+  position: absolute;
+  right: 14px;
+  bottom: 10px;
+  text-align: right;
+  color: #9cb7d9;
+  font-size: 11px;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.deposit-list .depo-card .badge {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.deposit-list .depo-card .badge.success {
+  color: #8ff0bb;
+  background: linear-gradient(90deg, rgba(42, 205, 116, 0.22) 0%, rgba(42, 205, 116, 0.08) 100%);
+  border-color: rgba(42, 205, 116, 0.45);
+}
+
+.deposit-list .depo-card .badge.process {
+  color: #ffd09f;
+  background: linear-gradient(90deg, rgba(255, 147, 75, 0.24) 0%, rgba(255, 147, 75, 0.08) 100%);
+  border-color: rgba(255, 168, 100, 0.45);
+}
+
+.deposit-list .depo-card .tx-datetime {
+  position: absolute;
+  right: 14px;
+  bottom: 10px;
+  text-align: right;
+  color: #9cb7d9;
+  font-size: 11px;
+  line-height: 1.25;
 }
 
 .deposit-list .row {
@@ -207,9 +404,63 @@
 
 /* Responsive */
 @media (max-width: 480px) {
+  .deposit-list .deposit-summary-grid {
+    gap: 8px;
+  }
+
+  .deposit-list .deposit-weekly-box {
+    min-width: 112px;
+    padding: 7px 8px;
+  }
+
+  .deposit-list .deposit-weekly-box p:last-child {
+    font-size: 14px;
+  }
+
+  .deposit-list .deposit-summary-card .text-20 {
+    font-size: 14px;
+  }
+
+  .deposit-list .deposit-summary-card .text-34 {
+    font-size: 24px;
+  }
+
   .deposit-list .nav-tabs li button {
     min-width: 70px;
     padding: 6px;
+  }
+
+  .deposit-list .depo-card {
+    padding: 14px 14px 14px;
+  }
+
+  .deposit-list .depo-card .amount-label {
+    font-size: 9px;
+    padding: 4px 8px;
+  }
+
+  .deposit-list .depo-card .text-18 {
+    font-size: 16px;
+  }
+
+  .deposit-date-label {
+    font-size: 11px;
+  }
+
+  .deposit-list .depo-card .tx-datetime {
+    right: 12px;
+    bottom: 8px;
+    font-size: 10px;
+  }
+
+  .deposit-list .depo-card .text-14 {
+    font-size: 12px;
+  }
+
+  .deposit-list .depo-card .tx-datetime {
+    right: 12px;
+    bottom: 8px;
+    font-size: 10px;
   }
 }
 

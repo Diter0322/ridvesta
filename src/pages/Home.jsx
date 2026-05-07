@@ -303,9 +303,9 @@ const Home = () => {
             {/* <div className="d-flex align-items-center mt-1 gap-1"> */}
             <p className="title col text-nowrap fs-2">{data?.user_balance_formatted ?? 'Rp 0'}</p>
             {/* <div className='text-center'> */}
-            <div className="d-flex">
+            <div className="d-flex gap-1">
               <button className="btn btn-three col mt-1 text-nowrap text-white fs-medium text-nowrap" onClick={() => navigate('/deposit')}>
-                <img src="/images/icon/top-up.svg" alt="" style={{ marginRight: '3px', maxHeight: '20px', filter: 'brightness(0) invert(1)' }} />
+              
                 Deposit Saldo
               </button>
               <button
@@ -313,7 +313,6 @@ const Home = () => {
                 style={{ backgroundColor: '#13c89d' }}
                 onClick={handleOpenTarikModal}
               >
-                <img src="/images/icon/withdraw.svg" alt="" style={{ marginRight: '3px', maxHeight: '20px' }} />
                 Tarik Modal
               </button>
             </div>
@@ -556,10 +555,11 @@ const Home = () => {
                   })()}
                 </p>
               </div>
-              <p className="text-12 mb-0">Lanjutkan ke halaman penarikan sekarang?</p>
-              {tarikAlertMsg && (
-                <p className="text-danger text-12 fw-semibold mb-1">{tarikAlertMsg}</p>
-              )}
+              <div className="mb-2">
+                {tarikAlertMsg && (
+                  <p className="text-danger text-12 fw-semibold mb-1">{tarikAlertMsg}</p>
+                )}
+              </div>
             </div>
             
             <div className="d-flex justify-content-between accumulation-modal-actions mb-2">

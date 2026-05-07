@@ -92,7 +92,7 @@ const ReferralDetails = () => {
             </div>
           ) : (
             members.map((member, index) => {
-              const rank = String(index + 1).padStart(2, '0');
+              const rank = String(index + 1).padStart(2, '');
               const isActive = member.member_status === 'active';
               const displayName = member.fullname || member.name || 'Tidak Diketahui';
               const maskedPhone = member.phone

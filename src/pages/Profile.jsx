@@ -67,7 +67,7 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className="text-center pt-4">
+      <div className="text-center pt-2">
         <div className="relative profile-pic">
           <img
               className="user"
@@ -86,7 +86,7 @@ const Profile = () => {
             <i className="fa-regular fa-camera"></i>
           </button>
         </div>
-        <p className="text-white fw-semibold fs-5 mb-2">{user?.fullname ?? 'Memuat...'}</p>
+        <p className="text-white fw-semibold fs-5 mb-1">{user?.fullname ?? 'Memuat...'}</p>
         <p className="text-light3">No. HP: {user?.phone ?? user?.phone_number ?? user?.no_hp ?? user?.noHp ?? '-'}</p>
       </div>
 

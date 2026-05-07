@@ -15,6 +15,38 @@ const statusBadgeClass = (status) => {
   return 'pending';
 };
 
+const parseWithdrawalDate = (withdrawal) => {
+  const dateValue = withdrawal.created_at || withdrawal.createdAt || withdrawal.date;
+  if (!dateValue) return null;
+  const parsed = new Date(dateValue);
+  return Number.isNaN(parsed.getTime()) ? null : parsed;
+};
+
+const formatDateHeader = (dateObj) => (
+  new Intl.DateTimeFormat('id-ID', {
+    weekday: 'long',
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  }).format(dateObj)
+);
+
+const formatTimeValue = (dateObj) => (
+  new Intl.DateTimeFormat('id-ID', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).format(dateObj)
+);
+
+const formatDateValue = (dateObj) => (
+  new Intl.DateTimeFormat('id-ID', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  }).format(dateObj)
+);
+
 const WithdrawHistory = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('all');
@@ -23,6 +55,17 @@ const WithdrawHistory = () => {
   const withdrawals = data?.withdrawals || [];
   const approved = withdrawals.filter((w) => w.status === 'approved');
   const totalAmount = approved.reduce((sum, w) => sum + (w.amount || 0), 0).toLocaleString('id-ID');
+  const oneWeekAgo = Date.now() - (7 * 24 * 60 * 60 * 1000);
+  const weeklyAmount = approved
+    .filter((w) => {
+      const dateValue = w.created_at || w.createdAt || w.date;
+      if (!dateValue) return false;
+      const parsedDate = new Date(dateValue);
+      if (Number.isNaN(parsedDate.getTime())) return false;
+      return parsedDate.getTime() >= oneWeekAgo;
+    })
+    .reduce((sum, w) => sum + (w.amount || 0), 0)
+    .toLocaleString('id-ID');
 
   const currentFilter = TABS.find((t) => t.key === activeTab)?.filter;
   const filtered = currentFilter
@@ -32,6 +75,42 @@ const WithdrawHistory = () => {
           : w.status === currentFilter
       )
     : withdrawals;
+
+  const sortedWithdrawals = [...filtered].sort((a, b) => {
+    const aDate = parseWithdrawalDate(a);
+    const bDate = parseWithdrawalDate(b);
+
+    if (!aDate && !bDate) return 0;
+    if (!aDate) return 1;
+    if (!bDate) return -1;
+
+    return bDate.getTime() - aDate.getTime();
+  });
+
+  const groupedByDate = sortedWithdrawals.reduce((groups, withdrawal) => {
+    const parsedDate = parseWithdrawalDate(withdrawal);
+    const dateKey = parsedDate
+      ? new Intl.DateTimeFormat('en-CA', {
+          timeZone: 'Asia/Jakarta',
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+        }).format(parsedDate)
+      : 'no-date';
+
+    const existingGroup = groups.find((group) => group.key === dateKey);
+    if (existingGroup) {
+      existingGroup.items.push(withdrawal);
+      return groups;
+    }
+
+    groups.push({
+      key: dateKey,
+      label: parsedDate ? formatDateHeader(parsedDate) : 'Tanggal tidak tersedia',
+      items: [withdrawal],
+    });
+    return groups;
+  }, []);
 
   return (
     <main className="withdraw-history mb-3" style={{ backgroundImage: 'url(/images/signup-bg.jpeg)' }}>
@@ -52,11 +131,19 @@ const WithdrawHistory = () => {
 
       <div className="mt-4">
         <div className="withdraw-card">
-          <p className="text-white text-20 mb-1 fw-medium">Total Penarikan Sukses</p>
-          <p>
-            <span className="text-white fw-semibold">Rp </span>
-            <span className="text-blue text-34 fw-semibold">{totalAmount}</span>
-          </p>
+          <div className="withdraw-summary-grid">
+            <div>
+              <p className="text-white text-20 mb-1 fw-medium">Total Penarikan Sukses</p>
+              <p>
+                <span className="text-white fw-semibold">Rp </span>
+                <span className="text-blue text-34 fw-semibold">{totalAmount}</span>
+              </p>
+            </div>
+            <div className="withdraw-weekly-box">
+              <p className="mb-1">7 Hari Terakhir</p>
+              <p className="mb-0">Rp {weeklyAmount}</p>
+            </div>
+          </div>
         </div>
 
         <ul className="nav nav-tabs mt-4" id="myTab" role="tablist">
@@ -87,30 +174,41 @@ const WithdrawHistory = () => {
               <p>Tidak ada catatan penarikan.</p>
             </div>
           ) : (
-            filtered.map((w) => (
-              <div className="with-card" key={w.id}>
-                <div>
-                  <p className="text-white text-18 fw-semibold mb-2">
-                    Rp {w.amount_formatted}
-                  </p>
-                  <p className="text-light4 mb-0 text-11">
-                    <img
-                      className="ovo"
-                      src={w.bank?.logo_url || '/images/bri.png'}
-                      alt=""
-                      onError={(e) => { e.target.src = '/images/bri.png'; }}
-                    />{' '}
-                    {w.bank?.name || '-'} {w.bank?.masked_account || ''}
-                  </p>
-                </div>
-                <div className="text-end">
-                  <span className={`${statusBadgeClass(w.status)} badge`}>
-                    {w.status_text || w.status}
-                  </span>
-                  <p className="text-light3 text-14 mb-0 mt-2">
-                    Fee: Rp {w.tax_formatted || '0'}
-                  </p>
-                </div>
+            groupedByDate.map((group) => (
+              <div key={group.key} className="withdraw-date-group">
+                <p className="withdraw-date-label mb-2">{group.label}</p>
+                {group.items.map((w) => {
+                  const parsedDate = parseWithdrawalDate(w);
+                  return (
+                    <div className="with-card" key={w.id}>
+                      <div>
+                        <p className="text-white text-18 fw-semibold mb-2">
+                          Rp {w.amount_formatted}
+                        </p>
+                        <p className="text-light4 mb-0 text-11">
+                          <img
+                            className="ovo"
+                            src={w.bank?.logo_url || '/images/bri.png'}
+                            alt=""
+                            onError={(e) => { e.target.src = '/images/bri.png'; }}
+                          />{' '}
+                          {w.bank?.name || '-'} {w.bank?.masked_account || ''}
+                        </p>
+                      </div>
+                      <div className="text-end">
+                        <span className={`${statusBadgeClass(w.status)} badge`}>
+                          {w.status_text || w.status}
+                        </span>
+                        <p className="text-light3 text-14 mb-0 mt-2">
+                          Pajak: Rp {w.tax_formatted || '0'}
+                        </p>
+                        <p className="mb-0 text-white-50 text-11 mt-2">
+                          {parsedDate ? `${formatDateValue(parsedDate)} | ${formatTimeValue(parsedDate)} WIB` : '-'}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             ))
           )}
