@@ -108,6 +108,11 @@ const Home = () => {
     setShowTarikModal(false);
   };
 
+  const handleConfirmTarikModal = () => {
+    setShowTarikModal(false);
+    navigate('/withdraw');
+  };
+
   const handleSubmitAccumulation = async (e) => {
     e.preventDefault();
     if (accumulationSubmitting) return;
@@ -514,7 +519,7 @@ const Home = () => {
 
       {showTarikModal && (
         <div className="accumulation-modal-backdrop" onClick={handleCloseTarikModal}>
-          <div className="accumulation-modal" onClick={(e) => e.stopPropagation()}>
+          <div className="accumulation-modal tarik-modal" onClick={(e) => e.stopPropagation()}>
             <div className="accumulation-modal-header">
               <h5 className="mb-0 text-center">Tarik Modal</h5>
               <button
@@ -525,14 +530,25 @@ const Home = () => {
                 ×
               </button>
             </div>
-            <div className="text-center">
-              <img src="/images/seru.png" className="mb-3" alt="Informasi Tarik Modal" />
-              <p>Modal Investasi hanya dapat ditarik setelah <span style={{ color: 'yellow' }}>90 hari</span>. Modal anda dapat ditarik dalam <span style={{ color: 'green' }}>...</span></p>
+            <div className="text-center tarik-modal-content">
+              <div className="tarik-modal-badge">Informasi Penarikan</div>
+              <p className="text-12 mb-2">Saldo Investasi Anda</p>
+              <p className="title fs-4 mb-2">{data?.user_balance_formatted ?? 'Rp 0'}</p>
+              <div className="tarik-warning-alert" role="alert">
+                <i className="fa-solid fa-triangle-exclamation"></i>
+                <p className="mb-0">
+                  Dana hanya dapat ditarik setelah Anda berinvestasi selama <strong>90 hari</strong>.
+                </p>
+              </div>
+              <p className="text-12 mb-0">Lanjutkan ke halaman penarikan sekarang?</p>
             </div>
             
-            <div className="d-flex justify-content-center accumulation-modal-actions mb-4">
-              <button type="button" className="btn btn-two" onClick={handleCloseTarikModal}>
-                Tutup
+            <div className="d-flex justify-content-between accumulation-modal-actions mb-2">
+              <button type="button" className="btn btn-one col-6" onClick={handleCloseTarikModal}>
+                Batal
+              </button>
+              <button type="button" className="btn btn-two col-6" onClick={handleConfirmTarikModal}>
+                Penarikan
               </button>
             </div>
           </div>
