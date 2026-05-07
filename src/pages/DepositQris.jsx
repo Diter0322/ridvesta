@@ -82,9 +82,9 @@ const DepositQris = () => {
   const qrCodeUrl = toQrImageSrc(depositData?.qr_code_url ?? depositData?.qr_raw);
 
   const instructions = [
-    { icon: '📱', text: '01.Open your preferred QRIS payment app.' },
-    { icon: '📋', text: '02.Scan the QR code shown above.' },
-    { icon: '💳', text: '05.Verify the amount and confirm payment.' },
+    { icon: '📱', text: '01. Buka aplikasi pembayaran QRIS pilihan Anda.' },
+    { icon: '📋', text: '02. Pindai kode QR yang ditampilkan di atas.' },
+    { icon: '💳', text: '03. Verifikasi jumlah dan konfirmasi pembayaran .' },
   ];
 
   const handleCloseSuccessModal = () => {
@@ -120,11 +120,11 @@ const DepositQris = () => {
           <img src="/images/btn-back.png" className="btn-back" alt="Kembali" />
         </button>
         <div className="text-center w-100">
-          <p className="text-white fw-semibold fs-5 mb-0 me-5">Deposit Qris</p>
+          <p className="text-white fw-semibold fs-5 mb-0 me-5">Pembayaran QRIS</p>
         </div>
       </div>
 
-      <p className="text-white-50 text-13 mt-3">Scan the QR code to complete your transaction</p>
+      <p className="text-white-50 text-13 mt-3">Scan kode QRIS untuk menyelesaikan transaksi Anda</p>
       <div className={`payment-status-chip ${isSuccess ? 'success' : isFailed ? 'failed' : 'pending'}`}>
         <span className="dot" />
         <span>{statusLabel}</span>
@@ -162,7 +162,7 @@ const DepositQris = () => {
       {/* Transaction Details */}
       <div className="qris-detail-card mt-4">
         <p className="text-white fw-semibold text-13 mb-3" style={{ letterSpacing: '0.5px' }}>
-          TRANSACTION DETAILS
+          DETAIL TRANSAKSI
         </p>
         <div className="d-flex justify-content-between mb-2">
           <span className="text-white-50 text-13">Order Id:</span>
@@ -171,7 +171,7 @@ const DepositQris = () => {
           </span>
         </div>
         <div className="d-flex justify-content-between">
-          <span className="text-white-50 text-13">Amount:</span>
+          <span className="text-white-50 text-13">Jumlah Deposit:</span>
           <span className="text-blue fw-semibold text-13">
             Rp {Number(depositData?.amount ?? 0).toLocaleString('id-ID')}
           </span>
@@ -181,13 +181,13 @@ const DepositQris = () => {
       {/* How to Pay */}
       <div className="instructions-card mt-3">
         <p className="text-white fw-semibold text-13 mb-3" style={{ letterSpacing: '0.5px' }}>
-          HOW TO PAY WITH QRIS
+          Petunjuk Pembayaran QRIS
         </p>
         {instructions.map((item, i) => (
           <div className="instruction-row" key={i}>
             <span className="instruction-icon">{item.icon}</span>
             <span className="text-white text-13">{item.text}</span>
-          </div>
+          </div>  
         ))}
       </div>
 
@@ -198,7 +198,7 @@ const DepositQris = () => {
           onClick={() => navigate('/deposit-list')}
           type="button"
         >
-          {isSuccess ? 'View Deposit History' : 'I Have Paid'}
+          {isSuccess ? 'Lihat Riwayat Deposit' : 'Saya Sudah Membayar'}
         </button>
       </div>
     </main>

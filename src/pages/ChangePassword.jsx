@@ -131,7 +131,7 @@ const ChangePassword = () => {
               <i className={`mt-3 pt-4 fa-regular fa-eye${showPasswords.confirm ? '' : '-slash'}`}></i>
             </button>
           </div>
-          <button type="submit" className="login-btn mt-3" disabled={changePassword.isPending}>
+          <button type="submit" className="login-btn1 mt-3" disabled={changePassword.isPending}>
             {changePassword.isPending ? (
               <>
                 <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>

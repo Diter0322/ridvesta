@@ -23,6 +23,7 @@ const Home = () => {
   const [showTransferResponseModal, setShowTransferResponseModal] = useState(false);
   const [transferResponse, setTransferResponse] = useState({ type: null, text: '' });
   const [notifOpen, setNotifOpen] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
   const notifRef = useRef(null);
 
   const { data: unreadData, refetch: refetchUnreadCount } = useUnreadCount();
@@ -48,6 +49,15 @@ const Home = () => {
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
   }, [notifOpen]);
+
+  // Real-time ticker for hourly countdown
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const handleClaimReward = async () => {
     if (claiming || investment?.has_claimed_reward) return;
@@ -102,7 +112,7 @@ const Home = () => {
     }
 
     if (numericValue > availableIncome) {
-      setAccumulationMsg({ type: 'error', text: 'Jumlah transfer tidak boleh melebihi saldo pendapatan.' });
+      setAccumulationMsg({ type: 'error', text: 'Jumlah transfer tidak boleh melebihi saldo rekening.' });
       return;
     }
 
@@ -152,20 +162,12 @@ const Home = () => {
   const accumulationInputValue = Number(accumulationAmount || 0);
   const projectedMainBalance = baseUserBalance + accumulationInputValue;
 
-  const rawNextProfitTime = data?.investment?.next_profit_time;
-  const parsedNextProfitTime = rawNextProfitTime
-    ? new Date(rawNextProfitTime)
-    : null;
-  const nextProfitTime = parsedNextProfitTime && !Number.isNaN(parsedNextProfitTime.getTime())
-    ? parsedNextProfitTime
-    : (rawNextProfitTime ? new Date(String(rawNextProfitTime).replace(' ', 'T')) : null);
-  const nextProfitTimeValid = nextProfitTime && !Number.isNaN(nextProfitTime.getTime());
-
-  const hoursLeftUntilNextProfit = nextProfitTimeValid
-    ? Math.max(0, Math.min(24, (nextProfitTime - new Date()) / (1000 * 60 * 60)))
-    : 0;
-
-  const nextProfitPercent = (hoursLeftUntilNextProfit / 24) * 100;
+  const secondsPassedThisHour = (currentTime.getMinutes() * 60) + currentTime.getSeconds();
+  const secondsUntilNextHour = 3600 - secondsPassedThisHour;
+  const countdownMinutes = Math.floor(secondsUntilNextHour / 60);
+  const countdownSeconds = secondsUntilNextHour % 60;
+  const countdownLabel = `${countdownMinutes}m ${String(countdownSeconds).padStart(2, '0')}s`;
+  const nextProfitPercent = (secondsPassedThisHour / 3600) * 100;
 
   useEffect(() => {
     if (!showTransferResponseModal) return;
@@ -207,9 +209,7 @@ const Home = () => {
           </div>
         </div>
         <div className="header-actions d-flex gap-2">
-          <button className="btn-icon">
-            <img src="/images/icon/message.svg" alt="Messages" />
-          </button>
+    
           <div className="notif-wrapper" ref={notifRef}>
             <button className="btn-icon notif-btn" onClick={toggleNotif}>
               <img src="/images/icon/notification.svg" alt="Notifications" />
@@ -274,13 +274,13 @@ const Home = () => {
         <div className="d-flex justify-content-between">
           <div className="mt-0">
             <p className="title mb-2 shiny-silver" style={{ fontSize: 24, fontWeight: 700}}>EMASHARIAN</p>
-            <p className="sub-title mb-0">Saldo Utama</p>
+            <p className="sub-title mb-0">Saldo Investasi</p>
             {/* <div className="d-flex align-items-center mt-1 gap-1"> */}
             <p className="title col text-nowrap fs-2">{data?.user_balance_formatted ?? 'Rp 0'}</p>
             {/* <div className='text-center'> */}
               <button className="btn btn-three col mt-1 text-nowrap text-white fs-medium text-nowrap" onClick={() => navigate('/deposit')}>
               <img src="/images/icon/top-up.svg" alt="" style={{ marginRight: '3px', maxHeight: '20px', filter: 'brightness(0) invert(1)' }} />
-              Isi Ulang
+              Deposit Saldo
             </button>
 
             {/* </div> */}
@@ -294,14 +294,14 @@ const Home = () => {
         
         <div className="card-one mt-2">
           <div className="d-flex justify-content-between">
-            <p className="text-white text-sm fw-medium">Pendapatan Investasi</p>
+            <p className="text-white fw-medium">Pendapatan Profit</p>
             <p>
               <span><i className="fa-regular fa-clock"></i></span>
-              <span className="fw-medium fs-6"> {data?.investment?.current_hour ?? 0} hr</span>
+              <span className="fw-medium fs-6"> {countdownLabel}</span>
               <span className="text-green ms-2">{investment?.hourly_rate ?? '0%'}/hr</span>
             </p>
           </div>
-          <div className="bar">
+          <div className="bar" style={{ marginTop: '-5px' }}>
             <div className="active" style={{ width: `${nextProfitPercent}%` }}></div>
           </div>
           <div className="d-flex gap-2 justify-content-between mt-4">
@@ -315,7 +315,7 @@ const Home = () => {
             </button>
             <button className="btn btn-clam w-100" onClick={handleClaimReward} disabled={claiming || !!investment?.has_claimed_reward}>
               <img src="/images/icon/reward.svg" alt="" />
-              {claiming ? 'Memproses...' : investment?.has_claimed_reward ? 'Sudah Diklaim' : 'Klaim Reward'}
+              {claiming ? 'Memproses...' : investment?.has_claimed_reward ? 'Sudah Diklaim' : 'Klaim Hadiah'}
             </button>
           </div>
           {participateMsg && (
@@ -336,16 +336,16 @@ const Home = () => {
         <div className="d-flex gap-2">
           <i className="fa-regular fa-circle-question mt-1"></i>
           <p className="text-sm">
-            Investor perlu klik untuk berpartisipasi dalam investasi pada
-            <span className="text-14 text-blue"> pukul 08.00 </span> setiap pagi,
-            jika tidak, pendapatan investasi tidak akan dihasilkan.
+            <span className="text-12 text-yellow" style={{ color: 'gold'}}>Investor perlu klik untuk berpartisipasi dalam investasi pada </span>
+            <span className="text-13 text-blue"> pukul 08:00 WIB </span>  <span className="text-12 text-yellow" style={{ color: 'gold'}}> setiap pagi,
+            jika tidak, pendapatan investasi tidak akan dihasilkan.</span>
           </p>
         </div>
         <div className="d-flex gap-2" style={{ marginTop: '-20px'}}>
           <i className="fa-solid fa-gift mt-1"></i>
           <p className="text-sm">
             Investor dapat membuka hadiah 1 hari sekali setelah berpartisipasi dalam investasi dan dapatkan
-            <span className="text-14 text-green"> Bonus pendapatan 1 jam </span>
+            <span className="text-13 text-green"> Bonus pendapatan 1 jam </span>
           </p>
         </div>
       </div>
@@ -354,28 +354,28 @@ const Home = () => {
         <div className="card-one">
           <div className="d-flex justify-content-between mb-2">
             <div>
-              <p className="small mb-1">Akun Pendapatan</p>
+              <p className="small mb-1">Saldo Rekening</p>
               <p className="title fs-5">{data?.user_income_formatted ?? 'Rp 0'}</p>
             </div>
 
             <div className="profit-box">
-              <p className="small">Pendapatan Terakhir</p>
+              <p className="small">Pendapatan Kemarin</p>
               <p className="title text-green">{data?.last_profit_data ? 'Rp ' + Number(data.last_profit_data.amount).toLocaleString('id-ID') : 'Rp 0'}</p>
             </div>
           </div>
 
           <div className="d-flex gap-3">
             <div className="card-two">
-              <p className="text-sm mb-1">Total Pendapatan</p>
+              <p className="text-sm mb-1">Total Profit</p>
               <p className="sub mb-0">{investment?.total_earned_formatted ?? 'Rp 0'}</p>
             </div>
             <div className="card-two">
-              <p className="text-sm mb-1">Keuntungan Berjalan</p>
+              <p className="text-sm mb-1">Profit Berlangsung</p>
               <p className="sub mb-0">{investment?.running_profit_formatted ?? 'Rp 0'}</p>
             </div>
           </div>
           <div className="d-flex gap-2 justify-content-between mt-3">
-            <button type="button" className="btn btn-one col text-nowrap" onClick={handleOpenAccumulationModal}>Akumulasi Profit</button>
+            <button type="button" className="btn btn-one col text-nowrap" onClick={handleOpenAccumulationModal}>Transfer Saldo</button>
             <button type="button" className="btn btn-two col" onClick={() => navigate('/withdraw')}>Penarikan</button>
           </div>
           {savedAccumulationAmount !== null && (
@@ -390,12 +390,12 @@ const Home = () => {
       {/* Video Tutorial */}
       <div className="latest-news mt-4 mb-5 pb-4">
         <div className="d-flex justify-content-between text-white align-items-center mb-1">
-          <p className="mb-1">Tutorial Video</p>
+          <p className="mb-1">Video Penjelasan</p>
         </div>
         <div className="video-card">
-          <p className="fw-semibold mb-0 text-white">IDVESTA APP RELEASE</p>
+          <p className="fw-semibold mb-0 text-white">Cara Menghasilkan Uang!</p>
           <p className="text-12 text-secondary mb-3">
-            Peluncuran Resmi Aplikasi Investasi Online IDVESTA..
+            Panduan mudah untuk memulai investasi dan menghasilkan pendapatan dengan EmasHarian.com
           </p>
           <div className="mt-3 relative">
             <img className="bg" src="/images/video-bd.png" alt="" />
@@ -410,11 +410,11 @@ const Home = () => {
         <div className="accumulation-modal-backdrop" onClick={handleCloseAccumulationModal}>
           <div className="accumulation-modal" onClick={(e) => e.stopPropagation()}>
             <div className="accumulation-modal-header">
-              <h5 className="mb-0">Akumulasi Profit</h5>
+              <h5 className="mb-0">Transfer Saldo</h5>
               <button className="accumulation-modal-close" onClick={handleCloseAccumulationModal} aria-label="Tutup">×</button>
             </div>
             
-            <p className="text-12 mb-2">Konversi saldo penarikan ke utama</p>
+            <p className="text-12 mb-2">Konversi Saldo Penarikan ke Saldo Investasi</p>
             
             <form onSubmit={handleSubmitAccumulation}>
               <div className="accumulation-two-columns">
@@ -439,7 +439,7 @@ const Home = () => {
 
                 {/* Kolom 2: Saldo Utama (auto-update) */}
                 <div className="accumulation-column">
-                  <label className="accumulation-modal-label">Saldo Utama</label>
+                  <label className="accumulation-modal-label">Saldo Investasi</label>
                   <div className="accumulation-main-balance">
                     {`Rp ${projectedMainBalance.toLocaleString('id-ID')}`}
                   </div>
@@ -449,7 +449,7 @@ const Home = () => {
               <div className="d-flex justify-content-between accumulation-modal-actions">
                 <button type="button" className="btn btn-one col-6" onClick={handleCloseAccumulationModal}>Batal</button>
                 <button type="submit" className="btn btn-two col-6" disabled={accumulationSubmitting}>
-                  {accumulationSubmitting ? 'Memproses...' : 'Simpan'}
+                  {accumulationSubmitting ? 'Memproses...' : 'Transfer Saldo'}
                 </button>
               </div>
               {accumulationMsg && (

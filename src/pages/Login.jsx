@@ -97,10 +97,7 @@ const Login = () => {
               <i className={`mt-4 pt-3 fa-regular fa-eye${showPassword ? '' : '-slash'}`}></i>
             </button>
           </div>
-          <div className="mt-2 d-flex gap-1 align-items-center">
-            <input type="checkbox" id="remember" disabled={loading} />
-            <label className="mb-0 ps-1 text-12" htmlFor="remember">Ingat saya</label>
-          </div>
+          
           <div className="mt-4">
             <button
               type="submit"
@@ -110,7 +107,7 @@ const Login = () => {
               {loading ? (
                 <>
                   <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                  Sedang masuk...
+                  Loading...
                 </>
               ) : (
                 'Masuk'

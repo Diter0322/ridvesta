@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTeam, useTeamSummary } from '../hooks/useTeam';
 import '../styles/team.css';
 
-const GENERATION_LABELS = ['Pertama', 'Kedua', 'Ketiga'];
+const GENERATION_LABELS = ['1', '2', '3'];
 const GENERATION_IMAGES = ['/images/1st.png', '/images/2nd.png', '/images/3rd.png'];
 
 const Team = () => {
@@ -43,7 +43,7 @@ const Team = () => {
           <img src="/images/btn-back.png" className="btn-back" alt=""/>
         </button>
         <div className="text-center w-100">
-          <p className="text-white fw-semibold fs-5 mb-0 me-5">Tim</p>
+          <p className="text-white fw-semibold fs-5 mb-0 me-5">Referral Tim</p>
         </div>
       </div>
 
@@ -63,11 +63,11 @@ const Team = () => {
       ) : (
         <>
           {/* Top stat cards */}
-          <div className="mt-5 row">
+          <div className="mt-4 row">
             <div className="col-6">
               <div className="team-card">
                 <div className="d-flex justify-content-between mb-3">
-                  <p className="mb-0 text-20">
+                  <p className="mb-0 text-20" style={{ fontSize: '14px' }}>
                     {Number(totalReferrals) || 0}
                   </p>
                   <div>
@@ -96,10 +96,7 @@ const Team = () => {
 
           {/* QR & referral link */}
           <div className="text-center my-3">
-            <p className="text-sm text-white">Bagikan Link Referral</p>
-            <div className="qr">
-              <img src={qrUrl} alt="QR Code" />
-            </div>
+            
             <p className="text-sm text-white text-10 mt-2 mb-0">
               Bagikan link referral Anda kepada teman untuk bergabung
             </p>
@@ -124,12 +121,12 @@ const Team = () => {
                         <img src={GENERATION_IMAGES[i]} alt="" />
                       </div>
                       <div>
-                        <p className="mb-0 fw-medium text-12">{GENERATION_LABELS[i]} Generasi</p>
+                        <p className="mb-0 fw-medium text-12">Referral Level {GENERATION_LABELS[i]}</p>
                         <p className="mb-0 text-12">{lvl.total_referrals ?? 0} Anggota</p>
                       </div>
                     </div>
                     <div className="commission">
-                      <p className="text-8 text-green2">Komisi Rebate</p>
+                      <p className="text-8 text-green2">Total Komisi</p>
                       <p className="text-10 mb-0">{comm.formatted_amount ? `Rp ${comm.formatted_amount}` : 'Rp 0'}</p>
                     </div>
                   </div>
@@ -150,7 +147,7 @@ const Team = () => {
                     </div>
                     <div className="col-12" style={{ position: 'relative', zIndex: 2 }}>
                       <button type="button" className="login-btn justify-content-center" onClick={() => navigate(`/referral-details/${i + 1}`)}>
-                        <span>Lihat semua anggota</span>
+                        <span>Lihat daftar anggota</span>
                       </button>
                     </div>
                   </div>
@@ -160,36 +157,11 @@ const Team = () => {
           })}
 
           {/* Rebate commission card */}
-          <div className="mt-4">
-            <div className="team-card2">
-              <div className="d-flex gap-2 align-items-center">
-                <div>
-                  <img src="/images/icon/rebate.svg" alt="" />
-                </div>
-                <p className="text-14 fw-medium text-white mb-0">Komunikasi Rebate</p>
-              </div>
-              <div className="row mt-3">
-                {(commissions.length > 0 ? commissions : [{ level: 1 }, { level: 2 }, { level: 3 }]).map((c) => (
-                  <div className="col-4" key={c.level}>
-                    <div className="team-card3">
-                      <p className="text-18 mb-1 fw-semibold text-white">Level {c.level}</p>
-                      <p className="text-light3 mb-0 text-14">
-                        {c.formatted_amount ? `Rp ${c.formatted_amount}` : 'Rp 0'}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          
 
           <div className="middle-shape"></div>
 
-          <ul className="mt-4 mb-5 pb-3">
-            <li>
-              Aktif di semua media sosial Anda: TikTok, Telegram, Grup WhatsApp, dll. (Penting)
-            </li>
-          </ul>
+          
         </>
       )}
     </main>

@@ -183,7 +183,7 @@ const BankData = () => {
             </div>
 
             {/* Summary preview */}
-            <div className="bank-card">
+            {/* <div className="bank-card">
               <ul className="text-14">
                 <li>
                   <span>Nomor Rekening</span>
@@ -200,12 +200,12 @@ const BankData = () => {
                   </li>
                 )}
               </ul>
-            </div>
+            </div> */}
           </div>
 
           <div>
             <div className="mb-5 bottom">
-              <button className="login-btn" onClick={handleSave} disabled={saveBank.isPending}>
+              <button className="login-btn1 text-center" onClick={handleSave} disabled={saveBank.isPending}>
                 {saveBank.isPending ? (
                   <>
                     <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>

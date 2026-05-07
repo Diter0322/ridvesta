@@ -60,7 +60,7 @@ const TransactionHistory = () => {
           <img src="/images/btn-back.png" className="btn-back" alt="Kembali" />
         </button>
         <div className="text-center w-100">
-          <p className="text-white fw-semibold fs-5 mb-0 me-5">Transaction history</p>
+          <p className="text-white fw-semibold fs-5 mb-0 me-5">Riwayat Transaksi</p>
         </div>
       </div>
 

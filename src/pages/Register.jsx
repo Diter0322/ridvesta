@@ -73,7 +73,7 @@ const Register = () => {
     }
 
     if (formData.phone.length < 8 || formData.phone.length > 15) {
-      setError('Nomor ponsel harus 8-15 digit');
+      setError('Nomor telepon harus 8-15 digit');
       return;
     }
 
@@ -183,10 +183,9 @@ const Register = () => {
       </div>
       <form onSubmit={handleSignUp}>
         <div className="box text-white">
-          <p className="fw-semibold mb-1 fs-3">Daftar</p>
-          <p className="text-14 fw-medium">
-            Hanya butuh satu menit untuk membuat akun Anda
-          </p>
+          <h5 className="fw-bold text-center mb-3" style={{ marginTop: -15 }}>Daftar Pengguna</h5>
+          <hr></hr>
+          
           
           {error && (
             <div className="alert alert-danger alert-dismissible fade show" role="alert" style={{ marginBottom: '15px' }}>
@@ -328,7 +327,7 @@ const Register = () => {
             <label htmlFor="agree" className="mb-0 ps-1 text-12">Saya menyetujui Syarat &amp; Ketentuan</label>
           </div>
           <div className="mt-4">
-            <button type="submit" className="login-btn" disabled={loading}>
+            <button type="submit" className="login-btn1 text-center" disabled={loading}>
               {loading ? (
                 <>
                   <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
@@ -342,18 +341,7 @@ const Register = () => {
         </div>
       </form>
 
-      {/* OR Divider */}
-      <div className="d-flex gap-3 text-white my-4">
-        <hr className="hr-one" />
-        <span className="fw-medium text-14">Atau Lanjutkan Dengan</span>
-        <hr className="hr-two" />
-      </div>
-
-      {/* Bottom badges */}
-      <div className="text-center mb-4">
-        <img src="/images/ojk.png" alt="OJK" className="me-2" />
-        <img src="/images/brand2.png" alt="Brand" />
-      </div>
+      
 
       <p className="text-white text-14 text-center mt-4">
         Sudah punya akun? <a className="text-blue fw-bold" href="#login" onClick={() => navigate('/login')}>Masuk</a>

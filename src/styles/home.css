@@ -105,16 +105,72 @@
 .main-set .bar {
   height: 10px;
   width: 100%;
-  background-color: #fff;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.18) 0%, rgba(150, 191, 255, 0.28) 100%);
   border-radius: 99px;
   margin: 12px 0;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.15);
 }
 
 .main-set .bar .active {
-  background-color: #2b8fff;
+  background: linear-gradient(90deg, #0ea5ff 0%, #2b8fff 45%, #54d4ff 100%);
   height: 10px;
   border-radius: 99px;
   width: 100%;
+  position: relative;
+  transition: width 0.9s linear;
+  box-shadow: 0 0 12px rgba(43, 143, 255, 0.7), 0 0 20px rgba(84, 212, 255, 0.35);
+}
+
+.main-set .bar .active::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.42) 30%,
+    rgba(255, 255, 255, 0.04) 56%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 220% 100%;
+  animation: profitBarShimmer 2.4s ease-in-out infinite;
+}
+
+.main-set .bar .active::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  transform: translate(35%, -50%);
+  background: radial-gradient(circle, #ffffff 0%, #9ee4ff 55%, rgba(158, 228, 255, 0) 80%);
+  filter: blur(0.2px);
+  opacity: 0.95;
+  animation: profitBarPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes profitBarShimmer {
+  0% {
+    background-position: 180% 0;
+  }
+  100% {
+    background-position: -30% 0;
+  }
+}
+
+@keyframes profitBarPulse {
+  0%,
+  100% {
+    transform: translate(35%, -50%) scale(1);
+    opacity: 0.95;
+  }
+  50% {
+    transform: translate(35%, -50%) scale(1.18);
+    opacity: 0.72;
+  }
 }
 
 .main-set .shape {
@@ -830,7 +886,7 @@
   background-size: 200% auto;
   color: #fff;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
-  animation: shine 3s linear infinite;
+  animation: shine 0s linear infinite;
 }
 
 .accumulation-modal-header {

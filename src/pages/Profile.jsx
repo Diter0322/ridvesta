@@ -63,7 +63,7 @@ const Profile = () => {
           <img src="/images/btn-back.png" className="btn-back" alt="" />
         </button>
         <div className="text-center w-100">
-          <p className="text-white fw-semibold fs-5 me-5 mb-0">Profil</p>
+          <p className="text-white fw-semibold fs-5 me-5 mb-0">Profil Pengguna</p>
         </div>
       </div>
 
@@ -87,7 +87,7 @@ const Profile = () => {
           </button>
         </div>
         <p className="text-white fw-semibold fs-5 mb-2">{user?.fullname ?? 'Memuat...'}</p>
-        <p className="text-light3">ID: {user?.referral_code ?? user?.id ?? '-'}</p>
+        <p className="text-light3">No. HP: {user?.phone ?? user?.phone_number ?? user?.no_hp ?? user?.noHp ?? '-'}</p>
       </div>
 
       {/* Account Information */}

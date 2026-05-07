@@ -7,7 +7,7 @@ const PAYMENT_METHODS = [
   { code: 'qris', label: 'QRIS', logo: '/images/bank-logo/qris.png' },
   { code: 'bri', label: 'BRI', logo: '/images/bank-logo/bri.png' },
   { code: 'mandiri', label: 'MANDIRI', logo: '/images/bank-logo/mandiri.png' },
-  { code: 'bni', label: 'BNI bank', logo: '/images/bank-logo/bni.png' },
+  { code: 'bni', label: 'BNI', logo: '/images/bank-logo/bni.png' },
 ];
 
 const QUICK_AMOUNTS = [50000, 100000, 500000, 1000000, 3000000, 5000000];
@@ -100,13 +100,13 @@ const Deposit = () => {
           <img src="/images/btn-back.png" className="btn-back" alt="Kembali" />
         </button>
         <div className="text-center w-100">
-          <p className="text-white fw-semibold fs-5 mb-0 me-5">Deposit Balance</p>
+          <p className="text-white fw-semibold fs-5 mb-0 me-5">Deposit Saldo</p>
         </div>
       </div>
 
       {/* Payment Method */}
       <div className="mt-4">
-        <p className="text-blue fw-semibold mb-3">Payment Method</p>
+        <p className="text-blue fw-semibold mb-3">Metode Pembayaran</p>
         <div className="payment-methods">
           {PAYMENT_METHODS.map((m) => (
             <button
@@ -124,7 +124,7 @@ const Deposit = () => {
 
       {/* Amount Input */}
       <div className="mt-4">
-        <p className="text-white fw-semibold mb-2">Enter Amount</p>
+        <p className="text-white fw-semibold mb-2">Masukkan Jumlah Deposit</p>
         <div className="amount-input-wrap">
           <span className="amount-prefix">RP</span>
           <input
@@ -163,12 +163,12 @@ const Deposit = () => {
       {/* Min/Max Info */}
       <div className="minmax-card mt-4">
         <div className="minmax-item">
-          <span className="text-white-50 text-13">Minimum:</span>
+          <span className="text-white-50 text-13">Minimal:</span>
           <span className="text-blue fw-semibold ms-1">RP 50,000</span>
         </div>
         <div className="minmax-divider" />
         <div className="minmax-item">
-          <span className="text-white-50 text-13">Minimum:</span>
+          <span className="text-white-50 text-13">Maksimal:</span>
           <span className="text-blue fw-semibold ms-1">RP 10,000,000</span>
         </div>
       </div>
@@ -180,7 +180,7 @@ const Deposit = () => {
       )}
 
       <div className="deposit-hint mt-2">
-        <p className="text-white-50 text-13 text-center">Please enter deposit amount</p>
+        <p className="text-white-50 text-13 text-center">Masukkan jumlah deposit</p>
       </div>
 
       {/* Continue Button */}
@@ -191,7 +191,7 @@ const Deposit = () => {
           disabled={isPending}
           type="button"
         >
-          {isPending ? 'Processing...' : 'Continue to Payment'}
+          {isPending ? 'Memproses...' : 'Lanjut ke Pembayaran'}
         </button>
       </div>
     </main>

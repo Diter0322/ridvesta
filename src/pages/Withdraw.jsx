@@ -112,7 +112,7 @@ const Withdraw = () => {
           <img src="/images/btn-back.png" className="btn-back" alt="Kembali" />
         </button>
         <div className="text-center w-100">
-          <p className="text-white fw-semibold fs-5 mb-0 me-5">Withdraw Balance</p>
+          <p className="text-white fw-semibold fs-5 mb-0 me-5">Penarikan Saldo</p>
         </div>
       </div>
 
@@ -125,7 +125,7 @@ const Withdraw = () => {
         ) : (
           <>
             <div className="bank-row mb-3">
-              <p className="text-blue text-13 mb-1">Bank Name</p>
+              <p className="text-blue text-13 mb-1">Nama Bank</p>
               <div className="d-flex align-items-center gap-2">
                 <img
                   src={bankLogo}
@@ -141,12 +141,12 @@ const Withdraw = () => {
             </div>
             <div className="bank-divider" />
             <div className="bank-row mt-3">
-              <p className="text-blue text-13 mb-1">Account Number</p>
+              <p className="text-blue text-13 mb-1">Nomor Rekening</p>
               <p className="text-white fw-semibold mb-0">{accountNumber}</p>
             </div>
             <div className="bank-divider mt-3" />
             <div className="bank-row mt-3">
-              <p className="text-blue text-13 mb-1">Balance</p>
+              <p className="text-blue text-13 mb-1">Saldo Penarikan</p>
               <p className="text-white fw-semibold mb-0">{userBalance}</p>
             </div>
           </>
@@ -155,9 +155,9 @@ const Withdraw = () => {
 
       {/* Amount Input */}
       <div className="mt-4">
-        <p className="text-white fw-semibold mb-2">Enter Amount</p>
+        <p className="text-white fw-semibold mb-2">Masukkan Jumlah Penarikan</p>
         <div className="amount-input-wrap">
-          <span className="amount-prefix">RP</span>
+          <span className="amount-prefix">Rp</span>
           <input
             type="text"
             className="amount-input"
@@ -180,12 +180,12 @@ const Withdraw = () => {
       {/* Min/Max Info */}
       <div className="minmax-card mt-3">
         <div className="minmax-item">
-          <span className="text-white-50 text-13">Minimum:</span>
+          <span className="text-white-50 text-13">Minimal:</span>
           <span className="text-blue fw-semibold ms-1">{minFormatted}</span>
         </div>
         <div className="minmax-divider" />
         <div className="minmax-item">
-          <span className="text-white-50 text-13">Maximum:</span>
+          <span className="text-white-50 text-13">Maksimal:</span>
           <span className="text-blue fw-semibold ms-1">{maxFormatted}</span>
         </div>
       </div>
@@ -195,13 +195,13 @@ const Withdraw = () => {
       <div className="amount-received-card mt-4">
         <div className="d-flex justify-content-between align-items-center">
           <span className="text-white fw-semibold text-13" style={{ letterSpacing: '0.5px' }}>
-            AMOUNT RECEIVED
+            Jumlah Diterima
           </span>
-          <span className="text-blue fw-bold">
+          <span className="text-green fw-bold">
             RP {formatRupiah(amountReceived)}
           </span>
         </div>
-        <p className="text-danger text-13 mb-0 mt-1 text-end">{withdrawConfig?.tax?.rate_percent ?? '10%'} Tax Deduction.</p>
+        <p className="text-danger text-13 mb-0 mt-1 text-end">{withdrawConfig?.tax?.rate_percent ?? '10%'} Potongan Pajak.</p>
         <div className="amount-divider mt-3" />
       </div>
 
@@ -213,7 +213,7 @@ const Withdraw = () => {
           disabled={isPending}
           type="button"
         >
-          {isPending ? 'Processing...' : 'Proceed to Payment'}
+          {isPending ? 'Memproses...' : 'Proses Penarikan'}
         </button>
       </div>
     </main>

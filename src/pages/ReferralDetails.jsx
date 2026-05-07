@@ -30,7 +30,7 @@ const ReferralDetails = () => {
           <img src="/images/btn-back.png" className="btn-back" alt="" />
         </button>
         <div className="text-center w-100">
-          <p className="text-white fw-semibold fs-5 me-5 mb-0">Detail Referral</p>
+          <p className="text-white fw-semibold fs-5 me-5 mb-0">Anggota Tim</p>
         </div>
       </div>
 
@@ -56,8 +56,8 @@ const ReferralDetails = () => {
               <p className="text-18 text-white">
                 <img src={`/images/icon/${levelIcon}`} alt="" /> Level {level}
               </p>
-              <p className="green text-14 fw-medium mb-0">
-                Komisi rebate
+              <p className="text-14 text-light3 mb-0 mt-1 fw-semibold">
+                {levelInfo?.total_referrals ?? 0} Anggota
               </p>
             </div>
 

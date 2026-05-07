@@ -52,9 +52,9 @@ const WithdrawHistory = () => {
 
       <div className="mt-4">
         <div className="withdraw-card">
-          <p className="text-white text-20 mb-1 fw-medium">TOTAL PENARIKAN</p>
+          <p className="text-white text-20 mb-1 fw-medium">Total Penarikan Sukses</p>
           <p>
-            <span className="text-white fw-semibold">Rp</span>
+            <span className="text-white fw-semibold">Rp </span>
             <span className="text-blue text-34 fw-semibold">{totalAmount}</span>
           </p>
         </div>
