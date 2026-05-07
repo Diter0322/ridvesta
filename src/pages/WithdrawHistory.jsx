@@ -96,9 +96,9 @@ const WithdrawHistory = () => {
                   <p className="text-light4 mb-0 text-11">
                     <img
                       className="ovo"
-                      src={w.bank?.logo_url || '/images/bri.png'}
+                      src={w.bank?.logo_url || '/images/bank-default.png'}
                       alt=""
-                      onError={(e) => { e.target.src = '/images/bri.png'; }}
+                      onError={(e) => { e.target.src = '/images/bank-default.png'; }}
                     />{' '}
                     {w.bank?.name || '-'} {w.bank?.masked_account || ''}
                   </p>

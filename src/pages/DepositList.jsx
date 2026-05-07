@@ -23,7 +23,7 @@ const DepositList = () => {
     : deposits;
 
   const getMethodLogo = (code) => {
-    if (!code) return '/images/bri.png';
+    if (!code) return '/images/bank-default.png';
     const lower = code.toLowerCase();
     if (lower === 'qris') return '/images/qris.png';
     return `/images/${lower}.png`;
@@ -93,11 +93,11 @@ const DepositList = () => {
                 <div className="depo-card" key={d.id}>
                   <div className="d-flex gap-2 align-items-center">
                     <img
-                      src={d.payment_method?.logo_url || '/images/bri.png'}
+                      src={d.payment_method?.logo_url || '/images/bank-default.png'}
                       className="img-fluid silver-emboss"
                       style={{ maxHeight: 45, borderRadius: 25}}
                       alt={d.payment_method?.name || ''}
-                      onError={(e) => { e.target.src = '/images/bri.png'; }}
+                      onError={(e) => { e.target.src = '/images/bank-default.png'; }}
                     />
                     <div>
                       <p className="text-white text-18 fw-semibold mb-1">

@@ -222,7 +222,7 @@ const Home = () => {
       <div className="header pt-4">
         <div className="d-flex gap-3 align-items-center">
           <div>
-            <img className="user-avatar" src={user?.photo || '/images/homelogo.png'} alt="User" onError={(e) => { e.currentTarget.src = '/images/homelogo.png'; }} />
+            <img className="user-avatar" src={user?.photo || '/images/avatar-default.png'} alt="User" onError={(e) => { e.currentTarget.src = '/images/avatar-default.png'; }} />
           </div>
           <div className="text-white">
             <p className="text-12 mb-0 opacity-75">Selamat Datang,</p>
