@@ -188,9 +188,9 @@ const WithdrawHistory = () => {
                         <p className="text-light4 mb-0 text-11">
                           <img
                             className="ovo"
-                            src={w.bank?.logo_url || '/images/bri.png'}
+                            src={w.bank?.logo_url || '/images/bank-default.png'}
                             alt=""
-                            onError={(e) => { e.target.src = '/images/bri.png'; }}
+                            onError={(e) => { e.target.src = '/images/bank-default.png'; }}
                           />{' '}
                           {w.bank?.name || '-'} {w.bank?.masked_account || ''}
                         </p>
@@ -200,7 +200,7 @@ const WithdrawHistory = () => {
                           {w.status_text || w.status}
                         </span>
                         <p className="text-light3 text-14 mb-0 mt-2">
-                          Pajak: Rp {w.tax_formatted || '0'}
+                          Fee: Rp {w.tax_formatted || '0'}
                         </p>
                         <p className="mb-0 text-white-50 text-11 mt-2">
                           {parsedDate ? `${formatDateValue(parsedDate)} | ${formatTimeValue(parsedDate)} WIB` : '-'}

@@ -182,12 +182,13 @@ const DepositList = () => {
                     <div className="depo-card" key={d.id}>
                       <div className="d-flex gap-2 align-items-center">
                         <img
-                          src={d.payment_method?.logo_url || '/images/bri.png'}
+                          src={d.payment_method?.logo_url || '/images/bank-default.png'}
                           className="method-logo"
                           alt={d.payment_method?.name || ''}
-                          onError={(e) => { e.target.src = '/images/bri.png'; }}
+                          onError={(e) => { e.target.src = '/images/bank-default.png'; }}
                         />
                         <div>
+                          <p className="amount-label mb-1">Nominal Deposit</p>
                           <p className="text-white text-18 fw-semibold mb-1">
                             Rp {d.amount_formatted}
                           </p>
@@ -196,7 +197,9 @@ const DepositList = () => {
                       </div>
                       <div className="text-end">
                         <span className={`${badgeClass} badge`}>{badgeText}</span>
-                        <p className="mb-0 text-white-50 text-11 mt-4 pt-1">
+                      </div>
+                      <div className="tx-datetime">
+                        <p className="mb-0">
                           {parsedDate ? `${formatDepositDate(parsedDate)} | ${formatDepositTime(parsedDate)} WIB` : '-'}
                         </p>
                       </div>
@@ -213,5 +216,3 @@ const DepositList = () => {
 };
 
 export default DepositList;
-
-

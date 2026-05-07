@@ -101,7 +101,7 @@ const ReferralDetails = () => {
               const depositAmt = member.total_deposit_formatted
                 ? `Rp. ${member.total_deposit_formatted}`
                 : 'Rp. 0';
-              const avatar = member.photo || '/images/01.jpg';
+              const avatar = member.photo || '/images/avatar-default.png';
 
               return (
                 <div className="red-card mt-4" key={member.id}>
@@ -112,7 +112,7 @@ const ReferralDetails = () => {
                           className="user"
                           src={avatar}
                           alt=""
-                          onError={(e) => { e.target.src = '/images/01.jpg'; }}
+                          onError={(e) => { e.target.src = '/images/avatar-default.png'; }}
                         />
                       </div>
                       <div>

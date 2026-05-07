@@ -71,9 +71,9 @@ const Profile = () => {
         <div className="relative profile-pic">
           <img
               className="user"
-              src={user?.photo || '/images/homelogo.png'}
+              src={user?.photo || '/images/avatar-default.png'}
               alt=""
-              onError={(e) => { e.target.onerror = null; e.target.src = '/images/homelogo.png'; }}
+              onError={(e) => { e.target.onerror = null; e.target.src = '/images/avatar-default.png'; }}
             />
           <input
             ref={fileInputRef}
