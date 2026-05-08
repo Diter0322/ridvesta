@@ -22,6 +22,8 @@ const Home = () => {
   const [accumulationMsg, setAccumulationMsg] = useState(null);
   const [showTransferResponseModal, setShowTransferResponseModal] = useState(false);
   const [showTarikModal, setShowTarikModal] = useState(false);
+  const [showInfoModal, setShowInfoModal] = useState(false);
+  const [hideInfoPopup, setHideInfoPopup] = useState(false);
   const [tarikAlertMsg, setTarikAlertMsg] = useState('');
   const [transferResponse, setTransferResponse] = useState({ type: null, text: '' });
   const [notifOpen, setNotifOpen] = useState(false);
@@ -60,6 +62,20 @@ const Home = () => {
 
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    const shouldHide = localStorage.getItem('emasharian_hide_info_popup') === '1';
+    if (!shouldHide) {
+      setShowInfoModal(true);
+    }
+  }, []);
+
+  const handleCloseInfoModal = () => {
+    if (hideInfoPopup) {
+      localStorage.setItem('emasharian_hide_info_popup', '1');
+    }
+    setShowInfoModal(false);
+  };
 
   const handleClaimReward = async () => {
     if (claiming || investment?.has_claimed_reward) return;
@@ -393,7 +409,7 @@ const Home = () => {
             </div>
 
             <div className="profit-box">
-              <p className="small">Pendapatan Kemarin</p>
+              <p className="small">Pendapatan Perjam</p>
               <p className="title text-green">{data?.last_profit_data ? 'Rp ' + Number(data.last_profit_data.amount).toLocaleString('id-ID') : 'Rp 0'}</p>
             </div>
           </div>
@@ -570,6 +586,56 @@ const Home = () => {
                 Penarikan
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {showInfoModal && (
+        <div className="home-info-backdrop" onClick={handleCloseInfoModal}>
+          <div className="home-info-modal" onClick={(e) => e.stopPropagation()}>
+            <button
+              type="button"
+              className="home-info-close"
+              onClick={handleCloseInfoModal}
+              aria-label="Tutup popup informasi"
+            >
+              ×
+            </button>
+
+            <div className="home-info-brand-art" aria-hidden="true">
+              <img src="/images/homelogo.png" alt="" />
+            </div>
+
+            <div className="home-info-badge">Info Emasharian</div>
+            <h4>Selamat Datang di Emasharian</h4>
+            <p>
+              Platform investasi harian dengan sistem yang mudah digunakan, update profit real-time,
+              dan dukungan komunitas yang aktif.
+            </p>
+
+            <div className="home-info-points">
+              <span>Update informasi harian</span>
+              <span>Panduan deposit dan penarikan</span>
+              <span>Bantuan cepat dari tim support</span>
+            </div>
+
+            <div className="home-info-actions">
+              <a href="https://t.me/" target="_blank" rel="noreferrer" className="home-info-btn home-info-btn-discuss">
+                Gabung Grup Diskusi
+              </a>
+              <a href="https://t.me/" target="_blank" rel="noreferrer" className="home-info-btn home-info-btn-channel">
+                Hubungi Saluran Telegram
+              </a>
+            </div>
+
+            <label className="home-info-dismiss">
+              <input
+                type="checkbox"
+                checked={hideInfoPopup}
+                onChange={(e) => setHideInfoPopup(e.target.checked)}
+              />
+              <span>Jangan tampilkan lagi</span>
+            </label>
           </div>
         </div>
       )}

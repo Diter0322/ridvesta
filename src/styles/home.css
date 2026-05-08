@@ -1044,3 +1044,225 @@
   .accumulation-two-columns { gap: 4px; }
   .accumulation-arrow { font-size: 18px; padding-bottom: 16px; }
 }
+
+.home-info-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1300;
+  background: rgba(3, 8, 18, 0.76);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.home-info-modal {
+  width: min(430px, 100%);
+  position: relative;
+  padding: 20px 16px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(140, 205, 255, 0.35);
+  background: linear-gradient(135deg, rgba(6, 20, 40, 0.98) 0%, rgba(10, 44, 86, 0.94) 55%, rgba(6, 20, 40, 0.98) 100%);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+.home-info-brand-art {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-80%);
+  min-width: 150px;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.home-info-brand-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.2;
+  filter: saturate(1.1);
+}
+
+.home-info-brand-art span {
+  position: absolute;
+  color: rgba(219, 234, 254, 0.68);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  text-shadow: 0 1px 6px rgba(3, 8, 18, 0.8);
+}
+
+.home-info-modal::before {
+  content: "";
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  top: -105px;
+  right: -90px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.35) 0%, rgba(56, 189, 248, 0) 72%);
+  pointer-events: none;
+}
+
+.home-info-modal::after {
+  content: "";
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  left: -85px;
+  bottom: -92px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.28) 0%, rgba(34, 197, 94, 0) 72%);
+  pointer-events: none;
+}
+
+.home-info-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  border: none;
+  background: transparent;
+  color: #c2d2e6;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.home-info-badge {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #dbeafe;
+  border: 1px solid rgba(147, 197, 253, 0.4);
+  background: linear-gradient(90deg, rgba(37, 99, 235, 0.35) 0%, rgba(14, 165, 233, 0.3) 100%);
+  position: relative;
+  z-index: 1;
+}
+
+.home-info-modal h4 {
+  color: #fff;
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+}
+
+.home-info-modal p {
+  margin: 0;
+  color: #d4e6fb;
+  font-size: 13px;
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+
+.home-info-points {
+  margin-top: 12px;
+  display: grid;
+  gap: 7px;
+  position: relative;
+  z-index: 1;
+}
+
+.home-info-points span {
+  color: #a9c7e8;
+  font-size: 12px;
+  padding-left: 16px;
+  position: relative;
+}
+
+.home-info-points span::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2bd67b;
+  box-shadow: 0 0 10px rgba(43, 214, 123, 0.45);
+  position: absolute;
+  left: 0;
+  top: 4px;
+}
+
+.home-info-actions {
+  margin-top: 14px;
+  display: grid;
+  gap: 8px;
+  position: relative;
+  z-index: 1;
+  padding-right: 84px;
+}
+
+.home-info-btn {
+  text-decoration: none;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 12px;
+  padding: 10px 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.home-info-btn:hover {
+  transform: translateY(-1px);
+}
+
+.home-info-btn-discuss {
+  background: linear-gradient(90deg, #16a34a 0%, #22c55e 100%);
+  box-shadow: 0 10px 20px rgba(22, 163, 74, 0.35);
+}
+
+.home-info-btn-channel {
+  background: linear-gradient(90deg, #0ea5e9 0%, #2563eb 100%);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.35);
+}
+
+.home-info-dismiss {
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  z-index: 1;
+  color: #c7d8ee;
+  font-size: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.home-info-dismiss input {
+  width: 14px;
+  height: 14px;
+  accent-color: #22c55e;
+}
+
+@media (max-width: 480px) {
+  .home-info-brand-art {
+    width: 88px;
+    height: 88px;
+    right: 10px;
+  }
+
+  .home-info-brand-art span {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+
+  .home-info-actions {
+    padding-right: 0;
+  }
+}

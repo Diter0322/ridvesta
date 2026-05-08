@@ -10,13 +10,107 @@
 
 /* Task/Mission Card Styles */
 .task-card {
-  background-color: #2b8fff1a;
-  border: 1px solid #ebecef1a;
+  background: linear-gradient(145deg, rgba(43,143,255,0.10) 0%, rgba(0,0,0,0.18) 100%);
+  border: 1px solid rgba(43,143,255,0.18);
   border-radius: 16px;
-  padding-bottom: 12px;
-  margin-bottom: 12px;
+  overflow: hidden;
+  margin-bottom: 0;
+  transition: border-color 0.2s;
+}
+.task-card--locked {
+  border-color: rgba(255,255,255,0.08);
+  opacity: 0.75;
 }
 
+/* Task card header */
+.task-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px 10px;
+  background: rgba(43,143,255,0.07);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.task-card-title-wrap {
+  flex: 1;
+  min-width: 0;
+}
+.text-15 { font-size: 15px; }
+.white60 { color: rgba(255,255,255,0.6); }
+.text-green { color: #08bb83; }
+
+/* Progress bar */
+.task-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px 8px;
+}
+.task-progress-bar {
+  flex: 1;
+  height: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.task-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #08bb83, #2b8fff);
+  border-radius: 99px;
+  transition: width 0.4s ease;
+}
+.task-progress-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #08bb83;
+  min-width: 30px;
+  text-align: right;
+}
+
+/* Footer: reward + button */
+.task-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0px 16px 6px;
+}
+.task-start {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.task-reward-gift {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.task-reward-gift img {
+  width: 30px;
+  height: auto;
+}
+.task-reward-box {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.35;
+  margin-left: 8px;
+}
+.task-reward-label {
+  font-size: 11px;
+  color: rgba(255,255,255,0.55);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.task-reward-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.3px;
+}
+
+/* legacy .card-head kept for info card */
 .task-card .card-head {
   background-color: #2b8fff1a;
   display: flex;
@@ -96,6 +190,10 @@
 
 .task-card .d-flex.gap-2.mb-2 {
   align-items: start;
+}
+
+.task-card .px-3 .d-flex.gap-2 {
+  align-items: flex-start;
 }
 
 .btn-claimed {

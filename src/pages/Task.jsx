@@ -73,29 +73,29 @@ const Task = () => {
                   Cara Kerja Misi Undangan
                 </p>
               </div>
-              <div className="p-3 text-white">
-                <div className="d-flex gap-2 mb-2">
+              <div className="px-3 text-white">
+                <div className="d-flex gap-2 mt-2">
                   <img src="/images/icon/share.svg" alt="" />
                   <p className="text-12 white80">
-                    Aktif di semua media sosial Anda: TikTok, Telegram, Grup WhatsApp, dll. (Penting)
+                    Bagikan kode referral kamu di media sosial: TikTok, Telegram, Grup WhatsApp, dan lainnya agar lebih banyak orang bergabung.
                   </p>
                 </div>
-                <div className="d-flex gap-2 mb-2">
+                <div className="d-flex gap-2">
                   <img src="/images/icon/user.svg" alt="" />
                   <p className="text-12 white80">
-                    Aktif di semua media sosial Anda: TikTok, Telegram, Grup WhatsApp, dll. (Penting)
+                    Setiap member baru yang mendaftar menggunakan kode referral kamu akan dihitung sebagai 1 undangan yang valid.
                   </p>
                 </div>
-                <div className="d-flex gap-2 mb-2">
+                <div className="d-flex gap-2">
                   <img src="/images/icon/wallet.svg" alt="" />
                   <p className="text-12 white80">
-                    Aktif di semua media sosial Anda: TikTok, Telegram, Grup WhatsApp, dll. (Penting)
+                    Member yang kamu undang harus melakukan deposit minimal sekali agar undangan dinyatakan berhasil dan terhitung dalam misi.
                   </p>
                 </div>
-                <div className="d-flex gap-2 mb-2">
+                <div className="d-flex gap-2">
                   <img src="/images/icon/solar_gift.svg" alt="" />
                   <p className="text-12 white80">
-                    Aktif di semua media sosial Anda: TikTok, Telegram, Grup WhatsApp, dll. (Penting)
+                    Setelah target undangan tercapai, tekan tombol <strong>Klaim</strong> untuk menerima hadiah langsung ke saldo akun kamu.
                   </p>
                 </div>
               </div>
@@ -119,24 +119,38 @@ const Task = () => {
             const isLastTask = index === tasks.length - 1;
             
             return (
-              <div key={task.id} className={`task-card mt-3 ${isLastTask ? 'mb-5' : ''}`}>
-                <div className="card-head justify-content-between">
-                  <div>
-                    <p className="fw-semibold text-white mb-0">{task.name || task.title || 'Task'}</p>
-                    <p className="mb-0 text-12 white70">
-                      Requirments: {requiredRefs} {requiredRefs === 1 ? 'Member' : 'Members'}
+              <div key={task.id} className={`task-card mt-3 ${isLastTask ? 'mb-5' : ''} ${isTaskLocked ? 'task-card--locked' : ''}`}>
+                {/* Header */}
+                <div className="task-card-header">
+                  <div className="task-card-title-wrap">
+                    <p className="fw-semibold text-white mb-0 text-15">{task.name || task.title || 'Task'}</p>
+                    <p className="mb-0 text-12 white60">
+                      Undang <span className="text-green fw-semibold">{requiredRefs} {requiredRefs === 1 ? 'Member' : 'Members'}</span> untuk selesaikan misi ini
                     </p>
                   </div>
-                  <div>
-                    <div className="circle" style={{ '--value': percentageValue }}>
-                      <span> {currentRefs}/{requiredRefs} </span>
-                    </div>
+                  <div className="circle" style={{ '--value': percentageValue }}>
+                    <span>{currentRefs}<span style={{fontSize:'9px',opacity:.7}}>/{requiredRefs}</span></span>
                   </div>
                 </div>
-                <div className="d-flex justify-content-between p-3">
-                  <div className="price-box">
-                    <span className="text-light3 fw-semibold">Hadiah</span>
-                    <span className="text-white text-18 fw-semibold">{task.reward || 'Rp 0.00'}</span>
+
+                {/* Progress Bar */}
+                <div className="task-progress-wrap">
+                  <div className="task-progress-bar">
+                    <div className="task-progress-fill" style={{ width: `${percentageValue}%` }} />
+                  </div>
+                  <span className="task-progress-label">{percentageValue}%</span>
+                </div>
+
+                {/* Footer: reward + action */}
+                <div className="task-card-footer">
+                  <div className="task-start">
+                  <div className="task-reward-gift">
+                    <img src="/images/gift.png" alt="Hadiah" />
+                  </div>
+                  <div className="task-reward-box">
+                    <span className="task-reward-label">Hadiah</span>
+                    <span className="task-reward-value">{task.reward || 'Rp 0.00'}</span>
+                  </div>
                   </div>
                   <button
                     className={isTaskLocked ? 'btn-lock' : 'btn-claimed'}

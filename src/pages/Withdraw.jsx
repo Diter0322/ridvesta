@@ -124,7 +124,7 @@ const Withdraw = () => {
           <div className="text-warning text-13">Belum ada rekening bank. <a href="/bank-data" className="text-blue">Tambah sekarang</a></div>
         ) : (
           <>
-            <div className="bank-row mb-3">
+            <div className="bank-row mb-1">
               <p className="text-blue text-13 mb-1">Nama Bank</p>
               <div className="d-flex align-items-center gap-2">
                 <img
@@ -140,12 +140,12 @@ const Withdraw = () => {
               </div>
             </div>
             <div className="bank-divider" />
-            <div className="bank-row mt-3">
+            <div className="bank-row mt-1">
               <p className="text-blue text-13 mb-1">Nomor Rekening</p>
               <p className="text-white fw-semibold mb-0">{accountNumber}</p>
             </div>
-            <div className="bank-divider mt-3" />
-            <div className="bank-row mt-3">
+            <div className="bank-divider mt-1" />
+            <div className="bank-row mt-1">
               <p className="text-blue text-13 mb-1">Saldo Penarikan</p>
               <p className="text-white fw-semibold mb-0">{userBalance}</p>
             </div>
@@ -179,14 +179,14 @@ const Withdraw = () => {
 
       {/* Min/Max Info */}
       <div className="minmax-card mt-3">
-        <div className="minmax-item">
+        <div className="minmax-item d-block">
           <span className="text-white-50 text-13">Minimal:</span>
-          <span className="text-blue fw-semibold ms-1">{minFormatted}</span>
+          <span className="d-block text-blue fw-semibold ms-1">{minFormatted}</span>
         </div>
         <div className="minmax-divider" />
-        <div className="minmax-item">
+        <div className="minmax-item d-block">
           <span className="text-white-50 text-13">Maksimal:</span>
-          <span className="text-blue fw-semibold ms-1">{maxFormatted}</span>
+          <span className="d-block text-blue fw-semibold ms-1">{maxFormatted}</span>
         </div>
       </div>
 

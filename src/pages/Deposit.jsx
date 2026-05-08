@@ -118,6 +118,10 @@ const Deposit = () => {
             >
               <img src={m.logo} alt={m.label} className="method-logo" />
               <span className="method-label">{m.label}</span>
+              <span
+                className={`method-radio ${selectedMethod === m.code ? 'active' : ''}`}
+                aria-hidden="true"
+              />
             </button>
           ))}
         </div>

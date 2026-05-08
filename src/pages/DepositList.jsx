@@ -197,9 +197,7 @@ const DepositList = () => {
                       </div>
                       <div className="text-end">
                         <span className={`${badgeClass} badge`}>{badgeText}</span>
-                      </div>
-                      <div className="tx-datetime">
-                        <p className="mb-0">
+                        <p className="mb-0 text-light3 text-14 mt-4 pt-1">
                           {parsedDate ? `${formatDepositDate(parsedDate)} | ${formatDepositTime(parsedDate)} WIB` : '-'}
                         </p>
                       </div>
