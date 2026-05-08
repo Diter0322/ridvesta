@@ -57,7 +57,7 @@ const DepositQris = () => {
   });
 
   const liveStatus = String(statusData?.status ?? '').toLowerCase();
-  const isSuccess = liveStatus === 'success';
+  const isSuccess = liveStatus === 'success' || liveStatus === 'approved';
   const isFailed = liveStatus === 'failed';
   const statusLabel = isSuccess
     ? 'Pembayaran Berhasil'
