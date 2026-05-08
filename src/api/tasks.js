@@ -10,8 +10,8 @@ export const getTasks = async () => {
   return [];
 };
 
-/** POST /api/task/:id/claim */
+/** POST /api/task/submit */
 export const submitTask = async (taskId) => {
-  const { data } = await apiClient.post(`/task/${taskId}/claim`);
+  const { data } = await apiClient.post('/task/submit', { id: taskId });
   return data;
 };

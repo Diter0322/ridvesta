@@ -387,7 +387,7 @@ const Home = () => {
           <i className="fa-regular fa-circle-question mt-1"></i>
           <p className="text-sm">
             <span className="text-12 text-yellow" style={{ color: 'gold'}}>Investor perlu klik untuk berpartisipasi dalam investasi pada </span>
-            <span className="text-13 text-blue"> pukul 08:00 WIB </span>  <span className="text-12 text-yellow" style={{ color: 'gold'}}> setiap pagi,
+            <span className="text-13 text-blue"> pukul 08:30 WIB </span>  <span className="text-12 text-yellow" style={{ color: 'gold'}}> setiap pagi,
             jika tidak, pendapatan investasi tidak akan dihasilkan.</span>
           </p>
         </div>
@@ -448,10 +448,15 @@ const Home = () => {
             Panduan mudah untuk memulai investasi dan menghasilkan pendapatan dengan EmasHarian.com
           </p>
           <div className="mt-3 relative">
-            <img className="bg" src="/images/video-bd.png" alt="" />
-            <button className="btn-trans">
-              <img src="/images/btn/btn-play.svg" alt="" />
-            </button>
+              <video
+                className="bg"
+                src={data.tutorial_url ? data.tutorial_url : '/images/tes.mp4'}
+                controls
+                playsInline
+                preload="metadata"
+              >
+                Browser Anda tidak mendukung pemutar video.
+              </video>
           </div>
         </div>
       </div>

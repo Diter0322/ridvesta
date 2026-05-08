@@ -107,9 +107,13 @@ const Task = () => {
             // Extract percentage safely
             const percentageValue = parseInt(task.progress?.percentage) || 0;
             
+            // Check if task has already been claimed
+            const isTaskClaimed = task.status?.claimed || task.claimed || false;
+
             // Check if task is locked from task.status.locked
             const isTaskLocked = task.status?.locked || task.locked || false;
             const canClaim = task.status?.can_claim ?? true;
+            const isTaskCurrentBlocked = Boolean(task.status?.current) && !isTaskLocked && !canClaim;
             
             // Extract current and required refs for display
             const currentRefs = task.progress?.current_refs ?? 0;
@@ -153,14 +157,18 @@ const Task = () => {
                   </div>
                   </div>
                   <button
-                    className={isTaskLocked ? 'btn-lock' : 'btn-claimed'}
-                    disabled={isTaskLocked || !canClaim || submitTask.isPending}
+                    className={isTaskClaimed ? 'btn-claimed-done' : (isTaskLocked || isTaskCurrentBlocked) ? 'btn-lock' : 'btn-claimed'}
+                    disabled={isTaskClaimed || isTaskLocked || !canClaim || submitTask.isPending}
                     onClick={() => handleClaimTask(task.id)}
                   >
                     {submitTask.isPending && submitTask.variables === task.id ? (
                       <>
                         <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
                         Memproses...
+                      </>
+                    ) : isTaskClaimed ? (
+                      <>
+                        Sudah di Klaim
                       </>
                     ) : isTaskLocked ? (
                       <>

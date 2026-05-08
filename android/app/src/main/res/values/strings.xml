@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Ridvesta</string>
+    <string name="title_activity_main">Ridvesta</string>
+    <string name="package_name">com.ridvesta.app</string>
+    <string name="custom_url_scheme">com.ridvesta.app</string>
+</resources>
