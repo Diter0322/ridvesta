@@ -450,7 +450,7 @@ const Home = () => {
           <div className="mt-3 relative">
               <video
                 className="bg"
-                src={data.tutorial_url ? data.tutorial_url : '/images/tes.mp4'}
+                src={data.tutorial_url ? data.tutorial_url : '/video/IMG_1241.mp4'}
                 controls
                 playsInline
                 preload="metadata"
