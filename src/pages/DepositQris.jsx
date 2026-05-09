@@ -100,10 +100,10 @@ const DepositQris = () => {
             </div>
             <p className="deposit-result-modal__title">Deposit Received</p>
             <p className="deposit-result-modal__message">
-              Your deposit has been confirmed and your balance has been updated.
+              Setoran Anda telah dikonfirmasi dan saldo Anda telah diperbarui..
             </p>
             <button className="deposit-result-modal__button" onClick={handleCloseSuccessModal} type="button">
-              View Deposit History
+              Lihat Riwayat Deposit
             </button>
           </div>
         </div>
