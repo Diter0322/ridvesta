@@ -454,6 +454,7 @@ const Home = () => {
                 controls
                 playsInline
                 preload="metadata"
+                poster="/images/image.png"
               >
                 Browser Anda tidak mendukung pemutar video.
               </video>
