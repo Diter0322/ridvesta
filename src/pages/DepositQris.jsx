@@ -56,21 +56,22 @@ const DepositQris = () => {
     refetchIntervalInBackground: true,
   });
 
+
   const liveStatus = String(statusData?.status ?? '').toLowerCase();
   const isSuccess = liveStatus === 'success' || liveStatus === 'approved';
   const isFailed = liveStatus === 'failed';
   const statusLabel = isSuccess
-    ? 'Pembayaran Berhasil'
-    : isFailed
-      ? 'Pembayaran Gagal'
-      : 'Waiting Payment';
+      ? 'Pembayaran Berhasil'
+      : isFailed
+        ? 'Pembayaran Gagal'
+        : 'Waiting Payment';
 
-  useEffect(() => {
-    if (isSuccess && !hasShownSuccessModal.current) {
-      hasShownSuccessModal.current = true;
-      setShowSuccessModal(true);
-    }
-  }, [isSuccess]);
+    useEffect(() => {
+      if (isSuccess && !hasShownSuccessModal.current) {
+        hasShownSuccessModal.current = true;
+        setShowSuccessModal(true);
+      }
+    }, [isSuccess]);
   
   console.log('Mapped depositData:', depositData);
 
@@ -115,7 +116,6 @@ const DepositQris = () => {
           <img src="/images/btn-back.png" className="btn-back" alt="Kembali" />
         </button>
         <div className="text-center w-100">
-          <p className="text-white fw-semibold fs-5 mb-0 me-5">Pembayaran QRIS</p>
         </div>
       </div>
 

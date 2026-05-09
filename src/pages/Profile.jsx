@@ -197,7 +197,7 @@ const Profile = () => {
             </a>
           </li>
           <li>
-            <a href="#" onClick={(e) => e.preventDefault()}>
+            <a href="/apk/EMASHARIAN.apk" download>
               <img src="/images/icon/download.svg" alt="" />
               <div>
                 <p className="text-14">Unduh APK</p>

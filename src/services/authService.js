@@ -64,7 +64,6 @@ export const loginUser = async (phone, password) => {
 
     try {
       const data = await response.json();
-      // console.log('Login response data:', data);
       
       // API returns token in data.data.access_token
       const token = data.data?.access_token || data.access_token || data.token;
@@ -128,7 +127,6 @@ export const signupUser = async (fullname, phone, password, passwordConfirmation
       // Try to get detailed error message from API
       try {
         const errorData = await response.json();
-        console.log('[DEBUG signup] status:', response.status, 'body:', errorData);
         const errorMessage = errorData.message || 'Signup failed. Please try again.';
         
         // If there are validation errors, return them
@@ -146,7 +144,6 @@ export const signupUser = async (fullname, phone, password, passwordConfirmation
           error: errorMessage,
         };
       } catch (e) {
-        console.log('[DEBUG signup] failed to parse response, status:', response.status, 'error:', e);
         // If we can't parse error response, return generic message
         return {
           success: false,
@@ -157,7 +154,6 @@ export const signupUser = async (fullname, phone, password, passwordConfirmation
 
     try {
       const data = await response.json();
-      // console.log('Signup response data:', data);
       
       // API returns token in data.data.access_token
       const token = data.data?.access_token || data.access_token || data.token;

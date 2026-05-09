@@ -32,11 +32,6 @@ export const fetchTasks = async (accessToken) => {
     const apiUrl = `${API_BASE_URL}/task`;
     
     // Log token details for debugging
-    console.log('=== Fetching Tasks ===');
-    console.log('Token length:', accessToken.length);
-    console.log('Token preview:', accessToken.substring(0, 30) + '...');
-    console.log('Authorization header:', `Bearer ${accessToken.substring(0, 30)}...`);
-    console.log('API URL:', apiUrl);
     
     const response = await safeFetch(apiUrl, {
       method: 'GET',
@@ -47,14 +42,11 @@ export const fetchTasks = async (accessToken) => {
       },
     });
     
-    console.log('API Response Status:', response.status);
-    console.log('API Response OK:', response.ok);
 
     if (!response.ok) {
       // Try to get error message from API
       try {
         const errorData = await response.json();
-        console.error('API Error Response:', errorData);
         return {
           success: false,
           error: errorData.message || `Failed to fetch tasks (HTTP ${response.status})`,
@@ -72,36 +64,26 @@ export const fetchTasks = async (accessToken) => {
 
     try {
       const data = await response.json();
-      console.log('=== Raw API Response ===');
-      console.log(data);
       
       // Handle different response structures
       let tasks = [];
       
       if (Array.isArray(data.data)) {
         // If data.data is directly an array
-        console.log('✓ Using data.data (array)');
         tasks = data.data;
       } else if (data.data && Array.isArray(data.data.tasks)) {
         // If data.data.tasks is an array
-        console.log('✓ Using data.data.tasks (array)');
         tasks = data.data.tasks;
       } else if (Array.isArray(data.tasks)) {
         // If data.tasks is an array
-        console.log('✓ Using data.tasks (array)');
         tasks = data.tasks;
       } else if (data.data && !Array.isArray(data.data)) {
         // If data.data is an object, try to extract tasks from it
         console.warn('data.data is not an array:', data.data);
-        console.log('data.data keys:', Object.keys(data.data || {}));
         tasks = [];
       }
       
-      console.log('=== Parsed Tasks ===');
-      console.log('Number of tasks:', tasks.length);
       if (tasks.length > 0) {
-        console.log('First task structure:', tasks[0]);
-        console.log('First task keys:', Object.keys(tasks[0]));
       }
       
       return {
@@ -142,12 +124,6 @@ export const submitTask = async (accessToken, taskId) => {
     const apiUrl = `${API_BASE_URL}/task`;
     
     // Log token details for debugging
-    console.log('=== Submitting Task ===');
-    console.log('Token length:', accessToken.length);
-    console.log('Token preview:', accessToken.substring(0, 30) + '...');
-    console.log('Task ID:', taskId);
-    console.log('Authorization header:', `Bearer ${accessToken.substring(0, 30)}...`);
-    console.log('API URL:', apiUrl);
     
     const response = await safeFetch(apiUrl, {
       method: 'POST',
@@ -161,13 +137,10 @@ export const submitTask = async (accessToken, taskId) => {
       }),
     });
 
-    console.log('API Response Status:', response.status);
-    console.log('API Response OK:', response.ok);
 
     if (!response.ok) {
       try {
         const errorData = await response.json();
-        console.error('API Error Response:', errorData);
         return {
           success: false,
           error: errorData.message || `Failed to submit task (HTTP ${response.status})`,
@@ -183,7 +156,6 @@ export const submitTask = async (accessToken, taskId) => {
 
     try {
       const data = await response.json();
-      console.log('Task submission response:', data);
       return {
         success: true,
         message: data.message || 'Task submitted successfully',

@@ -67,9 +67,7 @@ const Deposit = () => {
       payload,
       {
         onSuccess: (res) => {
-          console.log('Recharge API Response:', res);
           const data = res?.data ?? res;
-          console.log('Extracted Data:', data);
           if (selectedMethod === 'qris') {
             navigate('/deposit/qris', { state: { depositData: data } });
           } else {
@@ -77,7 +75,6 @@ const Deposit = () => {
           }
         },
         onError: (err) => {
-          console.log('Recharge API Error:', err);
           const errors = err?.response?.data?.errors;
           const firstValidationError = errors
             ? Object.values(errors).flat()[0]

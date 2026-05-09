@@ -15,8 +15,6 @@ const DepositBank = () => {
   const sourceData = state?.depositData ?? {};
   const rawData = sourceData?.data ?? sourceData;
   
-  console.log('DepositBank received state:', state);
-  console.log('Raw depositData:', rawData);
   
   // Map recharge API response fields to expected format
   const depositData = {
@@ -52,7 +50,6 @@ const DepositBank = () => {
       setShowSuccessModal(true);
     }
   }, [isSuccess]);
-  
   console.log('Mapped depositData:', depositData);
 
   const [secondsLeft, setSecondsLeft] = useState(INITIAL_SECONDS);
