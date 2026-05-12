@@ -626,10 +626,10 @@ const Home = () => {
             </div>
 
             <div className="home-info-actions">
-              <a href="https://t.me/" target="_blank" rel="noreferrer" className="home-info-btn home-info-btn-discuss">
+              <a href="https://t.me/emasharian" target="_blank" rel="noreferrer" className="home-info-btn home-info-btn-discuss">
                 Gabung Grup Diskusi
               </a>
-              <a href="https://t.me/" target="_blank" rel="noreferrer" className="home-info-btn home-info-btn-channel">
+              <a href="https://t.me/emashariancs" target="_blank" rel="noreferrer" className="home-info-btn home-info-btn-channel">
                 Hubungi Saluran Telegram
               </a>
             </div>
