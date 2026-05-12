@@ -74,7 +74,7 @@ const Team = () => {
                     <img src="/images/team-icon1.png" alt="" />
                   </div>
                 </div>
-                <p className="text-14 fw-medium mb-0 fw-semibold">Total semua referral</p>
+                <p className="text-14 fw-medium mb-0 fw-semibold">Total referral</p>
                 <img className="bg" src="/images/team-card-bg.png" alt="" />
               </div>
             </div>
@@ -88,7 +88,7 @@ const Team = () => {
                     <img src="/images/team-icon2.png" alt="" />
                   </div>
                 </div>
-                <p className="text-14 fw-medium mb-0 fw-semibold">Total semua komisi</p>
+                <p className="text-14 fw-medium mb-0 fw-semibold">Total komisi</p>
                 <img className="bg" src="/images/team-card-bg.png" alt="" />
               </div>
             </div>
@@ -122,6 +122,7 @@ const Team = () => {
                       </div>
                       <div>
                         <p className="mb-0 fw-medium text-12">Referral Level {GENERATION_LABELS[i]}</p>
+                        <p className="mb-0 text-green2 text-12 fw-semibold">Bonus Komisi: {i === 0 ? '30%' : i === 1 ? '3%' : '1%'}</p>
                         <p className="mb-0 text-12">{lvl.total_referrals ?? 0} Anggota</p>
                       </div>
                     </div>

@@ -10,7 +10,7 @@ const PAYMENT_METHODS = [
   { code: 'bni', label: 'BNI', logo: '/images/bank-logo/bni.png', status: 'maintenance' },
 ];
 
-const QUICK_AMOUNTS = [50000, 100000, 500000, 1000000, 3000000, 5000000];
+const QUICK_AMOUNTS = [100000, 200000, 500000, 1000000, 3000000, 5000000];
 
 const METHOD_CODE_MAP = {
   qris: 'QRIS',
@@ -45,8 +45,8 @@ const Deposit = () => {
 
   const handleSubmit = () => {
     const numAmount = parseInt(amount, 10);
-    if (!numAmount || numAmount < 50000) {
-      setError('Minimum deposit Rp 50.000');
+    if (!numAmount || numAmount < 100000) {
+      setError('Minimum deposit Rp 100.000');
       return;
     }
     if (numAmount > 10000000) {
@@ -169,7 +169,7 @@ const Deposit = () => {
       <div className="minmax-card mt-4">
         <div className="minmax-item d-block">
           <span className="text-white-50 text-13">Minimal:</span>
-          <span className="d-block text-blue fw-semibold">RP 50,000</span>
+          <span className="d-block text-blue fw-semibold">RP 100,000</span>
         </div>
         <div className="minmax-divider" />
         <div className="minmax-item d-block">

@@ -192,7 +192,9 @@ const WithdrawHistory = () => {
                             alt=""
                             onError={(e) => { e.target.src = '/images/bank-default.png'; }}
                           />{' '}
-                          {w.bank?.name || '-'} {w.bank?.masked_account || ''}
+                          {w.bank?.name || '-'}
+                          <br />
+                          <span className="text-light3">{w.bank?.masked_account || ''}</span>
                         </p>
                       </div>
                       <div className="text-end">

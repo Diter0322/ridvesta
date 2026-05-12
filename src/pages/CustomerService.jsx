@@ -69,7 +69,7 @@ const CustomerService = () => {
             </div>
           </div>
           <div className="text-end">
-            <a href="https://t.me/" className="btn-contact">Hubungi</a>
+            <a href="https://t.me/emashariancs/" className="btn-contact">Hubungi</a>
           </div>
         </div>
         <div className="depo-card">
@@ -83,7 +83,7 @@ const CustomerService = () => {
             </div>
           </div>
           <div className="text-end">
-            <a href="https://t.me/" className="btn-contact">Bergabung</a>
+            <a href="https://t.me/emasharian" className="btn-contact">Bergabung</a>
           </div>
         </div>
       </div>
