@@ -256,8 +256,8 @@ const Home = () => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            userSelect: dragging ? 'none' : 'auto',
-            cursor: dragging ? 'grabbing' : 'default',
+            userSelect: 'auto',
+            cursor: 'default',
           }}
           onClick={() => setShowGraphModal(false)}
         >
@@ -303,87 +303,11 @@ const Home = () => {
                 borderRadius: 12,
                 boxShadow: '0 2px 16px rgba(0,0,0,0.3)',
                 position: 'relative',
-                // padding: 8,
                 overflow: 'hidden',
                 maxWidth: '95vw',
                 maxHeight: '90vh',
+                padding: 0,
               }}
-              onWheel={e => {
-                e.preventDefault();
-                let nextZoom = imgZoom + (e.deltaY < 0 ? 0.1 : -0.1);
-                nextZoom = Math.max(0.5, Math.min(nextZoom, 3));
-                setImgZoom(nextZoom);
-              }}
-              // Removed invalid 'wheel' prop
-              onMouseDown={e => {
-                setDragging(true);
-                dragStart.current = { x: e.clientX, y: e.clientY };
-                offsetStart.current = { ...imgOffset };
-              }}
-              onMouseMove={e => {
-                if (dragging) {
-                  const dx = e.clientX - dragStart.current.x;
-                  const dy = e.clientY - dragStart.current.y;
-                  setImgOffset({
-                    x: offsetStart.current.x + dx,
-                    y: offsetStart.current.y + dy,
-                  });
-                }
-              }}
-              onMouseUp={() => setDragging(false)}
-              onMouseLeave={() => setDragging(false)}
-              onDoubleClick={() => {
-                setImgZoom(1);
-                setImgOffset({ x: 0, y: 0 });
-              }}
-              onTouchStart={e => {
-                if (e.touches.length === 1) {
-                  setDragging(true);
-                  dragStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-                  offsetStart.current = { ...imgOffset };
-                } else if (e.touches.length === 2) {
-                  setDragging(false);
-                  const [touch1, touch2] = e.touches;
-                  dragStart.current = {
-                    x: (touch1.clientX + touch2.clientX) / 2,
-                    y: (touch1.clientY + touch2.clientY) / 2,
-                  };
-                  offsetStart.current = { ...imgOffset };
-                  // Store initial distance for pinch
-                  dragStart.current.dist = Math.hypot(
-                    touch2.clientX - touch1.clientX,
-                    touch2.clientY - touch1.clientY
-                  );
-                  dragStart.current.zoom = imgZoom;
-                }
-              }}
-              // Removed invalid 'touchstart' prop
-              onTouchMove={e => {
-                if (e.touches.length === 1 && dragging) {
-                  const dx = e.touches[0].clientX - dragStart.current.x;
-                  const dy = e.touches[0].clientY - dragStart.current.y;
-                  setImgOffset({
-                    x: offsetStart.current.x + dx,
-                    y: offsetStart.current.y + dy,
-                  });
-                } else if (e.touches.length === 2) {
-                  const [touch1, touch2] = e.touches;
-                  const newDist = Math.hypot(
-                    touch2.clientX - touch1.clientX,
-                    touch2.clientY - touch1.clientY
-                  );
-                  const scale = newDist / (dragStart.current.dist || 1);
-                  let nextZoom = Math.max(0.5, Math.min((dragStart.current.zoom || 1) * scale, 3));
-                  setImgZoom(nextZoom);
-                }
-              }}
-              // Removed invalid 'touchmove' prop
-              onTouchEnd={e => {
-                if (e.touches.length === 0) {
-                  setDragging(false);
-                }
-              }}
-              onTouchCancel={() => setDragging(false)}
             >
               <img
                 src="/images/tabelpendapatan.png"
@@ -392,11 +316,7 @@ const Home = () => {
                   borderRadius: 12,
                   boxShadow: '0 2px 16px rgba(0,0,0,0.3)',
                   background: '#fff',
-                  cursor: dragging ? 'grabbing' : imgZoom !== 1 ? 'grab' : 'default',
                   userSelect: 'none',
-                  transform: `scale(${imgZoom}) translate(${imgOffset.x / imgZoom}px, ${imgOffset.y / imgZoom}px)`,
-                  transition: dragging ? 'none' : 'transform 0.2s',
-                  pointerEvents: 'none',
                   width: 'auto',
                   height: 'auto',
                   maxWidth: '90vw',
@@ -405,20 +325,6 @@ const Home = () => {
                 }}
                 draggable={false}
               />
-              <div style={{
-                position: 'absolute',
-                alignContent: 'center',
-                bottom: 12,
-                background: 'rgba(0,0,0,0.5)',
-                color: '#fff',
-                borderRadius: 8,
-                padding: '2px 10px',
-                fontSize: 13,
-                zIndex: 2,
-                userSelect: 'none'
-              }}>
-                {/* Cubit untuk zoom, seret untuk geser, klik/ganda ketuk untuk reset */}
-              </div>
             </div>
           </div>
         </div>
@@ -441,14 +347,14 @@ const Home = () => {
                 <img
                   src={'/images/icon/graph.svg'}
                   alt="Graph"
-                  style={{ filter: 'brightness(0) invert(1)', width: '20px', height: 'auto', padding: 2 }}
+                  style={{ filter: 'brightness(0) invert(1)', width: '25px', height: 'auto', padding: 2 }}
                 />
               </button>
               <button className="btn-icon notif-btn" onClick={toggleNotif}>
                 <img
                   src={unreadCount > 0 ? '/images/icon/notification.svg' : '/images/icon/notification1.svg'}
                   alt="Notifications"
-                  style={unreadCount === 0 ? { filter: 'brightness(0) invert(1)', width: '130', height: 'auto' } : undefined}
+                  style={unreadCount === 0 ? { filter: 'brightness(0) invert(1)', width: '35px', height: 'auto' } : undefined}
                 />
                 {unreadCount > 0 && (
                   <span className="notif-badge">{unreadCount > 99 ? '99+' : unreadCount}</span>
