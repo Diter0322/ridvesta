@@ -52,7 +52,7 @@ const DepositQris = () => {
 
   const currentOrderId = String(depositData?.order_id ?? '').trim();
   const { data: statusData } = useDepositStatus(currentOrderId, {
-    refetchInterval: 8000,
+    refetchInterval: 5000,
     refetchIntervalInBackground: true,
   });
 
@@ -61,10 +61,10 @@ const DepositQris = () => {
   const isSuccess = liveStatus === 'success' || liveStatus === 'approved';
   const isFailed = liveStatus === 'failed';
   const statusLabel = isSuccess
-      ? 'Pembayaran Berhasil'
-      : isFailed
-        ? 'Pembayaran Gagal'
-        : 'Waiting Payment';
+    ? 'Pembayaran Berhasil'
+    : isFailed
+      ? 'Pembayaran Gagal'
+      : 'Menunggu Pembayaran';
 
     useEffect(() => {
       if (isSuccess && !hasShownSuccessModal.current) {
@@ -99,9 +99,9 @@ const DepositQris = () => {
                 <path d="M12.5 21.5 18 27l11.5-13" stroke="#1fddaa" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
-            <p className="deposit-result-modal__title">Deposit Received</p>
+            <p className="deposit-result-modal__title">Deposit Sukses</p>
             <p className="deposit-result-modal__message">
-              Setoran Anda telah dikonfirmasi dan saldo Anda telah diperbarui..
+              Your deposit has been confirmed and your balance has been updated.
             </p>
             <button className="deposit-result-modal__button" onClick={handleCloseSuccessModal} type="button">
               Lihat Riwayat Deposit

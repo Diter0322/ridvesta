@@ -69,7 +69,7 @@ const CustomerService = () => {
             </div>
           </div>
           <div className="text-end">
-            <a href="https://t.me/emashariancs" className="btn-contact" target="_blank" rel="noopener noreferrer">Hubungi</a>
+            <a href="https://t.me/emashariancs/emashariancs" className="btn-contact" target="_blank" rel="noopener noreferrer">Hubungi</a>
           </div>
         </div>
         <div className="depo-card">
