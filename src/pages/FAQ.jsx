@@ -41,7 +41,7 @@ const FAQ = () => {
                 data-bs-parent="#accordionExample"
               >
                 <div className="accordion-body">
-                  <p>{item.answer}</p>
+                  <p>{typeof item.answer === 'string' ? item.answer.replace(/<[^>]+>/g, '') : item.answer}</p>
                 </div>
               </div>
             </div>
