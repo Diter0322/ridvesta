@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
+import queryClient from '../queryClient';
 
 const AuthContext = createContext(null);
 
@@ -26,6 +27,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('user', JSON.stringify(userData));
     setAccessToken(token);
     setUser(userData);
+    queryClient.clear(); // Clear all cached queries after login
   };
 
   const logout = () => {
@@ -33,6 +35,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('user');
     setAccessToken(null);
     setUser(null);
+    queryClient.clear(); // Clear all cached queries after logout
   };
 
   const isAuthenticated = () => {
