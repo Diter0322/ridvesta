@@ -23,6 +23,13 @@ const Home = () => {
   const [showTransferResponseModal, setShowTransferResponseModal] = useState(false);
   const [showTarikModal, setShowTarikModal] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
+  const [showGraphModal, setShowGraphModal] = useState(false);
+  // Zoom state for modal image
+  const [imgZoom, setImgZoom] = useState(1);
+  const [imgOffset, setImgOffset] = useState({ x: 0, y: 0 });
+  const [dragging, setDragging] = useState(false);
+  const dragStart = useRef({ x: 0, y: 0 });
+  const offsetStart = useRef({ x: 0, y: 0 });
   const [hideInfoPopup, setHideInfoPopup] = useState(false);
   const [tarikAlertMsg, setTarikAlertMsg] = useState('');
   const [transferResponse, setTransferResponse] = useState({ type: null, text: '' });
@@ -235,6 +242,187 @@ const Home = () => {
 
   return (
     <main className="home">
+      {showGraphModal && (
+        <div
+          className="text-center"
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            background: 'rgba(0,0,0,0.6)',
+            zIndex: 9999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            userSelect: dragging ? 'none' : 'auto',
+            cursor: dragging ? 'grabbing' : 'default',
+          }}
+          onClick={() => setShowGraphModal(false)}
+        >
+          <div
+            style={{
+              background: '#222',
+              borderRadius: 16,
+              padding: 0,
+              boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              position: 'relative',
+              overflow: 'visible',
+            }}
+            onClick={e => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowGraphModal(false)}
+              style={{
+                position: 'absolute',
+                top: 8,
+                right: 8,
+                color: '#fff',
+                border: 'none',
+                borderRadius: '50%',
+                width: 32,
+                height: 32,
+                fontSize: 20,
+                cursor: 'pointer',
+                zIndex: 2,
+              }}
+              aria-label="Tutup"
+            >
+              ×
+            </button>
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: '#fff',
+                borderRadius: 12,
+                boxShadow: '0 2px 16px rgba(0,0,0,0.3)',
+                position: 'relative',
+                // padding: 8,
+                overflow: 'hidden',
+                maxWidth: '95vw',
+                maxHeight: '90vh',
+              }}
+              onWheel={e => {
+                e.preventDefault();
+                let nextZoom = imgZoom + (e.deltaY < 0 ? 0.1 : -0.1);
+                nextZoom = Math.max(0.5, Math.min(nextZoom, 3));
+                setImgZoom(nextZoom);
+              }}
+              // Removed invalid 'wheel' prop
+              onMouseDown={e => {
+                setDragging(true);
+                dragStart.current = { x: e.clientX, y: e.clientY };
+                offsetStart.current = { ...imgOffset };
+              }}
+              onMouseMove={e => {
+                if (dragging) {
+                  const dx = e.clientX - dragStart.current.x;
+                  const dy = e.clientY - dragStart.current.y;
+                  setImgOffset({
+                    x: offsetStart.current.x + dx,
+                    y: offsetStart.current.y + dy,
+                  });
+                }
+              }}
+              onMouseUp={() => setDragging(false)}
+              onMouseLeave={() => setDragging(false)}
+              onDoubleClick={() => {
+                setImgZoom(1);
+                setImgOffset({ x: 0, y: 0 });
+              }}
+              onTouchStart={e => {
+                if (e.touches.length === 1) {
+                  setDragging(true);
+                  dragStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                  offsetStart.current = { ...imgOffset };
+                } else if (e.touches.length === 2) {
+                  setDragging(false);
+                  const [touch1, touch2] = e.touches;
+                  dragStart.current = {
+                    x: (touch1.clientX + touch2.clientX) / 2,
+                    y: (touch1.clientY + touch2.clientY) / 2,
+                  };
+                  offsetStart.current = { ...imgOffset };
+                  // Store initial distance for pinch
+                  dragStart.current.dist = Math.hypot(
+                    touch2.clientX - touch1.clientX,
+                    touch2.clientY - touch1.clientY
+                  );
+                  dragStart.current.zoom = imgZoom;
+                }
+              }}
+              // Removed invalid 'touchstart' prop
+              onTouchMove={e => {
+                if (e.touches.length === 1 && dragging) {
+                  const dx = e.touches[0].clientX - dragStart.current.x;
+                  const dy = e.touches[0].clientY - dragStart.current.y;
+                  setImgOffset({
+                    x: offsetStart.current.x + dx,
+                    y: offsetStart.current.y + dy,
+                  });
+                } else if (e.touches.length === 2) {
+                  const [touch1, touch2] = e.touches;
+                  const newDist = Math.hypot(
+                    touch2.clientX - touch1.clientX,
+                    touch2.clientY - touch1.clientY
+                  );
+                  const scale = newDist / (dragStart.current.dist || 1);
+                  let nextZoom = Math.max(0.5, Math.min((dragStart.current.zoom || 1) * scale, 3));
+                  setImgZoom(nextZoom);
+                }
+              }}
+              // Removed invalid 'touchmove' prop
+              onTouchEnd={e => {
+                if (e.touches.length === 0) {
+                  setDragging(false);
+                }
+              }}
+              onTouchCancel={() => setDragging(false)}
+            >
+              <img
+                src="/images/tabelpendapatan.png"
+                alt="Tabel Pendapatan"
+                style={{
+                  borderRadius: 12,
+                  boxShadow: '0 2px 16px rgba(0,0,0,0.3)',
+                  background: '#fff',
+                  cursor: dragging ? 'grabbing' : imgZoom !== 1 ? 'grab' : 'default',
+                  userSelect: 'none',
+                  transform: `scale(${imgZoom}) translate(${imgOffset.x / imgZoom}px, ${imgOffset.y / imgZoom}px)`,
+                  transition: dragging ? 'none' : 'transform 0.2s',
+                  pointerEvents: 'none',
+                  width: 'auto',
+                  height: 'auto',
+                  maxWidth: '90vw',
+                  maxHeight: '80vh',
+                  display: 'block',
+                }}
+                draggable={false}
+              />
+              <div style={{
+                position: 'absolute',
+                alignContent: 'center',
+                bottom: 12,
+                background: 'rgba(0,0,0,0.5)',
+                color: '#fff',
+                borderRadius: 8,
+                padding: '2px 10px',
+                fontSize: 13,
+                zIndex: 2,
+                userSelect: 'none'
+              }}>
+                {/* Cubit untuk zoom, seret untuk geser, klik/ganda ketuk untuk reset */}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="header pt-4">
         <div className="d-flex gap-3 align-items-center">
           <div>
@@ -248,16 +436,25 @@ const Home = () => {
         <div className="header-actions d-flex gap-2">
     
           <div className="notif-wrapper" ref={notifRef}>
-            <button className="btn-icon notif-btn" onClick={toggleNotif}>
-              <img
-                src={unreadCount > 0 ? '/images/icon/notification.svg' : '/images/icon/notification1.svg'}
-                alt="Notifications"
-                style={unreadCount === 0 ? { filter: 'brightness(0) invert(1)', width: '130', height: 'auto' } : undefined}
-              />
-              {unreadCount > 0 && (
-                <span className="notif-badge">{unreadCount > 99 ? '99+' : unreadCount}</span>
-              )}
-            </button>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <button className="btn-icon notif-btn" onClick={() => setShowGraphModal(true)}>
+                <img
+                  src={'/images/icon/graph.svg'}
+                  alt="Graph"
+                  style={{ filter: 'brightness(0) invert(1)', width: '20px', height: 'auto', padding: 2 }}
+                />
+              </button>
+              <button className="btn-icon notif-btn" onClick={toggleNotif}>
+                <img
+                  src={unreadCount > 0 ? '/images/icon/notification.svg' : '/images/icon/notification1.svg'}
+                  alt="Notifications"
+                  style={unreadCount === 0 ? { filter: 'brightness(0) invert(1)', width: '130', height: 'auto' } : undefined}
+                />
+                {unreadCount > 0 && (
+                  <span className="notif-badge">{unreadCount > 99 ? '99+' : unreadCount}</span>
+                )}
+              </button>
+            </div>
 
             {notifOpen && (
               <div className="notif-panel">
