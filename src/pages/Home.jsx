@@ -347,14 +347,14 @@ const Home = () => {
                 <img
                   src={'/images/icon/graph.svg'}
                   alt="Graph"
-                  style={{ filter: 'brightness(0) invert(1)', width: '25px', height: 'auto', padding: 2 }}
+                  style={{ filter: 'brightness(0) invert(1)', maxWidth: '25px', height: 'auto', padding: 2 }}
                 />
               </button>
               <button className="btn-icon notif-btn" onClick={toggleNotif}>
                 <img
                   src={unreadCount > 0 ? '/images/icon/notification.svg' : '/images/icon/notification1.svg'}
                   alt="Notifications"
-                  style={unreadCount === 0 ? { filter: 'brightness(0) invert(1)', width: '35px', height: 'auto' } : undefined}
+                  style={unreadCount === 0 ? { filter: 'brightness(0) invert(1)', maxWidth: '40px', height: 'auto' } : undefined}
                 />
                 {unreadCount > 0 && (
                   <span className="notif-badge">{unreadCount > 99 ? '99+' : unreadCount}</span>
@@ -424,16 +424,17 @@ const Home = () => {
             {/* <div className='text-center'> */}
             <div className="d-flex gap-1">
               <button className="btn btn-three col mt-1 text-nowrap text-white fs-medium text-nowrap" onClick={() => navigate('/deposit')}>
-              
                 Deposit Saldo
               </button>
-              <button
-                className="btn btn-three col mt-1 text-nowrap text-white fs-medium text-nowrap"
-                style={{ backgroundColor: '#13c89d' }}
-                onClick={handleOpenTarikModal}
-              >
-                Tarik Modal
-              </button>
+              {Number(data?.user_balance ?? 0) > 0 && (
+                <button
+                  className="btn btn-three col mt-1 text-nowrap text-white fs-medium text-nowrap"
+                  style={{ backgroundColor: '#13c89d' }}
+                  onClick={handleOpenTarikModal}
+                >
+                  Tarik Modal
+                </button>
+              )}
             </div>
 
             {/* </div> */}
