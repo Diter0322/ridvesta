@@ -348,7 +348,7 @@ const Home = () => {
             <p>
               <span><i className="fa-regular fa-clock"></i></span>
               <span className="fw-medium fs-6"> {countdownLabel}</span>
-              <span className="text-green ms-2">{investment?.hourly_rate ?? '0%'}/hr</span>
+              <span className="text-green ms-2">{investment?.hourly_rate ?? '0%'}/ Jam</span>
             </p>
           </div>
           <div className="bar" style={{ marginTop: '-5px' }}>
@@ -448,16 +448,10 @@ const Home = () => {
             Panduan mudah untuk memulai investasi dan menghasilkan pendapatan dengan EmasHarian.com
           </p>
           <div className="mt-3 relative">
-              <video
-                className="bg"
-                src={data.tutorial_url ? data.tutorial_url : '/video/IMG_1241.mp4'}
-                controls
-                playsInline
-                preload="metadata"
-                poster="/images/image.png"
-              >
-                Browser Anda tidak mendukung pemutar video.
-              </video>
+            <img className="bg" src="/images/video-bd.png" alt="" />
+            <button className="btn-trans">
+              <img src="/images/btn/btn-play.svg" alt="" />
+            </button>
           </div>
         </div>
       </div>
