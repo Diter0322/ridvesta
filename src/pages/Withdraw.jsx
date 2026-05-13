@@ -17,7 +17,7 @@ const Withdraw = () => {
   const { data: withdrawConfig, isLoading: configLoading } = useWithdrawConfig();
   const { mutate: createWithdrawal, isPending } = useCreateWithdrawal();
 
-  const taxRate = (withdrawConfig?.tax?.rate ?? 7) / 100;
+  const taxRate = (withdrawConfig?.tax?.rate ?? 10) / 100;
   const minWithdraw = withdrawConfig?.withdraw_limits?.min ?? 50000;
   const maxWithdraw = withdrawConfig?.withdraw_limits?.max ?? 10000000;
   const minFormatted = withdrawConfig?.withdraw_limits?.min_formatted ?? 'Rp 50.000';
@@ -201,7 +201,7 @@ const Withdraw = () => {
             RP {formatRupiah(amountReceived)}
           </span>
         </div>
-        <p className="text-danger text-13 mb-0 mt-1 text-end">{withdrawConfig?.tax?.rate_percent ?? '7%'} Potongan Pajak.</p>
+        <p className="text-danger text-13 mb-0 mt-1 text-end">{withdrawConfig?.tax?.rate_percent ?? '10%'} Potongan Pajak.</p>
         <div className="amount-divider mt-3" />
       </div>
 
